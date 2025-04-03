@@ -1,0 +1,753 @@
+/* Réinitialisation des marges et des paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espace entre logo, menu et icônes */
+  background-color: #d4e6f9; /* 131416 */
+  position: static;
+  top: 0;
+  left: 0;
+  padding: 20px 30px;
+  width: 100%;
+  z-index: 1000;
+}
+
+header img {
+  max-height: 80px;
+  width: auto;
+  margin-right: 80px;
+}
+
+.image-container {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Navigation */
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  color: #f5f1f1;
+  text-decoration: none;
+  padding: 10px;
+}
+
+nav ul li a:hover {
+  color: #737b86;
+  cursor: pointer;
+}
+
+/* Alignement des icônes à droite */
+.header-icons {
+  display: flex;
+  gap: 10px; /* Espace entre les images */
+  margin-left: auto; /* Pousse la div à droite */
+}
+
+.header-icons img {
+  max-height: 40px;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.header-icons img:hover {
+  transform: scale(1.1); /* Effet zoom au survol */
+}
+
+main {
+  padding: 1rem;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+
+h1 {
+  background-color: #21478a;
+  color: #ebe5e5;
+  padding: 12px 24px;
+  margin: 30px 0;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.8rem;
+  border-left: 6px solid #90CAF9;
+  border-radius: 0;
+}
+
+
+h2 {
+  background-color: #2d5caf;
+  color: rgb(235, 229, 229);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+section {
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 900px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1A237E;
+  border-left: 6px solid #90CAF9;
+  padding-left: 16px;
+  margin-bottom: 16px;
+  background: none;
+  border-radius: 0;
+}
+
+section p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+section ul {
+  margin-right: 20px; /* Ajoute un espace à droite */
+}
+
+
+table {
+  margin: auto; /* Centre horizontalement */
+  border-collapse: collapse;
+  width: 60%;
+}
+
+th {
+  background-color: #153773; /* Bleu foncé pour les en-têtes de tableau */
+  color: #f5f1f1; /* Texte clair */
+  border: 1px solid black;
+  padding: 8px;
+}
+td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+a {
+  color: #FFFFFF; 
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #ffcc00; /* Doré au survol */
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.8); /* Lueur dorée */
+} 
+
+.digit {
+  color: blue;
+}
+
+.uppercase {
+  color: red;
+}
+
+.lowercase {
+  color: green;
+}
+
+footer {
+  background-color: #153773; /* 0c0c0c */
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+footer span {
+  position: relative;
+  cursor: pointer;
+}
+
+footer span:hover::after {
+  content: attr(data-email);
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  background: black;
+  color: white;
+  white-space: nowrap;
+}
+#listePlanSite {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column; 
+  text-align: center;  
+}
+
+#listePlanSite ul {
+  list-style-type: none;  
+  padding: 0;            
+  margin: 0;              
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
+
+#listePlanSite ul li {
+  margin: 5px 0; 
+}
+
+#listePlanSite ul li a {
+  text-decoration: none; 
+  padding: 10px 20px;     
+  background-color: #59a6e6; 
+  border-radius: 5px;   
+  color: white;
+  display: inline-block; 
+}
+
+#listePlanSite ul li a:hover {
+  background-color: #4aa7dd; 
+}
+
+.exercice-links {
+  display: flex;
+  justify-content: center; /* Centre les liens horizontalement */
+  gap: 20px; /* Espacement entre les liens */
+  margin-top: 20px; /* Espacement avec le contenu au-dessus */
+}
+
+.exercice-links a {
+  text-decoration: none;
+  padding: 10px 15px;
+  background-color: #2d5caf;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.exercice-links a:hover {
+  background-color: #2d5caf;
+}
+
+/* Style du champ de saisie */
+#couleur {
+  width: 150px;
+  padding: 5px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Style du bouton */
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #2d5caf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2d5caf;
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  margin-top: 15px;
+  border: 2px solid #ddd;
+  display: inline-block;
+}
+
+figure {
+  text-align: center; 
+}
+
+figure img {
+  display: block;
+  margin: 0 auto; 
+  max-width: 100%; 
+}
+
+figcaption {
+  text-align: center; 
+  font-style: italic;
+  margin-top: 10px; 
+}
+
+nav ul.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+}
+
+nav ul.menu li {
+  position: relative;
+}
+
+nav ul.menu > li > a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #1A237E;
+  font-weight: bold;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+nav ul.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 180px;
+  padding: 0;
+}
+
+nav ul.submenu li a {
+  display: block;
+  padding: 10px 15px;
+  color: #1A237E;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+nav ul.submenu li a:hover {
+  background-color: #e3f2fd;
+}
+
+nav ul.menu li:hover > ul.submenu {
+  display: block;
+}
+
+/* Bouton menu */
+.sidebar-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #1A237E;
+  color: white;
+  font-size: 18px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Sidebar cachée par défaut */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100%;
+  background-color: #f9f9f9;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+/* Quand checkbox cochée, on affiche le menu */
+#sidebar-toggle:checked + .sidebar-button + .sidebar {
+  left: 0;
+}
+
+/* Bouton de fermeture */
+.close-button {
+  font-size: 24px;
+  text-align: right;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #1A237E;
+}
+
+/* Liste */
+.sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #1A237E;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 12px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #1A237E;
+  font-weight: 500;
+  padding: 8px 12px;
+  display: block;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #e3f2fd;
+}
+
+.meteo-detail {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.meteo-img {
+  max-width: 120px;
+  margin-bottom: 1em;
+}
+
+.meteo-blocs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+
+.bloc {
+  background-color: #f5f7fa;
+  padding: 1em;
+  border-radius: 10px;
+  width: 150px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.bloc h4 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.bloc p {
+  margin: 0.3em 0;
+  color: #555;
+  font-size: 0.95em;
+}
+
+
+.details-box {
+  margin-top: 1em;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #eef4fb;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.95em;
+}
+
+.details-box summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #1A237E;
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: #d4e6f9;
+  border-radius: 5px;
+  text-align: center;
+  list-style: none;
+}
+
+.details-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.details-box ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.details-box li {
+  margin-bottom: 6px;
+  color: #333;
+}
+
+img[usemap] {
+  pointer-events: auto;
+  display: block;
+}
+
+area {
+  cursor: pointer;
+}
+
+.meteo-local {
+  text-align: center;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.meteo-principale {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0044cc;
+}
+
+.temp-ressenti {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+}
+
+.meteo-condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.meteo-condition img {
+  width: 64px;
+  margin-bottom: 0.5rem;
+}
+
+.vent {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.previsions-heures {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.carte-moment {
+  background: #f2f7ff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  width: 150px;
+}
+
+.carte-moment p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0;
+}
+
+
+.details-box {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.detail-btn {
+  font-weight: bold;
+  cursor: pointer;
+  color: #0059ff;
+}
+
+.week-forecast {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.forecast-day {
+  flex: 0 0 auto;
+  background: #f6f9ff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  width: 100px;
+  min-width: 100px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.forecast-day:hover {
+  transform: scale(1.05);
+  background-color: #e6efff;
+  border-color: #007bff;
+}
+
+.forecast-day img {
+  width: 40px;
+  height: 40px;
+}
+
+.day-label {
+  font-weight: bold;
+  color: #0044cc;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.temps {
+  margin: 0.5rem 0;
+}
+
+.tmin {
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.tmax {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+.forecast-day.active {
+  border: 2px solid #007bff;
+  background-color: #e6f0ff;
+}
+
+.top-meteo-bar {
+  background-color: #006ba6;
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0; /* supprime l'espace avec la section suivante */
+}
+
+.add-ville-btn {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007cc3;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.2s ease;
+}
+
+.add-ville-btn:hover {
+  background-color: #0090da;
+}
+
+.plus-icon {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.inline-ville-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0; /* réduit l'espacement vertical */
+}
+
+.inline-ville-form label {
+  color: white;
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+
+.inline-ville-form select,
+.inline-ville-form input {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.inline-ville-form button {
+  background-color: #1e5aa8;
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.inline-ville-form button:hover {
+  background-color: #2e6bd9;
+}
+
