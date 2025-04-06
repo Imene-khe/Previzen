@@ -152,27 +152,8 @@
 </section>
 
 <section>
-  <h2>Choix de la météo via la carte</h2>
-
-  <img src="images/carte_region.jpg" usemap="#carte-france" alt="Carte des régions de France" width="800">
-
-  <map name="carte-france">
-  <area shape="poly" coords="594,351,598,364,609,372,609,385,603,397,607,414,609,429,624,448,632,463,638,477,640,494,640,522,645,545,640,559,640,587,655,610,672,608,674,623,643,623,651,652,672,656,691,644,701,646,714,648,731,654,748,652,760,665,773,665,807,658,823,658,836,656,847,648,861,648,868,660,882,675,868,673,882,690,895,690,908,684,920,675,937,671,950,679,950,694,952,709,967,713,983,726,998,728,1007,738,1019,732,1013,711,1025,705,1036,694,1042,675,1038,654,1023,639,1025,625,1038,614,1053,612,1070,606,1084,604,1101,606,1110,591,1122,581,1126,568,1137,557,1126,541,1139,532,1156,524,1160,509,1164,496,1169,484,1181,492,1181,471,1171,452,1181,437,1175,425,1171,408,1169,391,1169,374,1177,353,1160,324,1145,309,1122,288,1099,301,1063,322,1017,334,962,355,922,385,910,408,916,427,952,437,927,442,906,452,891,467,859,469,830,458,798,454,769,450,744,439,720,439,710,446,708,429,691,393,704,385,699,366,680,360,664,368,651,370,636,368,622,364,609,355,1129,276" 
-    href="departements.php?region=Normandie" 
-    alt="Normandie" 
-    title="Cliquez pour voir les départements de la Normandie">
-    <area alt="Haut-de-France" title="Haut-de-France" href="departements.php?region=Hauts-de-France" ...>
-    <area alt="Ile-De-France" title="Île-de-France" href="departements.php?region=Île-de-France" ...>
-    <area shape="poly" coords="..." href="departements.php?region=Grand-Est" alt="Grand-Est" title="Cliquez pour voir les départements de la région Grand-Est">    <area alt="Bourgogne-Franche-Comté" title="Bourgogne-Franche-Comté" href="departements.php?region=Bourgogne-Franche-Comté" ...>
-    <area alt="Auvergne-Rhones-Alpes" title="Auvergne-Rhones-Alpes" href="departements.php?region=Auvergne-Rhône-Alpes" ...>
-    <area alt="Provence-Alpes-Coted'Azur" title="Provence-Alpes-Côte d'Azur" href="departements.php?region=Provence-Alpes-Côte-d'Azur" ...>
-    <area alt="Corse" title="Corse" href="departements.php?region=Corse" ...>
-    <area alt="Occitanie" title="Occitanie" href="departements.php?region=Occitanie" ...>
-    <area alt="Nouvelle-Aquitaine" title="Nouvelle-Aquitaine" href="departements.php?region=Nouvelle-Aquitaine" ...>
-    <area alt="Centre-Val de Loire" title="Centre-Val de Loire" href="departements.php?region=Centre-Val de Loire" ...>
-    <area alt="Pays de Loire" title="Pays de la Loire" href="departements.php?region=Pays-de-la-Loire" ...>
-
-  </map>
+  <h2>Choix de la météo via la carte interactive</h2>
+  <?php include "./include/carte-interactive.inc.php"; ?>
 </section>
 
 

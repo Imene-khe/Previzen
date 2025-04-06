@@ -1,15 +1,22 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['style'])) {
-    $_SESSION['style'] = './style/style.css'; // Mode Jour par défaut
-}
+$style = 'style'; // Valeur par défaut
 
 if (isset($_GET['style'])) {
-    $_SESSION['style'] = ($_GET['style'] == 'nuit') ? './style/night_style.css' : './style/style.css';
+    if ($_GET['style'] === 'nuit') {
+        setcookie('theme', 'night_style', time() + 3600 * 24 * 30, "/"); // 30 jours
+        $style = 'night_style';
+    } elseif ($_GET['style'] === 'jour') {
+        setcookie('theme', 'style', time() + 3600 * 24 * 30, "/");
+        $style = 'style';
+    }
+    header('Location: ' . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+} elseif (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], ['style', 'night_style'])) {
+    $style = $_COOKIE['theme'];
 }
 
-$style = $_SESSION['style'];
+$stylePath = "./style/{$style}.css";
+
 ?>
 
 <?php
@@ -31,7 +38,8 @@ $theme = getTheme();
     <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
     <title><?php echo $title ?></title>
 
-    <link rel="stylesheet" href="<?php echo $style; ?>">
+	
+    <link rel="stylesheet" href="<?php echo $stylePath; ?>">
 
 </head>
 
@@ -46,21 +54,21 @@ $theme = getTheme();
 
         <nav>
             <ul class="menu">
-                <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a>
+                <li><a href="#"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a>
                     <ul class="submenu">
                         <li><a href="./local.php">Par ville</a></li>
                         <li><a href="./local.php">Par département</a></li>
                         <li><a href="./local.php">Par région</a></li>
                     </ul>
                 </li>
-                <li><a href="./mer.php"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
+                <li><a href="#"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
                     <ul class="submenu">
                             <li><a href="./mer.php">Manche</a></li>
                             <li><a href="./mer.php">Cote Atlantique</a></li>
                             <li><a href="./mer.php">Méditerranéen</a></li>
                     </ul>
                 </li>
-                <li><a href="./neige.php"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
+                <li><a href="#"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
                     <ul class="submenu">
                                 <li><a href="./neige.php">Jura</a></li>
                                 <li><a href="./neige.php">Vosges</a></li>
@@ -93,59 +101,20 @@ $theme = getTheme();
         </aside>
 
         <div class="header-icons">
-            <a href="index.php?lang=en"><img src="./images/uk.png" alt="logo uk" width="50"/></a>
+            <a href="english.php"><img src="./images/uk.png" alt="logo uk" width="50"/></a>
             <a href="index.php?lang=fr"><img src="./images/fr.png" alt="logo fr" width="50"/></a>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get" style="display: inline;">
-                <input type="hidden" name="style" value="<?php echo ($_SESSION['style'] == './style/style.css') ? 'nuit' : 'jour'; ?>">
-                <button type="submit">
-                    <?php echo ($_SESSION['style'] == './style/style.css') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
-                </button>
-            </form>
+			<form action="" method="get" style="display: inline;">
+    		<input type="hidden" name="style" value="<?php echo ($style === 'style') ? 'nuit' : 'jour'; ?>">
+    		<button type="submit">
+        	<?php echo ($style === 'style') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
+    		</button>
+			</form>
+
         </div>
 
 
     </header>
 
     <main>
-        <div class="top-meteo-bar">
-                <?php if (!isset($_GET['ajouter'])): ?>
-                    <a href="?ajouter=1" class="add-ville-btn">
-                        Ajouter une ville <span class="plus-icon">＋</span>
-                    </a>
-                <?php else: ?>
-                    <form method="get" class="inline-ville-form">
-                        <input type="hidden" name="ajouter" value="1">
-
-                        <label for="region">Région :</label>
-                        <select name="region" id="region" onchange="this.form.submit()">
-                            <option value="">-- Région --</option>
-                            <?php foreach ($regions_departements as $nomRegion => $departements): ?>
-                                <option value="<?= $nomRegion ?>" <?= (isset($_GET['region']) && $_GET['region'] === $nomRegion) ? 'selected' : '' ?>>
-                                    <?= $nomRegion ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <?php if (isset($_GET['region'], $regions_departements[$_GET['region']])): ?>
-                            <label for="departement">Département :</label>
-                            <select name="departement" id="departement" onchange="this.form.submit()">
-                                <option value="">-- Dépt --</option>
-                                <?php foreach ($regions_departements[$_GET['region']] as $dep): ?>
-                                    <option value="<?= $dep['numero'] ?>" <?= (isset($_GET['departement']) && $_GET['departement'] === $dep['numero']) ? 'selected' : '' ?>>
-                                        <?= $dep['nom'] ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        <?php endif; ?>
-
-                        <?php if (isset($_GET['departement'])): ?>
-                            <label for="ville">Ville :</label>
-                            <input type="text" name="ville" id="ville" placeholder="Entrez une ville" required>
-                            <button type="submit">Voir la météo</button>
-                        <?php endif; ?>
-                    </form>
-                <?php endif; ?>
-            </div>
-
-            <h1><?php echo $h1?></h1>
-            
+        <h1><?php echo $h1?></h1>
+        

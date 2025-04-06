@@ -28,42 +28,6 @@ function get_apod_html(string $api_key, string $date): string {
     return $html;
 }
 
-/**
- * Récupère les informations d'une adresse IP via l'API ipinfo.io.
- *
- * @param string $ip Adresse IP à analyser (ou vide pour détecter automatiquement)
- * @param string $token Clé API ipinfo.io
- * @return array|null Données IP sous forme de tableau associatif, ou null si échec
- */
-function get_ipinfo_data(string $ip, string $token): ?array {
-    // Si aucune IP fournie, ipinfo.io utilisera automatiquement l'IP du client
-    $url = $ip
-        ? "https://ipinfo.io/$ip?token=$token"
-        : "https://ipinfo.io/?token=$token";
-
-    $response = @file_get_contents($url);
-    return $response ? json_decode($response, true) : null;
-}
-
-function get_ipinfo_html(string $ip, string $token): string {
-    $data = get_ipinfo_data($ip, $token);
-
-    if (!$data) {
-        return "<p>Impossible de récupérer les données depuis ipinfo.io</p>";
-    }
-
-    $html = "<ul>";
-    $html .= "<li><strong>IP :</strong> " . htmlspecialchars($data['ip'] ?? 'N/A') . "</li>";
-    $html .= "<li><strong>Ville :</strong> " . htmlspecialchars($data['city'] ?? 'N/A') . "</li>";
-    $html .= "<li><strong>Région :</strong> " . htmlspecialchars($data['region'] ?? 'N/A') . "</li>";
-    $html .= "<li><strong>Pays :</strong> " . htmlspecialchars($data['country'] ?? 'N/A') . "</li>";
-    $html .= "<li><strong>Fournisseur :</strong> " . htmlspecialchars($data['org'] ?? 'N/A') . "</li>";
-    $html .= "<li><strong>Coordonnées (lat,long) :</strong> " . htmlspecialchars($data['loc'] ?? 'N/A') . "</li>";
-    $html .= "</ul>";
-
-    return $html;
-}
-
 
 function get_geoplugin_html(string $ip): string {
     $xml = @simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=$ip");
@@ -153,9 +117,8 @@ function callWeatherAPI($endpoint, $query) {
     $key = "10534f5a5b1748fcbb0150313250104";
     $url = $base . $endpoint . "?key={$key}&q=" . urlencode($query) . "&lang=fr";
     if ($endpoint === "forecast.json") {
-        $url .= "&days=7"; // récupère 7 jours de prévisions
+        $url .= "&days=1";
     }
-    
 
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
@@ -405,45 +368,6 @@ function chargerRegionsEtDepartements($fichier_regions, $fichier_departements) {
 
     return $resultat;
 }
-
-function getDepartementsParRegion($region) {
-    // Exemple simple, en vrai tu peux charger ça depuis un CSV
-    $regions = [
-        'ile-de-france' => ['75', '77', '78', '91', '92', '93', '94', '95'],
-        'auvergne-rhone-alpes' => ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
-        // Ajoute les autres régions ici...
-    ];
-
-    return $regions[$region] ?? [];
-}
-
-function getNextDaysForecast($ville) {
-    $data = callWeatherAPI("forecast.json", $ville);
-    if (!$data || !isset($data['forecast']['forecastday'])) return [];
-
-    $result = [];
-
-    foreach ($data['forecast']['forecastday'] as $day) {
-        $date = DateTime::createFromFormat('Y-m-d', $day['date']);
-        $jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
-        $dayIndex = (int) $date->format('w');
-        $dayLabel = $jours[$dayIndex] . ' ' . $date->format('d');
-        $result[] = [
-            'date' => $day['date'],
-           
-            'day' => ucfirst($dayLabel),
-            'icon' => $day['day']['condition']['icon'],
-            'tmin' => round($day['day']['mintemp_c']),
-            'tmax' => round($day['day']['maxtemp_c']),
-            'wind' => round($day['day']['maxwind_kph']),
-            'gust' => round($day['day']['maxwind_kph']),
-        ];
-    }
-
-    return $result;
-}
-
-
 
 
 

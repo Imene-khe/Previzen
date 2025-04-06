@@ -1,4 +1,3 @@
-/* Réinitialisation des marges et paddings */
 * {
   margin: 0;
   padding: 0;
@@ -216,7 +215,6 @@ footer span:hover::after {
   white-space: nowrap;
 }
 
-/* PLAN DU SITE */
 #listePlanSite {
   display: flex;
   justify-content: center;
@@ -320,7 +318,6 @@ figcaption {
   color: #aaaaaa;
 }
 
-/* MENU DÉROULANT */
 nav ul.menu {
   list-style: none;
   display: flex;
@@ -380,7 +377,6 @@ nav ul.menu li:hover > ul.submenu {
   display: block;
 }
 
-/* SIDEBAR */
 .sidebar-button {
   position: fixed;
   top: 20px;
@@ -449,89 +445,108 @@ nav ul.menu li:hover > ul.submenu {
   background-color: #2c2c2c;
 }
 
-/* MÉTÉO */
-.meteo-detail {
-  margin-top: 2em;
-  text-align: center;
-}
+svg path {
+	fill: #444;
+	stroke: #888;
+  }
+  
+  svg path:hover {
+	fill: #ffcc00;
+  }
+  
+  .region-01 { fill: #e57373; }  /* rouge clair */
+  .region-02 { fill: #f06292; }  /* rose framboise */
+  .region-03 { fill: #ba68c8; }  /* violet doux */
+  .region-04 { fill: #9575cd; }  /* mauve lavande */
+  .region-05 { fill: #7986cb; }  /* bleu lavande */
+  .region-06 { fill: #64b5f6; }  /* bleu ciel */
+  .region-07 { fill: #4dd0e1; }  /* turquoise léger */
+  .region-08 { fill: #4db6ac; }  /* vert d'eau */
+  .region-09 { fill: #81c784; }  /* vert tendre */
+  .region-10 { fill: #aed581; }  /* vert clair citronné */
+  .region-11 { fill: #dce775; }  /* jaune pâle */
+  .region-12 { fill: #fff176; }  /* jaune soleil */
+  .region-13 { fill: #ffd54f; }  /* jaune orangé */
+  .region-14 { fill: #ffb74d; }  /* orange doux */
+  .region-15 { fill: #ff8a65; }  /* corail doux */
+  .region-16 { fill: #a1887f; }  /* brun clair */
+  .region-17 { fill: #90a4ae; }  /* gris bleuté */
+  .region-18 { fill: #bcaaa4; }  /* gris taupe rosé */
+  .region-19 { fill: #ce93d8; }  /* violet pastel */
+  .region-20 { fill: #f48fb1; }  /* rose clair */
+  .region-21 { fill: #f06292; }  /* rose framboise */
+.region-22 { fill: #ba68c8; }  /* violet doux */
+.region-23 { fill: #9575cd; }  /* mauve lavande */
+.region-24 { fill: #7986cb; }  /* bleu lavande */
+.region-25 { fill: #64b5f6; }  /* bleu ciel */
+.region-26 { fill: #4dd0e1; }  /* turquoise léger */
+.region-27 { fill: #4db6ac; }  /* vert d'eau */
+.region-28 { fill: #81c784; }  /* vert tendre */
+.region-29 { fill: #aed581; }  /* vert clair citronné */
+.region-30 { fill: #dce775; }  /* jaune pâle */
+.region-31 { fill: #fff176; }  /* jaune soleil */
+.region-32 { fill: #ffd54f; }  /* jaune orangé */
+.region-33 { fill: #ffb74d; }  /* orange doux */
+.region-34 { fill: #ff8a65; }  /* corail doux */
+.region-35 { fill: #a1887f; }  /* brun clair */
+.region-36 { fill: #90a4ae; }  /* gris bleuté */
+.region-37 { fill: #bcaaa4; }  /* gris taupe rosé */
+.region-38 { fill: #ce93d8; }  /* violet pastel */
+.region-39 { fill: #f48fb1; }  /* rose clair */
+.region-40 { fill: #e57373; }  /* rouge clair */
+.region-41 { fill: #f06292; }  /* rose framboise */
+.region-42 { fill: #ba68c8; }  /* violet doux */
+.region-43 { fill: #9575cd; }  /* mauve lavande */
+.region-44 { fill: #7986cb; }  /* bleu lavande */
+.region-45 { fill: #64b5f6; }  /* bleu ciel */
+.region-46 { fill: #4dd0e1; }  /* turquoise léger */
+.region-47 { fill: #4db6ac; }  /* vert d'eau */
+.region-48 { fill: #81c784; }  /* vert tendre */
+.region-49 { fill: #aed581; }  /* vert clair citronné */
+.region-50 { fill: #dce775; }  /* jaune pâle */
+.region-51 { fill: #fff176; }  /* jaune soleil */
+.region-52 { fill: #ffd54f; }  /* jaune orangé */
+.region-53 { fill: #ffb74d; }  /* orange doux */
+.region-54 { fill: #ff8a65; }  /* corail doux */
+.region-55 { fill: #a1887f; }  /* brun clair */
+.region-56 { fill: #90a4ae; }  /* gris bleuté */
+.region-57 { fill: #bcaaa4; }  /* gris taupe rosé */
+.region-58 { fill: #ce93d8; }  /* violet pastel */
+.region-59 { fill: #f48fb1; }  /* rose clair */
+.region-60 { fill: #e57373; }  /* rouge clair */
+.region-61 { fill: #f06292; }  /* rose framboise */
+.region-62 { fill: #ba68c8; }  /* violet doux */
+.region-63 { fill: #9575cd; }  /* mauve lavande */
+.region-64 { fill: #7986cb; }  /* bleu lavande */
+.region-65 { fill: #64b5f6; }  /* bleu ciel */
+.region-66 { fill: #4dd0e1; }  /* turquoise léger */
+.region-67 { fill: #4db6ac; }  /* vert d'eau */
+.region-68 { fill: #81c784; }  /* vert tendre */
+.region-69 { fill: #aed581; }  /* vert clair citronné */
+.region-70 { fill: #dce775; }  /* jaune pâle */
+.region-71 { fill: #fff176; }  /* jaune soleil */
+.region-72 { fill: #ffd54f; }  /* jaune orangé */
+.region-73 { fill: #ffb74d; }  /* orange doux */
+.region-74 { fill: #ff8a65; }  /* corail doux */
+.region-75 { fill: #a1887f; }  /* brun clair */
+.region-76 { fill: #90a4ae; }  /* gris bleuté */
+.region-77 { fill: #bcaaa4; }  /* gris taupe rosé */
+.region-78 { fill: #ce93d8; }  /* violet pastel */
+.region-79 { fill: #f48fb1; }  /* rose clair */
+.region-80 { fill: #e57373; }  /* rouge clair */
+.region-81 { fill: #f06292; }  /* rose framboise */
+.region-82 { fill: #ba68c8; }  /* violet doux */
+.region-83 { fill: #9575cd; }  /* mauve lavande */
+.region-84 { fill: #7986cb; }  /* bleu lavande */
+.region-85 { fill: #64b5f6; }  /* bleu ciel */
+.region-86 { fill: #4dd0e1; }  /* turquoise léger */
+.region-87 { fill: #4db6ac; }  /* vert d'eau */
+.region-88 { fill: #81c784; }  /* vert tendre */
+.region-89 { fill: #aed581; }  /* vert clair citronné */
+.region-90 { fill: #dce775; }  /* jaune pâle */
+.region-91 { fill: #fff176; }  /* jaune soleil */
+.region-92 { fill: #ffd54f; }  /* jaune orangé */
+.region-93 { fill: #ffb74d; }  /* orange doux */
+.region-94 { fill: #ff8a65; }  /* corail doux */
 
-.meteo-img {
-  max-width: 120px;
-  margin-bottom: 1em;
-}
-
-.meteo-blocs {
-  display: flex;
-  justify-content: center;
-  gap: 1.5em;
-  flex-wrap: wrap;
-  margin-top: 1em;
-}
-
-.bloc {
-  background-color: #2b2b2b;
-  padding: 1em;
-  border-radius: 10px;
-  width: 150px;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.bloc h4 {
-  margin-top: 0;
-  font-size: 1.2em;
-  color: #90CAF9;
-}
-
-.bloc p {
-  margin: 0.3em 0;
-  color: #e0e0e0;
-  font-size: 0.95em;
-}
-
-.details-box {
-  margin-top: 1em;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #212121;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 0.95em;
-}
-
-.details-box summary {
-  cursor: pointer;
-  font-weight: bold;
-  color: #90CAF9;
-  padding: 8px;
-  border: 1px solid #444;
-  background-color: #1e1e1e;
-  border-radius: 5px;
-  text-align: center;
-  list-style: none;
-}
-
-.details-box summary::-webkit-details-marker {
-  display: none;
-}
-
-.details-box ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
-.details-box li {
-  margin-bottom: 6px;
-  color: #cccccc;
-}
-
-img[usemap] {
-  pointer-events: auto;
-  display: block;
-}
-
-area {
-  cursor: pointer;
-}
+  
