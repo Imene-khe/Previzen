@@ -1,4 +1,10 @@
-<?php include('header.inc.php'); ?>
+<?php
+$title = "Statistiques | PreviZen";
+$description = "Analyse d'utilisation du site : top villes consultées et fréquentation.";
+$h1 = "Statistiques du site";
+include "./include/header.inc.php";
+?>
+
 
 <main class="stats-page" style="padding: 2rem;">
   <h1>Statistiques d'utilisation</h1>
@@ -25,4 +31,4 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/stats.js"></script>
 
-<?php include('footer.inc.php'); ?>
+<?php include('include/footer.inc.php'); ?>
