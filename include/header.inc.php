@@ -40,6 +40,7 @@ $theme = getTheme();
 
 	
     <link rel="stylesheet" href="<?php echo $stylePath; ?>">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 

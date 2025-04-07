@@ -9,7 +9,10 @@
     $ip = getClientIP();
     $geo = getCityAndCPFromIP($ip);
 
-    $villeClient = $geo['ville'] ?? 'Paris';
+    $villeClient = $geo['ville'] ?? 'Cergy';
+	file_put_contents('stats.csv', "$villeClient," . date('Y-m-d') . "\n", FILE_APPEND);
+	setcookie("last_city", $villeClient, time() + (86400 * 30), "/");
+
     // Affichages debug si besoin
     echo "<!-- IP : $ip -->";
     echo "<!-- Ville détectée : $villeClient -->";
