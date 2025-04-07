@@ -81,7 +81,10 @@ $theme = getTheme();
             
             </li>
                 <li><a href="./orage.php"><img src="<?php echo getIcon('orage'); ?>" alt="Orage" class="nav-icon">Orage</a></li>
+				<li><a href="statistiques.php">Statistiques</a></li>
             </ul>
+
+			
         </nav>
 
         <input type="checkbox" id="sidebar-toggle" hidden>
