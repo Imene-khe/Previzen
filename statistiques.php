@@ -15,12 +15,16 @@ include "./include/header.inc.php";
     </p>
   </section>
 
+
+
   <section class="charts" style="display: flex; flex-wrap: wrap; gap: 2rem;">
     <div class="card" style="flex: 1;">
       <h2>Villes les plus consultées</h2>
       <canvas id="pieChart" width="400" height="400"></canvas>
     </div>
 
+
+	
     <div class="card" style="flex: 1;">
       <h2>Consultations par jour</h2>
       <canvas id="lineChart" width="400" height="400"></canvas>
