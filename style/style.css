@@ -435,7 +435,7 @@ nav ul.menu li:hover > ul.submenu {
 .sidebar h2 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #1A237E;
+  color: #ffffff;
 }
 
 .sidebar ul {
@@ -634,3 +634,222 @@ nav ul.menu li:hover > ul.submenu {
 .region-93 { fill: #ffb74d; }  /* orange doux */
 .region-94 { fill: #ff8a65; }  /* corail doux */
 
+.detail-btn {
+  font-weight: bold;
+  cursor: pointer;
+  color: #0059ff;
+}
+
+.meteo-local {
+  text-align: center;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.meteo-principale {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0044cc;
+}
+
+.temp-ressenti {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+}
+
+.meteo-condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.meteo-condition img {
+  width: 64px;
+  margin-bottom: 0.5rem;
+}
+
+.vent {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.previsions-heures {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.carte-moment {
+  background: #f2f7ff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  width: 150px;
+}
+
+.carte-moment p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0;
+}
+
+.week-forecast {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.forecast-day {
+  flex: 0 0 auto;
+  background: #f6f9ff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  width: 100px;
+  min-width: 100px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.forecast-day:hover {
+  transform: scale(1.05);
+  background-color: #e6efff;
+  border-color: #007bff;
+}
+
+.forecast-day img {
+  width: 40px;
+  height: 40px;
+}
+
+.day-label {
+  font-weight: bold;
+  color: #0044cc;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.temps {
+  margin: 0.5rem 0;
+}
+
+.tmin {
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.tmax {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+.forecast-day.active {
+  border: 2px solid #007bff;
+  background-color: #e6f0ff;
+}
+
+
+img[usemap] {
+  pointer-events: auto;
+  display: block;
+}
+
+area {
+  cursor: pointer;
+}
+
+.top-meteo-bar {
+  background-color: #006ba6;
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.add-ville-btn {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007cc3;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.2s ease;
+}
+
+.add-ville-btn:hover {
+  background-color: #0090da;
+}
+
+.plus-icon {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.inline-ville-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.inline-ville-form label {
+  color: white;
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+
+.inline-ville-form select,
+.inline-ville-form input {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.inline-ville-form button {
+  background-color: #1e5aa8;
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.inline-ville-form button:hover {
+  background-color: #2e6bd9;
+}
