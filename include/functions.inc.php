@@ -1,4 +1,6 @@
 <?php
+
+include  __DIR__ . '/utile.inc.php';
 function get_apod_data(string $api_key, string $date): ?array {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
     $response = @file_get_contents($url);
@@ -113,16 +115,19 @@ function compter_visites(string $fichier = './data/compteur.txt'): int {
 
 
 function callWeatherAPI($endpoint, $query) {
+    if (!$query) return null; 
+
     $base = "http://api.weatherapi.com/v1/";
     $key = "10534f5a5b1748fcbb0150313250104";
     $url = $base . $endpoint . "?key={$key}&q=" . urlencode($query) . "&lang=fr";
     if ($endpoint === "forecast.json") {
-        $url .= "&days=1";
+        $url .= "&days=7";
     }
 
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
+
 
 function searchCity($ville, $departement = null, $region = null) {
     $result = callMeteoConceptAPI("location/cities", ['search' => $ville]);
@@ -180,11 +185,11 @@ function getTodayWeatherData($ville) {
     ];
 }
 
-function getNextHoursForecast($ville) {
+function getNextHoursForecast($ville, $jour = 0) {
     $data = callWeatherAPI("forecast.json", $ville);
-    if (!$data || !isset($data['forecast']['forecastday'][0]['hour'])) return null;
+    if (!$data || !isset($data['forecast']['forecastday'][$jour]['hour'])) return null;
 
-    $hours = $data['forecast']['forecastday'][0]['hour'];
+    $hours = $data['forecast']['forecastday'][$jour]['hour'];
     $moments = [8 => 'matin', 12 => 'midi', 18 => 'soir'];
 
     $result = [
@@ -203,9 +208,9 @@ function getNextHoursForecast($ville) {
         ];
     }
 
-    $imageLabel = $result['conditions']['midi']['condition'] ??
-                  $result['conditions']['matin']['condition'] ??
-                  '';
+    $imageLabel = $result['conditions']['midi']['condition']
+        ?? $result['conditions']['matin']['condition']
+        ?? '';
     $result['image'] = getWeatherImage($imageLabel);
 
     return $result;
@@ -368,6 +373,115 @@ function chargerRegionsEtDepartements($fichier_regions, $fichier_departements) {
 
     return $resultat;
 }
+
+function getNextDaysForecast($ville) {
+    $data = callWeatherAPI("forecast.json", $ville);
+    if (!$data || !isset($data['forecast']['forecastday'])) return [];
+
+    $result = [];
+
+    foreach ($data['forecast']['forecastday'] as $day) {
+        $date = DateTime::createFromFormat('Y-m-d', $day['date']);
+        $jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+        $dayIndex = (int) $date->format('w');
+        $dayLabel = $jours[$dayIndex] . ' ' . $date->format('d');
+        $result[] = [
+            'date' => $day['date'],
+           
+            'day' => ucfirst($dayLabel),
+            'icon' => $day['day']['condition']['icon'],
+            'tmin' => round($day['day']['mintemp_c']),
+            'tmax' => round($day['day']['maxtemp_c']),
+            'wind' => round($day['day']['maxwind_kph']),
+            'gust' => round($day['day']['maxwind_kph']),
+        ];
+    }
+
+    return $result;
+}
+
+function getPlageWeatherData($ville) {
+    $data = callWeatherAPI("forecast.json", $ville);
+
+    if (!$data || !isset($data['forecast']['forecastday'][0]['day'])) return null;
+
+    $day = $data['forecast']['forecastday'][0]['day'];
+
+    return [
+        'condition' => $day['condition']['text'],
+        'icone' => getWeatherImage($day['condition']['text']),
+        'temp_air' => $day['avgtemp_c'],
+        'temp_eau' => estimateWaterTemp($day['avgtemp_c']),
+        'vent' => $day['maxwind_kph'],
+        'uv' => $day['uv'],
+        'maree' => rand(0, 1) ? 'Haute' : 'Basse' // simulation simple
+    ];
+}
+
+function getMarineZoneData($zone) {
+    $zones = [
+        'manche' => 'Granville',
+        'atlantique' => 'La Rochelle',
+        'mediterranee' => 'Nice'
+    ];
+
+    if (!isset($zones[$zone])) return null;
+
+    $ville = $zones[$zone];
+    $data = callWeatherAPI("forecast.json", $ville);
+
+    if (!$data || !isset($data['forecast']['forecastday'][0]['day'])) return null;
+
+    $day = $data['forecast']['forecastday'][0]['day'];
+
+    return [
+        'zone' => ucfirst($zone),
+        'ville_ref' => $ville,
+        'temp_eau' => estimateWaterTemp($day['avgtemp_c']), // estimation par ta fonction déjà existante
+        'vent' => $day['maxwind_kph'] . " km/h",
+        'maree' => rand(0, 1) ? 'Haute' : 'Basse' // simulation pour l’instant, à remplacer si tu as une API marée
+    ];
+}
+
+function getMareeData(string $ville): ?array {
+    $stations = [
+        'Granville' => 'granville',
+        'La Rochelle' => 'la-rochelle-pallice',
+        'Nice' => 'nice',
+        'Biarritz' => 'biarritz',
+        'Brest' => 'brest',
+        'Marseille' => 'marseille'
+    ];
+
+    if (!isset($stations[$ville])) return null;
+
+    $station = $stations[$ville];
+    $url = "https://www.marees.info/api/$station";
+
+    $response = @file_get_contents($url);
+    if (!$response) return null;
+
+    $data = json_decode($response, true);
+    if (!isset($data['marees'])) return null;
+
+    $marees = array_slice($data['marees'], 0, 2);
+
+    $result = [];
+    foreach ($marees as $maree) {
+        $result[] = [
+            'type' => ucfirst($maree['type']),
+            'heure' => substr($maree['heure'], 11, 5),
+            'coef' => $maree['coef'] ?? null
+        ];
+    }
+
+    return $result;
+}
+
+
+
+
+
 
 
 
