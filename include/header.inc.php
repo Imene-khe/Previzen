@@ -55,21 +55,21 @@ $theme = getTheme();
 
         <nav>
             <ul class="menu">
-                <li><a href="#"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a>
+                <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a>
                     <ul class="submenu">
                         <li><a href="./local.php">Par ville</a></li>
                         <li><a href="./local.php">Par département</a></li>
                         <li><a href="./local.php">Par région</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
+                <li><a href="./mer.php"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
                     <ul class="submenu">
-                            <li><a href="./mer.php">Manche</a></li>
-                            <li><a href="./mer.php">Cote Atlantique</a></li>
-                            <li><a href="./mer.php">Méditerranéen</a></li>
+                        <li><a href="mer.php?zone=manche#infos-ville-cotiere">Manche</a></li>                       
+                        <li><a href="mer.php?zone=atlantique#infos-ville-cotiere">Côte Atlantique</a></li>                        
+                        <li><a href="mer.php?zone=mediterranee#infos-ville-cotiere">Méditerranée</a></li>                    
                     </ul>
                 </li>
-                <li><a href="#"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
+                <li><a href="./neige.php"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
                     <ul class="submenu">
                                 <li><a href="./neige.php">Jura</a></li>
                                 <li><a href="./neige.php">Vosges</a></li>
