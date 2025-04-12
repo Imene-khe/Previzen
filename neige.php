@@ -40,18 +40,27 @@
     <section class="info-enneigement">
         <h3>Informations sur l'enneigement</h3>
         <?php
-            $snowData = getSnowDataTignes();
-            if ($snowData):
-                echo "<ul>";
-                foreach ($snowData as $entry) {
-                    $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
-                    echo "<li>❄️ Neige prévue le $jour : " . $entry['snow_cm'] . " cm</li>";
+           if (isset($_GET['massif']) && $_GET['massif'] !== '') {
+            $massif = $_GET['massif'];
+            $snowData = getSnowDataForMassif($massif);
+        
+            if ($snowData) {
+                foreach ($snowData as $station) {
+                    echo "<h4>Station : " . htmlspecialchars($station['station']) . "</h4><ul>";
+                    foreach ($station['data'] as $entry) {
+                        $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
+                        echo "<li>❄️ Neige prévue le $jour : " . $entry['snow_cm'] . " cm</li>";
+                    }
+                    echo "</ul>";
                 }
-                echo "</ul>";
-            else:
-                echo "<p>Impossible de récupérer les données de neige pour Tignes.</p>";
-            endif;
-            ?>
+            } else {
+                echo "<p>Aucune donnée disponible pour le massif sélectionné.</p>";
+            }
+        } else {
+            echo "<p>Veuillez sélectionner un massif pour afficher les prévisions.</p>";
+        }
+        
+        ?>
 
 
     </section>

@@ -71,18 +71,17 @@ $theme = getTheme();
                 </li>
                 <li><a href="./neige.php"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
                     <ul class="submenu">
-                                <li><a href="./neige.php">Jura</a></li>
-                                <li><a href="./neige.php">Vosges</a></li>
-                                <li><a href="./neige.php">Alpes Francaise</a></li>
-                                <li><a href="./neige.php">Massif Centrale</a></li>
-                                <li><a href="./neige.php">Pyrénées</a></li>
+                                <li><a href="./neige.php?massif=jura">Jura</a></li>
+                                <li><a href="./neige.php?massif=vosges">Vosges</a></li>
+                                <li><a href="./neige.php?massif=alpes">Alpes Francaise</a></li>
+                                <li><a href="./neige.php?massif=massif-central">Massif Centrale</a></li>
+                                <li><a href="./neige.php?massif=pyrenees">Pyrénées</a></li>
 
 
                     </ul>
             
             </li>
                 <li><a href="./orage.php"><img src="<?php echo getIcon('orage'); ?>" alt="Orage" class="nav-icon">Orage</a></li>
-				<li><a href="statistiques.php">Statistiques</a></li>
             </ul>
 
 			
@@ -100,7 +99,7 @@ $theme = getTheme();
                 <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
                 <li><a href="#">🌡️ Climat</a></li>
                 <li><a href="#">📰 Actus & Dossiers</a></li>
-                <li><a href="#">🌴 Outre-Mer</a></li>
+                <li><a href="statistiques.php">Statistiques</a></li>
             </ul>
         </aside>
 
@@ -120,5 +119,6 @@ $theme = getTheme();
     </header>
 
     <main>
+    
         <h1><?php echo $h1?></h1>
         

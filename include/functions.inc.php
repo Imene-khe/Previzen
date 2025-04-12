@@ -478,33 +478,88 @@ function getMareeData(string $ville): ?array {
     return $result;
 }
 
-function getSnowDataTignes(): ?array {
-    $lat = 45.4691;
-    $lon = 6.9063;
-    $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&daily=snowfall_sum&timezone=auto";
+function getSnowDataForMassif(string $massif): array {
+    $stations = getTopSkiStationsByMassif($massif);
+    $results = [];
 
-    $response = @file_get_contents($url);
-    if (!$response) return null;
+    foreach ($stations as $station) {
+        $lat = $station['lat'];
+        $lon = $station['lon'];
+        $name = $station['name'];
 
-    $data = json_decode($response, true);
-    if (!isset($data['daily']['time']) || !isset($data['daily']['snowfall_sum'])) return null;
+        $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&daily=snowfall_sum&timezone=auto";
+        $response = @file_get_contents($url);
+        if (!$response) continue;
 
-    $result = [];
-    foreach ($data['daily']['time'] as $i => $date) {
-        $result[] = [
-            'date' => $date,
-            'snow_cm' => $data['daily']['snowfall_sum'][$i]
+        $data = json_decode($response, true);
+        if (!isset($data['daily']['time']) || !isset($data['daily']['snowfall_sum'])) continue;
+
+        $entries = [];
+        foreach ($data['daily']['time'] as $i => $date) {
+            $entries[] = [
+                'date' => $date,
+                'snow_cm' => $data['daily']['snowfall_sum'][$i]
+            ];
+        }
+
+        $results[] = [
+            'station' => $name,
+            'data' => $entries
         ];
     }
 
-    return $result;
+    return $results;
 }
 
 
+function getTopSkiStationsByMassif(string $massif): array {
+    $stations = [
+        'alpes' => [
+            ['name' => 'Tignes', 'lat' => 45.4691, 'lon' => 6.9063],
+            ['name' => 'Val Thorens', 'lat' => 45.2974, 'lon' => 6.5796],
+            ['name' => 'Alpe d’Huez', 'lat' => 45.0918, 'lon' => 6.0680],
+            ['name' => 'Les Deux Alpes', 'lat' => 45.0076, 'lon' => 6.1200],
+            ['name' => 'Chamonix', 'lat' => 45.9237, 'lon' => 6.8694]
+        ],
+        'pyrenees' => [
+            ['name' => 'Saint-Lary', 'lat' => 42.8161, 'lon' => 0.3297],
+            ['name' => 'Cauterets', 'lat' => 42.8873, 'lon' => -0.1167],
+            ['name' => 'Font-Romeu', 'lat' => 42.5044, 'lon' => 2.0362],
+            ['name' => 'Ax 3 Domaines', 'lat' => 42.7200, 'lon' => 1.8200],
+            ['name' => 'Gourette', 'lat' => 42.9562, 'lon' => -0.3384]
+        ],
+        'vosges' => [
+            ['name' => 'La Bresse', 'lat' => 48.0020, 'lon' => 6.9112],
+            ['name' => 'Gérardmer', 'lat' => 48.0724, 'lon' => 6.8763],
+            ['name' => 'Ventron', 'lat' => 47.9439, 'lon' => 6.8784],
+            ['name' => 'Le Markstein', 'lat' => 47.9427, 'lon' => 7.0383],
+            ['name' => 'Ballon d’Alsace', 'lat' => 47.8308, 'lon' => 6.8533]
+        ],
+        'jura' => [
+            ['name' => 'Les Rousses', 'lat' => 46.4839, 'lon' => 6.0650],
+            ['name' => 'Métabief', 'lat' => 46.8000, 'lon' => 6.3500],
+            ['name' => 'Monts Jura', 'lat' => 46.2963, 'lon' => 5.9551],
+            ['name' => 'La Pesse', 'lat' => 46.2932, 'lon' => 5.8497],
+            ['name' => 'Bellefontaine', 'lat' => 46.5500, 'lon' => 6.0833]
+        ],
+        'massif-central' => [
+            ['name' => 'Super-Besse', 'lat' => 45.5100, 'lon' => 2.9333],
+            ['name' => 'Le Lioran', 'lat' => 45.0491, 'lon' => 2.7556],
+            ['name' => 'Mont-Dore', 'lat' => 45.5753, 'lon' => 2.8090],
+            ['name' => 'Chastreix', 'lat' => 45.5189, 'lon' => 2.7356],
+            ['name' => 'Prat de Bouc', 'lat' => 45.0356, 'lon' => 2.7425]
+        ],
+        'corse' => [
+            ['name' => 'Val d’Ese', 'lat' => 42.0000, 'lon' => 9.1000],
+            ['name' => 'Ghisoni', 'lat' => 42.1000, 'lon' => 9.2000],
+            ['name' => 'Vergio', 'lat' => 42.2833, 'lon' => 8.9333],
+            ['name' => 'Asco', 'lat' => 42.5000, 'lon' => 9.0000],
+            ['name' => 'Haut Asco', 'lat' => 42.4270, 'lon' => 9.0400]
+        ]
+    ];
 
-
-
-
+    return $stations[$massif] ?? [];
+}
 
 
 
