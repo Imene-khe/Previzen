@@ -13,7 +13,7 @@ $region = $_GET['region'] ?? '';
 $region = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $region));
 $region = str_replace(' ', '-', $region);
 $ville = '';
-
+//test
 $region_to_city = [
     'ile-de-france' => 'Paris',
     'auvergne-rhone-alpes' => 'Lyon',
