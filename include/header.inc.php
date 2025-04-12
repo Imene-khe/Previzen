@@ -1,5 +1,5 @@
 <?php
-$style = 'style'; // Valeur par défaut
+$style = 'style'; // Valeur par défaut (mode jour)
 
 if (isset($_GET['style'])) {
     if ($_GET['style'] === 'nuit') {
@@ -17,12 +17,9 @@ if (isset($_GET['style'])) {
 
 $stylePath = "./style/{$style}.css";
 
+require_once __DIR__ . '/functions.inc.php';
 ?>
 
-<?php
-require_once __DIR__ . '/functions.inc.php';
-$theme = getTheme();
-?>
 
 
 <!DOCTYPE html>
@@ -107,11 +104,12 @@ $theme = getTheme();
             <a href="english.php"><img src="./images/uk.png" alt="logo uk" width="50"/></a>
             <a href="index.php?lang=fr"><img src="./images/fr.png" alt="logo fr" width="50"/></a>
 			<form action="" method="get" style="display: inline;">
-    		<input type="hidden" name="style" value="<?php echo ($style === 'style') ? 'nuit' : 'jour'; ?>">
-    		<button type="submit">
-        	<?php echo ($style === 'style') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
-    		</button>
-			</form>
+                <input type="hidden" name="style" value="<?= ($style === 'style') ? 'nuit' : 'jour'; ?>">
+                <button type="submit">
+                    <?= ($style === 'style') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
+                </button>
+            </form>
+
 
         </div>
 

@@ -38,32 +38,41 @@
     </section>
 
     <section class="info-enneigement">
-        <h3>Informations sur l'enneigement</h3>
-        <?php
-           if (isset($_GET['massif']) && $_GET['massif'] !== '') {
-            $massif = $_GET['massif'];
-            $snowData = getSnowDataForMassif($massif);
-        
-            if ($snowData) {
-                foreach ($snowData as $station) {
-                    echo "<h4>Station : " . htmlspecialchars($station['station']) . "</h4><ul>";
-                    foreach ($station['data'] as $entry) {
-                        $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
-                        echo "<li>❄️ Neige prévue le $jour : " . $entry['snow_cm'] . " cm</li>";
-                    }
-                    echo "</ul>";
-                }
-            } else {
-                echo "<p>Aucune donnée disponible pour le massif sélectionné.</p>";
-            }
-        } else {
-            echo "<p>Veuillez sélectionner un massif pour afficher les prévisions.</p>";
-        }
-        
-        ?>
+    <h3>🗻 Informations sur l'enneigement</h3>
+
+    <?php if (isset($_GET['massif']) && $_GET['massif'] !== ''):
+        $massif = $_GET['massif'];
+        $snowData = getSnowDataForMassif($massif);
+    ?>
+
+        <?php if ($snowData): ?>
+            <div class="stations-container">
+                <?php foreach ($snowData as $station): ?>
+                    <div class="station-card">
+                        <h4><?= htmlspecialchars($station['station']) ?></h4>
+                        <ul class="snow-list">
+                            <?php foreach ($station['data'] as $entry): ?>
+                                <?php $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m'); ?>
+                                <li>
+                                    <span class="day"><?= $jour ?></span>
+                                    <span class="flake">❄️</span>
+                                    <span class="snow-cm"><?= $entry['snow_cm'] ?> cm</span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="warning">Aucune donnée disponible pour le massif sélectionné.</p>
+        <?php endif; ?>
+
+    <?php else: ?>
+        <p class="info">Veuillez sélectionner un massif pour afficher les prévisions.</p>
+    <?php endif; ?>
+</section>
 
 
-    </section>
 
 
 <?php

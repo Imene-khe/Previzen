@@ -83,13 +83,14 @@ function get_whatismyip_html(string $ip, string $key): string {
     return $html;
 }
 
-function getTheme() {
-    if (!isset($_SESSION['style'])) {
-        return 'day'; // Par défaut
+function getTheme(): string {
+    if (!isset($_COOKIE['theme'])) {
+        return 'day'; // Thème par défaut
     }
 
-    return ($_SESSION['style'] === './style/style.css') ? 'day' : 'night';
+    return ($_COOKIE['theme'] === 'night_style') ? 'night' : 'day';
 }
+
 
 
 function getIcon($basename) {
