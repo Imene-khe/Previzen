@@ -39,12 +39,21 @@
 
     <section class="info-enneigement">
         <h3>Informations sur l'enneigement</h3>
-        <div class="snow-depth">
-            <!-- Ex : hauteur de neige, dernières chutes, risques d’avalanche -->
-            <p>Hauteur de neige actuelle : -- cm</p>
-            <p>Dernière chute : --</p>
-            <p>Risque d'avalanche : -- / 5</p>
-        </div>
+        <?php
+            $snowData = getSnowDataTignes();
+            if ($snowData):
+                echo "<ul>";
+                foreach ($snowData as $entry) {
+                    $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
+                    echo "<li>❄️ Neige prévue le $jour : " . $entry['snow_cm'] . " cm</li>";
+                }
+                echo "</ul>";
+            else:
+                echo "<p>Impossible de récupérer les données de neige pour Tignes.</p>";
+            endif;
+            ?>
+
+
     </section>
 
 

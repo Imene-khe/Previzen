@@ -478,6 +478,30 @@ function getMareeData(string $ville): ?array {
     return $result;
 }
 
+function getSnowDataTignes(): ?array {
+    $lat = 45.4691;
+    $lon = 6.9063;
+    $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&daily=snowfall_sum&timezone=auto";
+
+    $response = @file_get_contents($url);
+    if (!$response) return null;
+
+    $data = json_decode($response, true);
+    if (!isset($data['daily']['time']) || !isset($data['daily']['snowfall_sum'])) return null;
+
+    $result = [];
+    foreach ($data['daily']['time'] as $i => $date) {
+        $result[] = [
+            'date' => $date,
+            'snow_cm' => $data['daily']['snowfall_sum'][$i]
+        ];
+    }
+
+    return $result;
+}
+
+
+
 
 
 
