@@ -31,51 +31,91 @@ if ($selectedStation) {
 <section class="intro">
     <h2><?= $h1 ?></h2>
     <p>Consultez les prévisions météorologiques en cliquant sur une station sur la carte.</p>
-</section>
 
-<section class="grid-neige">
-    <div class="left-column">
-        <?php if ($selectedStation): ?>
-            <h2>Prévisions pour <?= htmlspecialchars($selectedStation) ?></h2>
-            <?php if (!empty($snowData)): ?>
-                <?php foreach ($snowData as $station): ?>
-                    <div class="station-card">
-                        <h4><?= htmlspecialchars($station['station']) ?></h4>
-                        <div class="snow-grid">
-                            <?php foreach ($station['data'] as $entry): ?>
-                                <?php
-                                    $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
-                                    $cm = $entry['snow_cm'];
-                                    $class = ($cm > 0) ? 'snow-positive' : 'snow-zero';
-                                ?>
-                                <div class="snow-day <?= $class ?>">
-                                    <span class="day"><?= $jour ?></span>
-                                    <span class="flake">❄️</span>
-                                    <span class="cm"><?= $cm ?> cm</span>
-                                </div>
-                            <?php endforeach; ?>
+    <div class="grid-neige" style="margin-top: 2rem;">
+        <div class="left-column">
+            <?php if ($selectedStation): ?>
+                <h3>Prévisions pour <?= htmlspecialchars($selectedStation) ?></h3>
+                <?php if (!empty($snowData)): ?>
+                    <?php foreach ($snowData as $station): ?>
+                        <div class="station-card">
+                            <h4><?= htmlspecialchars($station['station']) ?></h4>
+                            <div class="snow-grid">
+                                <?php foreach ($station['data'] as $entry): ?>
+                                    <?php
+                                        $jour = DateTime::createFromFormat('Y-m-d', $entry['date'])->format('d/m');
+                                        $cm = $entry['snow_cm'];
+                                        $class = ($cm > 0) ? 'snow-positive' : 'snow-zero';
+                                    ?>
+                                    <div class="snow-day <?= $class ?>">
+                                        <span class="day"><?= $jour ?></span>
+                                        <span class="flake">❄️</span>
+                                        <span class="cm"><?= $cm ?> cm</span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="warning">Aucune donnée disponible pour cette station.</p>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="warning">Aucune donnée disponible pour cette station.</p>
+                <?php endif; ?>
             <?php endif; ?>
-        <?php endif; ?>
-    </div>
+        </div>
 
-    <div class="right-column">
-        <h2>📍 Localisation des stations</h2>
-        <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
-        <script>
-            const stations = <?= json_encode($stationsJS) ?>;
-            const mapCenter = {
-                lat: <?= $center['lat'] ?>,
-                lon: <?= $center['lon'] ?>,
-                zoom: <?= $center['zoom'] ?>
-            };
-        </script>
-        <script src="js/mountainMap.js"></script>
+        <div class="right-column">
+            <h3>📍 Localisation des stations</h3>
+            <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
+            <script>
+                const stations = <?= json_encode($stationsJS) ?>;
+                const mapCenter = {
+                    lat: <?= $center['lat'] ?>,
+                    lon: <?= $center['lon'] ?>,
+                    zoom: <?= $center['zoom'] ?>
+                };
+            </script>
+            <script src="js/mountainMap.js"></script>
+        </div>
     </div>
 </section>
+
+<section class="bloc-massifs">
+  <div class="massif-card">
+    <div class="massif-text">
+      <h3>Alpes du Nord</h3>
+      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
+      <a href="#" class="btn primary">Consulter les prévisions météo</a>
+      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+    </div>
+    <div class="massif-image">
+      <?php displayRandomPhotoFigure(); ?>
+    </div>
+  </div>
+
+  <div class="massif-card reverse">
+    <div class="massif-image">
+      <?php displayRandomPhotoFigure(); ?>
+    </div>
+    <div class="massif-text">
+      <h3>Alpes du Sud</h3>
+      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
+      <a href="#" class="btn primary">Consulter les prévisions météo</a>
+      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+    </div>
+  </div>
+
+  <div class="massif-card">
+    <div class="massif-text">
+      <h3>Pyrénées</h3>
+      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
+      <a href="#" class="btn primary">Consulter les prévisions météo</a>
+      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+    </div>
+    <div class="massif-image">
+      <?php displayRandomPhotoFigure(); ?>
+    </div>
+  </div>
+</section>
+
+
 
 <?php include "./include/footer.inc.php"; ?>

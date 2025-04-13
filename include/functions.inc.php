@@ -597,9 +597,29 @@ function getMassifMapCenter(string $massif): array {
     return $massifCenters[$massif] ?? ['lat' => 46.5, 'lon' => 2.5, 'zoom' => 6]; 
 }
 
+function displayRandomPhotoFigure(string $dossier = './images/massif') {
+    $extensions_autorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
+    if (!is_dir($dossier)) {
+        echo "<p>Dossier introuvable : $dossier</p>";
+        return;
+    }
 
+    $fichiers = array_filter(scandir($dossier), function($fichier) use ($dossier, $extensions_autorisees) {
+        $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
+        return is_file($dossier . $fichier) && in_array($extension, $extensions_autorisees);
+    });
 
-
+    if (!empty($fichiers)) {
+        $image = $fichiers[array_rand($fichiers)];
+        $chemin = $dossier . $image;
+        echo '<figure>';
+        echo '<img src="' . htmlspecialchars($chemin) . '" alt="Image aléatoire">';
+        echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
+        echo '</figure>';
+    } else {
+        echo "<p>Aucune image disponible dans le dossier <strong>$dossier</strong>.</p>";
+    }
+}
 
 ?>

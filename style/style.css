@@ -117,6 +117,16 @@ h2 {
   text-align: center;
 }
 
+h3  {
+  background-color: #2d5caf;
+  color: rgb(235, 229, 229);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 section {
   margin: 40px auto;
   padding: 30px;
@@ -128,6 +138,16 @@ section {
 }
 
 section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1A237E;
+  border-left: 6px solid #90CAF9;
+  padding-left: 16px;
+  margin-bottom: 16px;
+  background: none;
+  border-radius: 0;
+}
+section h3 {
   font-size: 1.8rem;
   font-weight: 600;
   color: #1A237E;
@@ -969,7 +989,74 @@ section.grid-neige {
 }
 
 #popup a {
-  color: #0077cc;        /* ou la couleur de ton choix */
+  color: #0077cc;       
   font-weight: normal;
   text-decoration: underline;
 }
+
+.bloc-massifs {
+  max-width: 1200px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.massif-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.massif-card.reverse {
+  flex-direction: row-reverse;
+}
+
+.massif-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.massif-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.massif-text h3 {
+  color: #1A237E;
+  font-size: 1.5rem;
+}
+
+.massif-text p {
+  margin: 0.8rem 0 1.5rem;
+  color: #333;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  margin-right: 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn.primary {
+  background-color: #1565c0;
+  color: white;
+}
+
+.btn.secondary {
+  border: 1px solid #1565c0;
+  color: #1565c0;
+  background-color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
