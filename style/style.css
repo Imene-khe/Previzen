@@ -1007,7 +1007,13 @@ section.grid-neige {
   flex-wrap: wrap;
   align-items: center;
   gap: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
+
 
 .massif-card.reverse {
   flex-direction: row-reverse;

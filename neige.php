@@ -81,22 +81,22 @@ if ($selectedStation) {
 <section class="bloc-massifs">
   <div class="massif-card">
     <div class="massif-text">
-      <h3>Alpes du Nord</h3>
+      <h3>Alpes francaises</h3>
       <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
       <a href="#" class="btn primary">Consulter les prévisions météo</a>
       <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
     </div>
     <div class="massif-image">
-      <?php displayRandomPhotoFigure(); ?>
+      <?php displayRandomPhotoFigureByMassif('alpes'); ?>
     </div>
   </div>
 
   <div class="massif-card reverse">
     <div class="massif-image">
-      <?php displayRandomPhotoFigure(); ?>
+      <?php displayRandomPhotoFigureByMassif('jura'); ?>
     </div>
     <div class="massif-text">
-      <h3>Alpes du Sud</h3>
+      <h3>Jura</h3>
       <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
       <a href="#" class="btn primary">Consulter les prévisions météo</a>
       <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
@@ -111,7 +111,32 @@ if ($selectedStation) {
       <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
     </div>
     <div class="massif-image">
-      <?php displayRandomPhotoFigure(); ?>
+      <?php displayRandomPhotoFigureByMassif('pyrenees'); ?>
+    </div>
+  </div>
+
+
+<div class="massif-card reverse">
+    <div class="massif-image">
+      <?php displayRandomPhotoFigureByMassif('vosges'); ?>
+    </div>
+    <div class="massif-text">
+      <h3>Vosges</h3>
+      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
+      <a href="#" class="btn primary">Consulter les prévisions météo</a>
+      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+    </div>
+  </div>
+
+  <div class="massif-card">
+    <div class="massif-text">
+      <h3>Massif Central</h3>
+      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
+      <a href="#" class="btn primary">Consulter les prévisions météo</a>
+      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+    </div>
+    <div class="massif-image">
+      <?php displayRandomPhotoFigureByMassif('massif-central'); ?>
     </div>
   </div>
 </section>

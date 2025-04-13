@@ -607,12 +607,12 @@ function displayRandomPhotoFigure(string $dossier = './images/massif') {
 
     $fichiers = array_filter(scandir($dossier), function($fichier) use ($dossier, $extensions_autorisees) {
         $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
-        return is_file($dossier . $fichier) && in_array($extension, $extensions_autorisees);
+        return is_file($dossier . '/' . $fichier) && in_array($extension, $extensions_autorisees);
     });
 
     if (!empty($fichiers)) {
         $image = $fichiers[array_rand($fichiers)];
-        $chemin = $dossier . $image;
+        $chemin = $dossier . '/' . $image;
         echo '<figure>';
         echo '<img src="' . htmlspecialchars($chemin) . '" alt="Image aléatoire">';
         echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
@@ -621,5 +621,33 @@ function displayRandomPhotoFigure(string $dossier = './images/massif') {
         echo "<p>Aucune image disponible dans le dossier <strong>$dossier</strong>.</p>";
     }
 }
+
+
+function displayRandomPhotoFigureByMassif(string $massif) {
+    $dossier = "./images/massif/" . strtolower($massif) . "/";
+    $extensions_autorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    if (!is_dir($dossier)) {
+        echo "<p>Dossier introuvable pour le massif : <strong>$massif</strong></p>";
+        return;
+    }
+
+    $fichiers = array_filter(scandir($dossier), function($fichier) use ($dossier, $extensions_autorisees) {
+        $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
+        return is_file($dossier . $fichier) && in_array($extension, $extensions_autorisees);
+    });
+
+    if (!empty($fichiers)) {
+        $image = $fichiers[array_rand($fichiers)];
+        $chemin = $dossier . $image;
+        echo '<figure>';
+        echo '<img src="' . htmlspecialchars($chemin) . '" alt="' . htmlspecialchars($massif) . '" style="width:100%; height:250px; object-fit:cover; border-radius:12px;">';
+        echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
+        echo '</figure>';
+    } else {
+        echo "<p>Aucune image disponible dans le dossier <strong>$dossier</strong>.</p>";
+    }
+}
+
 
 ?>
