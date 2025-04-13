@@ -1,22 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const map = L.map('map').setView([48.05, 6.9], 9); // Centrage Vosges
+    if (!stations || stations.length === 0) return;
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 18
-    }).addTo(map);
+    const features = stations.map(station => {
+        return new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([station.lon, station.lat])),
+            name: station.name
+        });
+    });
 
-    const stations = [
-        { name: "La Bresse", lat: 48.0022, lon: 6.8807 },
-        { name: "Gérardmer", lat: 48.0678, lon: 6.8755 },
-        { name: "Ventron", lat: 47.9475, lon: 6.8731 },
-        { name: "Le Champ du Feu", lat: 48.3963, lon: 7.2308 },
-        { name: "Ballon d’Alsace", lat: 47.8350, lon: 6.8440 }
-    ];
+    const vectorSource = new ol.source.Vector({ features });
 
-    stations.forEach(station => {
-        L.marker([station.lat, station.lon])
-            .addTo(map)
-            .bindPopup(`<strong>${station.name}</strong><br><a href="neige.php?station=${encodeURIComponent(station.name)}">Voir les prévisions</a>`);
+    const vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 6,
+                fill: new ol.style.Fill({ color: 'red' }),
+                stroke: new ol.style.Stroke({ color: '#fff', width: 2 })
+            })
+        })
+    });
+
+    const map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }),
+            vectorLayer
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([2.2137, 46.2276]), // centre France
+            zoom: 6
+        })
+    });
+
+    const popup = document.createElement('div');
+    popup.id = 'popup';
+    popup.style = 'background: white; padding: 5px; border: 1px solid black; position: absolute;';
+    document.body.appendChild(popup);
+
+    const overlay = new ol.Overlay({
+        element: popup,
+        positioning: 'bottom-center',
+        stopEvent: false,
+        offset: [0, -10],
+    });
+    map.addOverlay(overlay);
+
+    map.on('click', function (evt) {
+        const feature = map.forEachFeatureAtPixel(evt.pixel, f => f);
+        if (feature) {
+            const name = feature.get('name');
+            overlay.setPosition(evt.coordinate);
+            popup.innerHTML = `<strong>${name}</strong><br><a href="neige.php?station=${encodeURIComponent(name)}">Voir les prévisions</a>`;
+        } else {
+            popup.innerHTML = '';
+            overlay.setPosition(undefined);
+        }
     });
 });

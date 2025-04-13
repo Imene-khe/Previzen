@@ -1,11 +1,28 @@
 <?php
-$title = "PreviZen";
-$description = "La météo des neiges disponible en un clic";
-$h1 = "Prévision météo dans les massifs montagneux sur une période de 7 jours";
-$lang = $_GET['lang'] ?? 'fr';
+    $title = "PreviZen";
+    $description = "La météo des neiges disponible en un clic";
+    $h1 = "Prévision météo dans les massifs montagneux sur une période de 7 jours";
+    $lang = $_GET['lang'] ?? 'fr';
 
-include "./include/header.inc.php";
+    include "./include/functions.inc.php";
+
+    $stationsJS = [];
+
+        if (isset($_GET['massif']) && $_GET['massif'] !== '') {
+            $stationsJS = getTopSkiStationsByMassif($_GET['massif']);
+        } else {
+            // Toutes les stations si aucun massif n'est sélectionné
+            $stationsJS = array_merge(
+                getTopSkiStationsByMassif('alpes'),
+                getTopSkiStationsByMassif('pyrenees'),
+                getTopSkiStationsByMassif('vosges'),
+                getTopSkiStationsByMassif('jura'),
+                getTopSkiStationsByMassif('massif-central'),
+                getTopSkiStationsByMassif('corse')
+            );
+        }
 ?>
+<?php include "./include/header.inc.php";?>
 
 <section class="intro">
     <h2><?= $h1 ?></h2>
@@ -65,9 +82,32 @@ include "./include/header.inc.php";
 
 <section class="map">
     <h2>📍 Localisation des stations</h2>
-    <div id="map" style="height: 500px; border-radius: 12px; overflow: hidden;"></div>
+    <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
+
+    <?php
+    $stationsJS = [];
+
+    if (isset($_GET['massif']) && $_GET['massif'] !== '') {
+        $stationsJS = getTopSkiStationsByMassif($_GET['massif']);
+    } else {
+        $massifs = ['alpes', 'pyrenees', 'vosges', 'jura', 'massif-central', 'corse'];
+        foreach ($massifs as $massif) {
+            $stationsJS = array_merge($stationsJS, getTopSkiStationsByMassif($massif));
+        }
+    }
+    ?>
+
+    <script>
+    const stations = <?= json_encode($stationsJS) ?>;
+    </script>
+
     <script src="js/mountainMap.js"></script>
 </section>
+
+
+
+
+
 
 
 <?php include "./include/footer.inc.php"; ?>
