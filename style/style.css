@@ -854,3 +854,70 @@ svg path {
 .region-92 { fill: #ffd54f; }  /* jaune orangé */
 .region-93 { fill: #ffb74d; }  /* orange doux */
 .region-94 { fill: #ff8a65; }  /* corail doux */
+
+.stations-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.station-card {
+  background-color: var(--card-bg, #ffffff);
+  color: var(--text-color, #333);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  width: 280px;
+  transition: transform 0.2s ease;
+}
+
+.station-card:hover {
+  transform: translateY(-5px);
+}
+
+.station-card h4 {
+  text-align: center;
+  color: var(--title-color, #1A237E);
+  margin-bottom: 1rem;
+}
+
+.snow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 0.6rem;
+}
+
+.snow-day {
+  background-color: var(--day-bg, #f0f0f0);
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.snow-day .day {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.snow-day .flake {
+  font-size: 1.2rem;
+}
+
+.snow-day .cm {
+  font-size: 0.95rem;
+}
+
+.snow-day.snow-zero {
+  opacity: 0.5;
+}
+
+.snow-day.snow-positive {
+  background-color: #e3f2fd;
+  color: #0044cc;
+  font-weight: bold;
+}

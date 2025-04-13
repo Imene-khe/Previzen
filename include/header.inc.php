@@ -39,6 +39,10 @@ require_once __DIR__ . '/functions.inc.php';
     <link rel="stylesheet" href="<?php echo $stylePath; ?>">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 </head>
 
 <body>
