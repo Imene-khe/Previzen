@@ -869,8 +869,10 @@ svg path {
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   padding: 1.5rem;
-  width: 280px;
+  width: 100%;
+  max-width: 320px;
   transition: transform 0.2s ease;
+  text-align: center;
 }
 
 .station-card:hover {
@@ -878,6 +880,7 @@ svg path {
 }
 
 .station-card h4 {
+  font-size: 1.4rem;
   text-align: center;
   color: var(--title-color, #1A237E);
   margin-bottom: 1rem;
@@ -885,39 +888,82 @@ svg path {
 
 .snow-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 .snow-day {
   background-color: var(--day-bg, #f0f0f0);
-  padding: 0.5rem;
-  border-radius: 8px;
+  padding: 0.8rem;
+  border-radius: 10px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .snow-day .day {
   font-weight: bold;
   display: block;
+  margin-bottom: 0.3rem;
+  color: #1A237E;
+}
+
+
+.snow-day .flake {
+  font-size: 1.4rem;
+  display: block;
   margin-bottom: 0.2rem;
 }
 
-.snow-day .flake {
-  font-size: 1.2rem;
-}
-
 .snow-day .cm {
-  font-size: 0.95rem;
+  font-size: 1rem;
+  color: #0077cc;
+  font-weight: bold;
 }
 
 .snow-day.snow-zero {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .snow-day.snow-positive {
   background-color: #e3f2fd;
   color: #0044cc;
   font-weight: bold;
+}
+
+.grid-neige {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 2rem;
+  justify-content: space-between;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 500px;
+}
+
+.right-column #map {
+  width: 100%;
+  height: 500px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 500px;
+  overflow: hidden;
+}
+
+section.grid-neige {
+  max-width: 1200px;
 }

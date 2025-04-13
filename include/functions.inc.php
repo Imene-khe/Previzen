@@ -562,6 +562,43 @@ function getTopSkiStationsByMassif(string $massif): array {
     return $stations[$massif] ?? [];
 }
 
+function getSnowDataForStation(string $stationName, float $lat, float $lon): array {
+    $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&daily=snowfall_sum&timezone=auto";
+    $response = @file_get_contents($url);
+    if (!$response) return [];
+
+    $data = json_decode($response, true);
+    if (!isset($data['daily']['time']) || !isset($data['daily']['snowfall_sum'])) return [];
+
+    $entries = [];
+    foreach ($data['daily']['time'] as $i => $date) {
+        $entries[] = [
+            'date' => $date,
+            'snow_cm' => $data['daily']['snowfall_sum'][$i]
+        ];
+    }
+
+    return [[
+        'station' => $stationName,
+        'data' => $entries
+    ]];
+}
+
+function getMassifMapCenter(string $massif): array {
+    $massifCenters = [
+        'alpes' => ['lat' => 45.5, 'lon' => 6.5, 'zoom' => 8],
+        'pyrenees' => ['lat' => 42.8, 'lon' => 0.3, 'zoom' => 8],
+        'vosges' => ['lat' => 48.0, 'lon' => 6.9, 'zoom' => 8],
+        'jura' => ['lat' => 46.5, 'lon' => 6.0, 'zoom' => 9],
+        'massif-central' => ['lat' => 45.3, 'lon' => 2.8, 'zoom' => 8],
+        'corse' => ['lat' => 42.2, 'lon' => 9.1, 'zoom' => 8]
+    ];
+
+    return $massifCenters[$massif] ?? ['lat' => 46.5, 'lon' => 2.5, 'zoom' => 6]; 
+}
+
+
+
 
 
 

@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
             vectorLayer
         ],
         view: new ol.View({
-            center: ol.proj.fromLonLat([2.2137, 46.2276]), // centre France
-            zoom: 6
+            center: ol.proj.fromLonLat([mapCenter.lon, mapCenter.lat]),
+            zoom: mapCenter.zoom
         })
     });
 
@@ -43,9 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlay = new ol.Overlay({
         element: popup,
         positioning: 'bottom-center',
-        stopEvent: false,
+        stopEvent: true, 
         offset: [0, -10],
     });
+    
     map.addOverlay(overlay);
 
     map.on('click', function (evt) {
