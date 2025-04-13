@@ -967,3 +967,9 @@ svg path {
 section.grid-neige {
   max-width: 1200px;
 }
+
+#popup a {
+  color: #0077cc;        /* ou la couleur de ton choix */
+  font-weight: normal;
+  text-decoration: underline;
+}
