@@ -549,4 +549,88 @@ svg path {
 .region-93 { fill: #ffb74d; }  /* orange doux */
 .region-94 { fill: #ff8a65; }  /* corail doux */
 
-  
+.station-card {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(255,255,255,0.05);
+}
+
+.station-card h4 {
+  color: #90CAF9;
+}
+
+.snow-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.snow-day {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.snow-day .day {
+  color: #bbdefb;
+}
+
+.snow-day .cm {
+  color: #64b5f6;
+}
+
+.snow-day.snow-positive {
+  background-color: #1e3a5f;
+  color: #90CAF9;
+}
+
+.bloc-massifs {
+  background-color: transparent;
+}
+
+.massif-card {
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+}
+
+.massif-text h3 {
+  color: #90CAF9;
+}
+
+.massif-text p {
+  color: #ccc;
+}
+
+.btn.primary {
+  background-color: #1565c0;
+  color: white;
+}
+
+.btn.secondary {
+  border: 1px solid #1565c0;
+  color: #90CAF9;
+  background-color: transparent;
+}
+
+#popup {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+#popup a {
+  color: #64b5f6;
+}
+
+/* Lien carte SVG */
+.sidebar ul li a {
+  color: #64b5f6;
+}
+
+.sidebar ul li a:hover {
+  background-color: #2a2a2a;
+}
+
+.massif-image img {
+  border: 1px solid #444;
+}

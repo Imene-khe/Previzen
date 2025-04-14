@@ -1016,6 +1016,7 @@ section.grid-neige {
 
 
 .massif-card.reverse {
+  display: flex; /* ← important ! */
   flex-direction: row-reverse;
 }
 
