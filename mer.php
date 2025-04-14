@@ -1,7 +1,7 @@
 <?php
 $title = "PreviZen";
 $description = "La météo des plages disponible en un clic";
-$h1 = "Prévision météo sur le littoral sur une période de 7 jours";
+$h1 = "Prévision météo sur le littoral francais métropolitain";
 $lang = isset($_GET['lang']) ? $_GET['lang'] : 'fr';
 
 include './include/functions.inc.php';

@@ -83,7 +83,7 @@ require_once __DIR__ . '/functions.inc.php';
                     </ul>
             
             </li>
-                <li><a href="./orage.php"><img src="<?php echo getIcon('orage'); ?>" alt="Orage" class="nav-icon">Orage</a></li>
+                <li><a href="./pollens.php"><img src="<?php echo getIcon('pollens'); ?>" alt="Pollen" class="nav-icon">Pollens</a></li>
             </ul>
 
 			
