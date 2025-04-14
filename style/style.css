@@ -988,6 +988,24 @@ section.grid-neige {
   max-width: 1200px;
 }
 
+#popup {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ccc;
+  max-width: 200px;
+  text-align: center;
+  z-index: 9999;
+  pointer-events: auto;
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+
 #popup a {
   color: #0077cc;       
   font-weight: normal;
@@ -1058,10 +1076,25 @@ section.grid-neige {
 }
 
 .btn.secondary {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
   border: 1px solid #1565c0;
+  border-radius: 6px;
   color: #1565c0;
   background-color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s, border 0.3s;
 }
+
+.btn.secondary:hover {
+  background-color: #1565c0;
+  color: white;
+  text-decoration: none;
+}
+
+
 
 .btn:hover {
   opacity: 0.9;
@@ -1069,5 +1102,34 @@ section.grid-neige {
 
 .massif-text p {
   text-align: center;
+}
+
+.cote-cards {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.cote-card {
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #d0e8ff, #a0cfff);
+  color: #003366;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.cote-card:hover {
+  transform: scale(1.05);
+}
+
+.autre-ville {
+  text-align: center;
+  margin-top: 2rem;
 }
 

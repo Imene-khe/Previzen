@@ -24,9 +24,92 @@ foreach ($stations as &$station) {
 include "./include/header.inc.php";
 ?>
 
-<!-- SECTION 1 : Carte interactive -->
+<section class="choix-cote" id="choix">
+    <h2>Choisissez une côte</h2>
+
+    <?php if (!isset($_GET['zone'])): ?>
+        <div class="cote-cards">
+            <a href="mer.php?zone=manche#choix" class="cote-card manche">🌊 Manche</a>
+            <a href="mer.php?zone=atlantique#choix" class="cote-card atlantique">🌬 Atlantique</a>
+            <a href="mer.php?zone=mediterranee#choix" class="cote-card mediterranee">☀️ Méditerranée</a>
+        </div>
+    <?php else:
+        $zone = $_GET['zone'];
+        $stations = [
+            'manche' => ['Dieppe', 'Le Havre', 'Cherbourg', 'Granville', 'Saint-Malo'],
+            'atlantique' => ['La Rochelle', 'Arcachon', 'Royan', 'Biarritz', 'Soulac-sur-Mer'],
+            'mediterranee' => ['Nice', 'Cannes', 'Sète', 'Marseille', 'Argelès-sur-Mer']
+        ];
+    ?>
+        <div class="cote-cards">
+            <?php foreach ($stations[$zone] as $station): ?>
+                <a href="mer.php?plage=<?= urlencode($station) ?>" class="cote-card"><?= htmlspecialchars($station) ?></a>
+            <?php endforeach; ?>
+        </div>
+        <p><a href="mer.php" class="btn secondary">🔙 Retour au choix des côtes</a></p>
+    <?php endif; ?>
+
+    <div class="autre-ville">
+        <h3>Ou entrez une ville manuellement</h3>
+        <form method="get">
+            <input type="text" name="plage" placeholder="Ex. : Biarritz, Nice, La Baule..." required>
+            <button type="submit">Voir la météo</button>
+        </form>
+    </div>
+
+    <?php if ($meteoPlage): ?>
+    <section class="meteo-local">
+    <h2>Prévision météo à <?= htmlspecialchars($plage) ?></h2>
+    <p>Consultez les conditions météo détaillées pour votre station balnéaire.</p>
+
+    <div class="meteo-principale">
+        <div class="temperature">
+            <span class="temp-val"><?= round($meteoPlage['temp_air']) ?>°</span>
+            <span class="temp-ressenti">Eau : <?= round($meteoPlage['temp_eau']) ?>°</span>
+        </div>
+        <div class="meteo-condition">
+            <img src="images/icons/soleil-nuage.png" alt="Condition météo">
+            <span><?= htmlspecialchars($meteoPlage['condition']) ?></span>
+        </div>
+        <div class="vent">
+            Vent : <?= $meteoPlage['vent'] ?> km/h
+        </div>
+    </div>
+
+    <div class="previsions-heures">
+        <div class="carte-moment">
+            <h4>UV</h4>
+            <p><?= $meteoPlage['uv'] ?></p>
+        </div>
+        <div class="carte-moment">
+            <h4>Marée</h4>
+            <p><?= $meteoPlage['maree'] ?></p>
+        </div>
+    </div>
+
+    <details class="details-box">
+        <summary class="detail-btn">Plus de détails</summary>
+        <ul>
+            <li><strong>Condition :</strong> <?= $meteoPlage['condition'] ?></li>
+            <li><strong>Température de l’air :</strong> <?= round($meteoPlage['temp_air']) ?> °C</li>
+            <li><strong>Température de l’eau :</strong> <?= round($meteoPlage['temp_eau']) ?> °C</li>
+            <li><strong>Vent moyen :</strong> <?= $meteoPlage['vent'] ?> km/h</li>
+            <li><strong>Indice UV :</strong> <?= $meteoPlage['uv'] ?></li>
+            <li><strong>Marée :</strong> <?= $meteoPlage['maree'] ?></li>
+        </ul>
+    </details>
+</section>
+<?php endif; ?>
+
+
+
+</section>
+
+
+
 <section id="carte-france">
-    <h2>Choisissez une zone du littoral</h2>
+    <h2>Carte des vents pour les principales stations balnéaires francaises </h2>
+    <p>Sélectionnez une des principales stations marquées sur la carte pour voir les rafales de vent</p>
     <div id="map" style="height: 500px; width: 100%; border-radius: 12px; margin-top: 1rem;"></div>
 
     <script>
@@ -34,44 +117,6 @@ include "./include/header.inc.php";
     </script>
 
     <script src="js/marineMap.js"></script>
-</section>
-
-<!-- SECTION 2 : formulaire + météo -->
-<section id="infos-ville-cotiere">
-    <h2>Prévisions météo pour les plages françaises</h2>
-    <p>Consultez les conditions météo, l’indice UV et la température de l’eau sur les côtes françaises.</p>
-
-    <form method="get">
-        <label for="plage">Choisissez une plage ou une ville côtière :</label>
-        <input type="text" id="plage" name="plage" placeholder="Ex. : Biarritz, Nice, La Baule..." required value="<?= $plage ?>">
-        <button type="submit">Voir la météo</button>
-    </form>
-
-    <?php if ($plage && $meteoPlage): ?>
-        <h2>Météo marine à <?= $plage ?></h2>
-
-        <div class="meteo-detail">
-            <img src="images/<?= $meteoPlage['icone'] ?>" alt="Météo" class="meteo-img">
-            <div class="meteo-blocs">
-                <div class="bloc">
-                    <h4>Température de l'air</h4>
-                    <p><?= $meteoPlage['temp_air'] ?>°C</p>
-                </div>
-                <div class="bloc">
-                    <h4>Température de l’eau</h4>
-                    <p><?= $meteoPlage['temp_eau'] ?>°C</p>
-                </div>
-                <div class="bloc">
-                    <h4>Vent</h4>
-                    <p><?= $meteoPlage['vent'] ?> km/h</p>
-                </div>
-                <div class="bloc">
-                    <h4>Indice UV</h4>
-                    <p><?= $meteoPlage['uv'] ?>/10</p>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 </section>
 
 <!-- SECTION 3 : Conseils -->
