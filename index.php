@@ -33,7 +33,7 @@
 <section>
     <h2>Bienvenue sur PreviZen</h2>
     <p>
-        Consultez les prévisions météo détaillées à 10 jours pour chaque région de France.
+        Consultez les prévisions météo détaillées à 7 jours pour chaque région de France.
     </p>
 
     <?php if ($forecast): ?>

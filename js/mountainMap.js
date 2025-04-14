@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (feature) {
             const name = feature.get('name');
             overlay.setPosition(evt.coordinate);
-            popup.innerHTML = `<strong>${name}</strong><br><a href="neige.php?station=${encodeURIComponent(name)}">Voir les prévisions</a>`;
+            popup.innerHTML = `<strong>${name}</strong><br><a href="neige.php?station=${encodeURIComponent(name)}#intro">Voir les prévisions</a>`;
         } else {
             popup.innerHTML = '';
             overlay.setPosition(undefined);

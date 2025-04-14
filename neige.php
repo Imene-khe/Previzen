@@ -34,9 +34,9 @@ if ($selectedStation) {
   <div class="massif-card">
     <div class="massif-text">
       <h3>Alpes francaises</h3>
-      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
-      <a href="#" class="btn primary">Consulter les prévisions météo</a>
-      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+      <p>Suivez les chutes de neige et les températures des stations alpines.</p>
+      <a href="./neige.php?massif=alpes#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=auvergne-rhône-alpes" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
       <?php displayRandomPhotoFigureByMassif('alpes'); ?>
@@ -46,9 +46,9 @@ if ($selectedStation) {
   <div class="massif-card reverse">
     <div class="massif-text">
       <h3>Jura</h3>
-      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
-      <a href="#" class="btn primary">Consulter les prévisions météo</a>
-      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+      <p>Consultez les conditions météo idéales pour le ski nordique.</p>
+      <a href="./neige.php?massif=jura#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=bourgogne-franche-comté" class="btn secondary">Consulter les prévisons météo</a>
     </div>
     <div class="massif-image">
       <?php displayRandomPhotoFigureByMassif('jura'); ?>
@@ -58,9 +58,9 @@ if ($selectedStation) {
   <div class="massif-card">
     <div class="massif-text">
       <h3>Pyrénées</h3>
-      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
-      <a href="#" class="btn primary">Consulter les prévisions météo</a>
-      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+      <p>Vérifiez les prévisions météo et les hauteurs de neige dans les Pyrénées.</p>
+      <a href="./neige.php?massif=pyrenees#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=occitanie" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
       <?php displayRandomPhotoFigureByMassif('pyrenees'); ?>
@@ -70,9 +70,9 @@ if ($selectedStation) {
   <div class="massif-card reverse">
     <div class="massif-text">
       <h3>Vosges</h3>
-      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
-      <a href="#" class="btn primary">Consulter les prévisions météo</a>
-      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+      <p>Restez informé des précipitations et du froid en altitude.</p>
+      <a href="./neige.php?massif=vosges#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=grand-est" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
       <?php displayRandomPhotoFigureByMassif('vosges'); ?>
@@ -82,18 +82,30 @@ if ($selectedStation) {
   <div class="massif-card">
     <div class="massif-text">
       <h3>Massif Central</h3>
-      <p>Retrouvez les prévisions météo sur votre station, les risques d’avalanches, l’enneigement et les relevés de hauteurs de neige.</p>
-      <a href="#" class="btn primary">Consulter les prévisions météo</a>
-      <a href="#" class="btn secondary">Consulter le risque d’avalanche</a>
+      <p>Obtenez les bulletins neige et météo au cœur des volcans d’Auvergne.</p>
+      <a href="./neige.php?massif=massif-central#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=bourgogne-franche-comté" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
       <?php displayRandomPhotoFigureByMassif('massif-central'); ?>
     </div>
   </div>
 
+  <div class="massif-card reverse">
+    <div class="massif-text">
+      <h3>Corse</h3>
+      <p>Anticipez les conditions météo en montagne sur l'île de Beauté.</p>
+      <a href="./neige.php?massif=corse#intro" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./departements.php?region=corse" class="btn secondary">Consulter les prévisions météo</a>
+    </div>
+    <div class="massif-image">
+      <?php displayRandomPhotoFigureByMassif('corse'); ?>
+    </div>
+  </div>
+
 </section>
 
-<section class="intro">
+<section class="intro" id="intro">
     <h2><?= $h1 ?></h2>
     <p>Consultez les prévisions météorologiques en cliquant sur une station sur la carte.</p>
 

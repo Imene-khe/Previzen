@@ -73,11 +73,11 @@ require_once __DIR__ . '/functions.inc.php';
                 </li>
                 <li><a href="./neige.php"><img src="<?php echo getIcon('montagne'); ?>" alt="Montagne" class="nav-icon">Météo des neiges</a>
                     <ul class="submenu">
-                                <li><a href="./neige.php?massif=jura">Jura</a></li>
-                                <li><a href="./neige.php?massif=vosges">Vosges</a></li>
-                                <li><a href="./neige.php?massif=alpes">Alpes Francaise</a></li>
-                                <li><a href="./neige.php?massif=massif-central">Massif Centrale</a></li>
-                                <li><a href="./neige.php?massif=pyrenees">Pyrénées</a></li>
+                                <li><a href="./neige.php?massif=jura#intro">Jura</a></li>
+                                <li><a href="./neige.php?massif=vosges#intro">Vosges</a></li>
+                                <li><a href="./neige.php?massif=alpes#intro">Alpes Francaise</a></li>
+                                <li><a href="./neige.php?massif=massif-central#intro">Massif Centrale</a></li>
+                                <li><a href="./neige.php?massif=pyrenees#intro">Pyrénées</a></li>
 
 
                     </ul>

@@ -1067,3 +1067,7 @@ section.grid-neige {
   opacity: 0.9;
 }
 
+.massif-text p {
+  text-align: center;
+}
+
