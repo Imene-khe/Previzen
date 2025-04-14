@@ -70,4 +70,22 @@ document.addEventListener("DOMContentLoaded", () => {
             popup.innerHTML = '';
         }
     });
+
+    // Centrage dynamique selon la zone sélectionnée
+    const zone = typeof selectedZone !== "undefined" ? selectedZone : new URLSearchParams(window.location.search).get('zone');
+    if (zone) {
+        const zonesView = {
+            manche: { center: [-1.5, 49.7], zoom: 7.3 },
+            atlantique: { center: [-2.3, 46.0], zoom: 7.2 },
+            mediterranee: { center: [4.8, 43.3], zoom: 7.4 }
+        };
+        const selected = zonesView[zone.toLowerCase()];
+        if (selected) {
+            map.getView().animate({
+                center: ol.proj.fromLonLat(selected.center),
+                zoom: selected.zoom,
+                duration: 1000
+            });
+        }
+    }
 });

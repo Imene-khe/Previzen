@@ -35,14 +35,14 @@ include "./include/header.inc.php";
         </div>
     <?php else:
         $zone = $_GET['zone'];
-        $stations = [
+        $stationsParZone = [
             'manche' => ['Dieppe', 'Le Havre', 'Cherbourg', 'Granville', 'Saint-Malo'],
             'atlantique' => ['La Rochelle', 'Arcachon', 'Royan', 'Biarritz', 'Soulac-sur-Mer'],
             'mediterranee' => ['Nice', 'Cannes', 'Sète', 'Marseille', 'Argelès-sur-Mer']
         ];
     ?>
         <div class="cote-cards">
-            <?php foreach ($stations[$zone] as $station): ?>
+            <?php foreach ($stationsParZone[$zone] as $station): ?>
                 <a href="mer.php?plage=<?= urlencode($station) ?>" class="cote-card"><?= htmlspecialchars($station) ?></a>
             <?php endforeach; ?>
         </div>
@@ -114,6 +114,7 @@ include "./include/header.inc.php";
 
     <script>
     const stations = <?= json_encode($stations) ?>;
+    const selectedZone = "<?= $_GET['zone'] ?? '' ?>";
     </script>
 
     <script src="js/marineMap.js"></script>
