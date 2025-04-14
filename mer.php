@@ -6,12 +6,39 @@ $lang = isset($_GET['lang']) ? $_GET['lang'] : 'fr';
 
 include './include/functions.inc.php';
 
+$departementsCotiers = [
+    '06', '13', '30', '34', '11', '66', // Méditerranée
+    '17', '16', '33', '40', '64',       // Atlantique
+    '29', '22', '35', '44', '85', '56', // Bretagne / Loire
+    '50', '14', '76', '62', '59'        // Manche / Nord
+];
+
+function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv'): ?string {
+    if (!file_exists($csv)) return null;
+    $handle = fopen($csv, 'r');
+    fgetcsv($handle); // skip header
+    while (($row = fgetcsv($handle)) !== false) {
+        if (strtolower(trim($row[2])) === strtolower(trim($ville))) {
+            fclose($handle);
+            return str_pad($row[12], 2, "0", STR_PAD_LEFT); // dep_code
+        }
+    }
+    fclose($handle);
+    return null;
+}
+
 $plage = null;
 $meteoPlage = null;
 
 if (isset($_GET['plage'])) {
     $plage = htmlspecialchars($_GET['plage']);
-    $meteoPlage = getPlageWeatherData($plage);
+    $dep = getDepartementFromCSV($plage);
+    if ($dep && in_array($dep, $departementsCotiers)) {
+        $meteoPlage = getPlageWeatherData($plage);
+    } else {
+        $meteoPlage = null;
+        $villeInvalide = true;
+    }
 }
 
 // ➕ Ajout dynamique des vents pour les stations
@@ -57,6 +84,10 @@ include "./include/header.inc.php";
         </form>
     </div>
 
+    <?php if (isset($villeInvalide) && $villeInvalide): ?>
+        <div class="alerte-ville">❌ Désolé, <strong><?= htmlspecialchars($plage) ?></strong> ne semble pas être une station balnéaire.</div>
+    <?php endif; ?>
+
     <?php if ($meteoPlage): ?>
     <section class="meteo-local">
     <h2>Prévision météo à <?= htmlspecialchars($plage) ?></h2>
@@ -100,8 +131,6 @@ include "./include/header.inc.php";
     </details>
 </section>
 <?php endif; ?>
-
-
 
 </section>
 

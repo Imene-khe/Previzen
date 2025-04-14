@@ -676,6 +676,23 @@ function getTopBeachStations() {
     return $stations;
 }
 
+function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv'): ?string {
+    if (!file_exists($csv)) return null;
+
+    $handle = fopen($csv, 'r');
+    fgetcsv($handle); // saute l'en-tête
+
+    while (($row = fgetcsv($handle)) !== false) {
+        $nom = strtolower(trim($row[2])); // nom_standard
+        if ($nom === strtolower(trim($ville))) {
+            fclose($handle);
+            return str_pad($row[12], 2, "0", STR_PAD_LEFT); // dep_code (colonne 12)
+        }
+    }
+
+    fclose($handle);
+    return null;
+}
 
 
 
