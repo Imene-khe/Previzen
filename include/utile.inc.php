@@ -5,4 +5,6 @@ function estimateWaterTemp($airTemp) {
     return max(10, round($airTemp - rand(2, 6), 1));
 }
 
+
+
 ?>

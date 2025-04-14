@@ -649,5 +649,34 @@ function displayRandomPhotoFigureByMassif(string $massif) {
     }
 }
 
+function getTopBeachStations() {
+    $stations = [
+        ['name' => 'Nice', 'lat' => 43.7034, 'lon' => 7.2663],
+        ['name' => 'Cannes', 'lat' => 43.5528, 'lon' => 7.0174],
+        ['name' => 'Marseille', 'lat' => 43.2965, 'lon' => 5.3698],
+        ['name' => 'Sète', 'lat' => 43.4035, 'lon' => 3.6928],
+        ['name' => 'Le Grau-du-Roi', 'lat' => 43.5384, 'lon' => 4.1352],
+        ['name' => 'Argelès-sur-Mer', 'lat' => 42.5391, 'lon' => 3.0232],
+        ['name' => 'La Rochelle', 'lat' => 46.1603, 'lon' => -1.1511],
+        ['name' => 'Les Sables-d\'Olonne', 'lat' => 46.4969, 'lon' => -1.7831],
+        ['name' => 'Pornic', 'lat' => 47.1162, 'lon' => -2.1124],
+        ['name' => 'Biarritz', 'lat' => 43.4832, 'lon' => -1.5586],
+        ['name' => 'Arcachon', 'lat' => 44.6611, 'lon' => -1.1695],
+        ['name' => 'Brest', 'lat' => 48.3904, 'lon' => -4.4861],
+        ['name' => 'Saint-Malo', 'lat' => 48.6493, 'lon' => -2.0257],
+        ['name' => 'Le Touquet', 'lat' => 50.5225, 'lon' => 1.5823],
+        ['name' => 'Ajaccio', 'lat' => 41.9266, 'lon' => 8.7369],
+    ];
+
+    foreach ($stations as &$station) {
+        $meteo = getPlageWeatherData($station['name']);
+        $station['vent'] = $meteo['vent'] ?? 0;
+    }
+
+    return $stations;
+}
+
+
+
 
 ?>
