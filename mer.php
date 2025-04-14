@@ -68,8 +68,8 @@ include "./include/header.inc.php";
             <span class="temp-ressenti">Eau : <?= round($meteoPlage['temp_eau']) ?>°</span>
         </div>
         <div class="meteo-condition">
-            <img src="images/icons/soleil-nuage.png" alt="Condition météo">
-            <span><?= htmlspecialchars($meteoPlage['condition']) ?></span>
+        <img src="<?= $meteoPlage['icone'] ?>" alt="Condition météo">
+        <span><?= htmlspecialchars($meteoPlage['condition']) ?></span>
         </div>
         <div class="vent">
             Vent : <?= $meteoPlage['vent'] ?> km/h
@@ -108,27 +108,55 @@ include "./include/header.inc.php";
 
 
 <section id="carte-france">
-    <h2>Carte des vents pour les principales stations balnéaires francaises </h2>
-    <p>Sélectionnez une des principales stations marquées sur la carte pour voir les rafales de vent</p>
-    <div id="map" style="height: 500px; width: 100%; border-radius: 12px; margin-top: 1rem;"></div>
+  <h2>Carte des vents pour les principales stations balnéaires françaises</h2>
+  <p>Sélectionnez une des principales stations marquées sur la carte pour voir les rafales de vent</p>
 
-    <script>
+  <div id="map" style="height: 500px; width: 100%; border-radius: 12px; margin-top: 1rem;"></div>
+
+  <div class="map-legend">
+    <strong>Légende :</strong>
+    <span class="legend-dot" style="background-color: green;"></span> Vent faible (&lt; 10 km/h)
+    <span class="legend-dot" style="background-color: yellow;"></span> Vent modéré (10–20 km/h)
+    <span class="legend-dot" style="background-color: orange;"></span> Vent soutenu (20–30 km/h)
+    <span class="legend-dot" style="background-color: red;"></span> Vent fort (&gt; 30 km/h)
+  </div>
+
+  <script>
     const stations = <?= json_encode($stations) ?>;
     const selectedZone = "<?= $_GET['zone'] ?? '' ?>";
-    </script>
-
-    <script src="js/marineMap.js"></script>
+  </script>
+  <script src="js/marineMap.js"></script>
 </section>
+
 
 <!-- SECTION 3 : Conseils -->
 <section id="conseils">
-    <h2>Conseils pour une baignade en toute sécurité</h2>
-    <ul>
-        <li>Consultez les prévisions météo et l'état de la mer avant de vous rendre à la plage.</li>
-        <li>Évitez la baignade en cas de vent fort ou d'orage annoncé.</li>
-        <li>Protégez-vous du soleil : crème solaire, lunettes, chapeau et hydratation.</li>
-        <li>Respectez les drapeaux de baignade et les consignes des maîtres-nageurs.</li>
-    </ul>
+  <h2>Conseils pour une baignade en toute sécurité</h2>
+
+  <div class="conseils-wrapper">
+    <div class="card-info">
+      <h3>Drapeaux de baignade</h3>
+      <ul>
+        <li><span class="circle green"></span> <strong>Vert :</strong> baignade autorisée et surveillée. Conditions favorables.</li>
+        <li><span class="circle orange"></span> <strong>Orange :</strong> baignade autorisée mais dangereuse. Soyez vigilants.</li>
+        <li><span class="circle red"></span> <strong>Rouge :</strong> baignade interdite pour votre sécurité.</li>
+        <li><span class="circle blackwhite"></span> <strong>Damier :</strong> zone réservée aux activités nautiques (surf, planche...)</li>
+      </ul>
+    </div>
+
+    <div class="card-info">
+      <h3>Numéros d'urgence à connaître</h3>
+      <ul>
+        <li><strong>112</strong> - Urgences européennes (accidents, détresse)</li>
+        <li><strong>15</strong> - SAMU (urgence médicale)</li>
+        <li><strong>18</strong> - Pompiers (incendie, sauvetage)</li>
+        <li><strong>196</strong> - Secours en mer (CROSS) depuis un téléphone mobile</li>
+      </ul>
+    </div>
+  </div>
 </section>
+
+
+
 
 <?php require "./include/footer.inc.php"; ?>

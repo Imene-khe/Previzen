@@ -410,12 +410,12 @@ function getPlageWeatherData($ville) {
 
     return [
         'condition' => $day['condition']['text'],
-        'icone' => getWeatherImage($day['condition']['text']),
+        'icone' => 'https:' . $day['condition']['icon'], // 🟢 lien direct vers WeatherAPI comme dans local.php
         'temp_air' => $day['avgtemp_c'],
         'temp_eau' => estimateWaterTemp($day['avgtemp_c']),
         'vent' => $day['maxwind_kph'],
         'uv' => $day['uv'],
-        'maree' => rand(0, 1) ? 'Haute' : 'Basse' // simulation simple
+        'maree' => rand(0, 1) ? 'Haute' : 'Basse'
     ];
 }
 
