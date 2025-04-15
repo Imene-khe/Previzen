@@ -786,7 +786,56 @@ function getMeteoNews($max = 10) {
 
 
 
+function getVigilanceAlertsForFrance(string $csv = './data/communes.csv'): array {
+    $data = callWeatherAPI("alerts.json", "France");
+    $alerts = $data['alerts']['alert'] ?? [];
 
+    if (!file_exists($csv)) return [];
 
+    // Charger toutes les communes valides dans un tableau
+    $villes_fr = [];
+    $handle = fopen($csv, 'r');
+    fgetcsv($handle); // Ignore l'en-tête
+    while (($row = fgetcsv($handle)) !== false) {
+        $villes_fr[strtolower($row[2])] = true; // clé = nom_standard (colonne 2)
+    }
+    fclose($handle);
+
+    $result = [];
+    $seen = [];
+
+    foreach ($alerts as $a) {
+        $area = strtolower($a['areas'] ?? '');
+        $ville_concernee = null;
+
+        // Vérifie si une ville FR est mentionnée dans la zone
+        foreach ($villes_fr as $nom => $_) {
+            if (strpos($area, $nom) !== false) {
+                $ville_concernee = $nom;
+                break;
+            }
+        }
+
+        if (!$ville_concernee) continue;
+
+        // Vérifie qu’on n’a pas déjà affiché cette alerte
+        $id = md5(($a['headline'] ?? '') . ($a['areas'] ?? '') . ($a['event'] ?? ''));
+        if (isset($seen[$id])) continue;
+        $seen[$id] = true;
+
+        $result[] = [
+            'headline' => $a['headline'] ?? '',
+            'event' => $a['event'] ?? '',
+            'areas' => $a['areas'] ?? '',
+            'severity' => $a['severity'] ?? '',
+            'effective' => $a['effective'] ?? '',
+            'expires' => $a['expires'] ?? '',
+            'desc' => $a['desc'] ?? '',
+            'source_city' => $data['location']['name'] ?? '?'
+        ];
+    }
+
+    return $result;
+}
 
 ?>
