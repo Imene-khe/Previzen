@@ -49,13 +49,7 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 
     <nav>
         <ul class="menu">
-            <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a>
-                <ul class="submenu">
-                    <li><a href="./local.php">Par ville</a></li>
-                    <li><a href="./local.php">Par département</a></li>
-                    <li><a href="./local.php">Par région</a></li>
-                </ul>
-            </li>
+            <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a></li>
             <li><a href="./mer.php"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
                 <ul class="submenu">
                     <li><a href="mer.php?zone=manche#infos-ville-cotiere">Manche</a></li>                       
@@ -85,7 +79,7 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
             <li><a href="./index.php">🏠 Accueil</a></li>
             <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
             <li><a href="#">🌡️ Climat</a></li>
-            <li><a href="#">📰 Actus & Dossiers</a></li>
+            <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
             <li><a href="statistiques.php">Statistiques</a></li>
         </ul>
     </aside>

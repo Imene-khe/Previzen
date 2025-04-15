@@ -772,6 +772,19 @@ function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departem
     return $villes;
 }
 
+function getMeteoNews($max = 10) {
+    $apiKey = GNEWS_API; 
+    $query = "météo OR intempéries OR canicule OR orage OR neige";
+    $url = "https://gnews.io/api/v4/search?q=" . urlencode($query) . "&lang=fr&country=fr&max=$max&token=$apiKey";
+
+    $response = @file_get_contents($url);
+    if ($response === false) return [];
+
+    $data = json_decode($response, true);
+    return $data['articles'] ?? [];
+}
+
+
 
 
 
