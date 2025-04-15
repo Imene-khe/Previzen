@@ -122,8 +122,8 @@ include "./include/header.inc.php";
 
 
 <section id="carte-france">
-  <h2>Carte des vents pour les principales stations balnéaires françaises</h2>
-  <p>Sélectionnez une des principales stations marquées sur la carte pour voir les rafales de vent</p>
+  <h2>Carte des vents pour les principales stations balnéaires françaises.</h2>
+  <p style="text-align: center;">Sélectionnez une des principales stations marquées sur la carte pour voir les rafales de vent</p>
 
   <div id="map" style="height: 500px; width: 100%; border-radius: 12px; margin-top: 1rem;"></div>
 

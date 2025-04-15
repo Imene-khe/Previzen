@@ -105,9 +105,9 @@ if ($selectedStation) {
 
 </section>
 
-<section class="intro" id="intro">
+<section>
     <h2><?= $h1 ?></h2>
-    <p>Consultez les prévisions météorologiques en cliquant sur une station sur la carte.</p>
+    <p style="text-align:center;">Consultez les prévisions météorologiques en cliquant sur une station sur la carte.</p>
 
     <div class="grid-neige" style="margin-top: 2rem;">
         <div class="left-column">
@@ -140,7 +140,7 @@ if ($selectedStation) {
         </div>
 
         <div class="right-column">
-            <h3>📍 Localisation des stations</h3>
+            <h4>📍 Localisation des stations</h4>
             <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
             <script>
                 const stations = <?= json_encode($stationsJS) ?>;

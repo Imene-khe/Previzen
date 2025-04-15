@@ -1,7 +1,7 @@
 <?php
     $title = "PreviZen";
     $description = "Page d'accueil de PreviZen – prévisions météo fiables et interactives pour chaque région de France";
-    $h1 = "Prévision météo fiable sur 10 jours";
+    $h1 = "Prévision météo fiable sur 7 jours";
     $lang = $_GET['lang'] ?? 'fr';
 
     include "./include/functions.inc.php";
@@ -77,13 +77,12 @@
 </section>
 
 <section class="cards-section">
-    <div class="card">
-        <h3>🌤️ À propos de PreviZen</h3>
-        <p>Votre assistant météo fiable et accessible. Profitez de prévisions personnalisées pour chaque ville de France, sans publicité ni géolocalisation forcée.</p>
-    </div>
+    <h3>🌤️ À propos de PreviZen</h3>
+    <p style="text-align: center;">Votre assistant météo fiable et accessible. Profitez de prévisions personnalisées pour chaque ville de France, sans publicité ni géolocalisation forcée.</p>
+    
 
     <div class="card">
-        <h3>📊 Statistiques en temps réel</h3>
+        <h4>📊 Statistiques en temps réel</h3>
         <ul>
             <li><strong>+1200</strong> villes analysées depuis le lancement</li>
             <li>Météo actualisée <strong>toutes les 30 minutes</strong></li>
@@ -92,7 +91,7 @@
     </div>
 
     <div class="card">
-        <h3>✅ Nos engagements</h3>
+        <h4>✅ Nos engagements</h3>
         <ul>
             <li>Données issues de <strong>WeatherAPI</strong></li>
             <li>Respect complet de la vie privée</li>
