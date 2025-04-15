@@ -1243,3 +1243,6 @@ section.grid-neige {
   font-weight: bold;
 }
 
+.justify-text {
+  text-align: justify;
+}

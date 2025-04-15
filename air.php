@@ -12,7 +12,14 @@ $niveaux = ["Bonne", "Modérée", "Mauvaise pour les sensibles", "Mauvaise", "Tr
 $couleurs = ["#4CAF50", "#FFEB3B", "#FF9800", "#F44336", "#9C27B0", "#000000"];
 ?>
 
-<div class="container">
+<section class="container">
+    <p class="justify-text">
+        Retrouvez ci-dessous les données de <strong>qualité de l’air</strong> pour les principales villes françaises. 
+        L’indice AQI (Air Quality Index) est calculé selon les normes américaines (EPA) et vous indique la <strong>qualité globale de l’air</strong> 
+        de 1 (bonne) à 6 (dangereuse). Chaque carte détaille également les concentrations des principaux polluants atmosphériques (PM2.5, PM10, Ozone, NO₂, CO), 
+        ainsi qu’un <strong>conseil santé</strong> adapté à la situation.
+    </p>
+
     <?php foreach ($villes as $ville): ?>
         <?php $airData = getAirQualityData($ville); ?>
         <section style="margin-bottom: 2rem;">
@@ -59,6 +66,6 @@ $couleurs = ["#4CAF50", "#FFEB3B", "#FF9800", "#F44336", "#9C27B0", "#000000"];
             <?php endif; ?>
         </section>
     <?php endforeach; ?>
-</div>
+</section>
 
 <?php include "./include/footer.inc.php"; ?>
