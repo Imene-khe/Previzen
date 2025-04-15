@@ -30,12 +30,12 @@
 
 <section>
     <h2>Bienvenue sur PreviZen</h2>
-    <p>
+    <p style="text-align: center;">
         Consultez les prévisions météo détaillées à 7 jours pour chaque région de France.
     </p>
 
     <?php if ($forecast): ?>
-        <p><strong>Ville détectée :</strong> <?= htmlspecialchars($villeClient) ?></p>
+        <p style="text-align: center;"><strong>Ville détectée :</strong> <?= htmlspecialchars($villeClient) ?></p>
 
         <div class="meteo-detail">
             <img src="images/<?= $forecast['image'] ?>" alt="Image météo" class="meteo-img">
@@ -70,93 +70,36 @@
     <?php endif; ?>
 </section>
 
-<section>
-    <h2>Choix de la météo manuellement</h2>
-
-    <form method="get">
-        <label for="region">Région :</label>
-        <select name="region" id="region" onchange="this.form.submit()">
-            <option value="">-- Sélectionnez une région --</option>
-            <?php foreach ($regions_departements as $nomRegion => $departements): ?>
-                <option value="<?= $nomRegion ?>" <?= isset($_GET['region']) && $_GET['region'] === $nomRegion ? 'selected' : '' ?>>
-                    <?= $nomRegion ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-
-        <?php if (isset($_GET['region'], $regions_departements[$_GET['region']])): ?>
-            <br><br>
-            <label for="departement">Département :</label>
-            <select name="departement" id="departement" onchange="this.form.submit()">
-                <option value="">-- Sélectionnez un département --</option>
-                <?php foreach ($regions_departements[$_GET['region']] as $dep): ?>
-                    <option value="<?= $dep['numero'] ?>" <?= (isset($_GET['departement']) && $_GET['departement'] === $dep['numero']) ? 'selected' : '' ?>>
-                        <?= $dep['nom'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        <?php endif; ?>
-
-        <?php if (isset($_GET['departement'])): ?>
-            <br><br>
-            <label for="ville">Ville :</label>
-            <input type="text" name="ville" id="ville" placeholder="Entrez une ville" required>
-            <button type="submit">Voir la météo</button>
-        <?php endif; ?>
-    </form>
-    <?php if (isset($_GET['ville']) && !empty($_GET['ville'])):
-    $villeManuelle = trim($_GET['ville']);
-    $meteoManuelle = getTodayWeatherData($villeManuelle);
-    $forecastManuelle = getNextHoursForecast($villeManuelle);
-    $detailsManuelle = getDayDetails($villeManuelle);
-?>
-
-<section>
-    <h2>Météo pour <?= htmlspecialchars($villeManuelle) ?></h2>
-
-    <?php if ($forecastManuelle): ?>
-        <div class="meteo-detail">
-            <img src="images/<?= $forecastManuelle['image'] ?>" alt="Image météo" class="meteo-img">
-            <div class="meteo-blocs">
-                <?php foreach (['matin', 'midi', 'soir'] as $moment): ?>
-                    <?php if (isset($forecastManuelle['conditions'][$moment])): ?>
-                        <div class="bloc">
-                            <h4><?= ucfirst($moment) ?></h4>
-                            <p><?= $forecastManuelle['conditions'][$moment]['condition'] ?></p>
-                            <p><?= $forecastManuelle['conditions'][$moment]['t'] ?>°C</p>
-                            <p>Vent <?= $forecastManuelle['conditions'][$moment]['vent'] ?> km/h</p>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    <?php else: ?>
-        <p>Météo non disponible pour cette ville.</p>
-    <?php endif; ?>
-
-    <?php if ($detailsManuelle): ?>
-        <details class="details-box">
-            <summary class="detail-btn">Plus de détails</summary>
-            <ul>
-                <li>Temp. min : <?= $detailsManuelle['tmin'] ?>°C</li>
-                <li>Temp. max : <?= $detailsManuelle['tmax'] ?>°C</li>
-                <li>Précipitations : <?= $detailsManuelle['precipitation'] ?> mm</li>
-                <li>Vent moyen : <?= $detailsManuelle['wind'] ?> km/h</li>
-                <li>Rafales : <?= $detailsManuelle['gust'] ?> km/h</li>
-            </ul>
-        </details>
-    <?php endif; ?>
-</section>
-
-<?php endif; ?>
-
-</section>
 
 <section>
   <h2>Choix de la météo via la carte interactive</h2>
   <?php include "./include/carte-interactive.inc.php"; ?>
 </section>
 
+<section class="cards-section">
+    <div class="card">
+        <h3>🌤️ À propos de PreviZen</h3>
+        <p>Votre assistant météo fiable et accessible. Profitez de prévisions personnalisées pour chaque ville de France, sans publicité ni géolocalisation forcée.</p>
+    </div>
+
+    <div class="card">
+        <h3>📊 Statistiques en temps réel</h3>
+        <ul>
+            <li><strong>+1200</strong> villes analysées depuis le lancement</li>
+            <li>Météo actualisée <strong>toutes les 30 minutes</strong></li>
+            <li>Dernière consultation : <strong><?= htmlspecialchars($villeClient) ?></strong></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>✅ Nos engagements</h3>
+        <ul>
+            <li>Données issues de <strong>WeatherAPI</strong></li>
+            <li>Respect complet de la vie privée</li>
+            <li>Optimisé pour tous les écrans</li>
+        </ul>
+    </div>
+</section>
 
 
 <? include "./include/footer.inc.php";?>
