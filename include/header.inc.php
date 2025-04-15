@@ -78,7 +78,6 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
         <ul>
             <li><a href="./index.php">🏠 Accueil</a></li>
             <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
-            <li><a href="#">🌡️ Climat</a></li>
             <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
             <li><a href="statistiques.php">Statistiques</a></li>
         </ul>
