@@ -12,21 +12,6 @@ $departementsCotiers = [
     '29', '22', '35', '44', '85', '56', // Bretagne / Loire
     '50', '14', '76', '62', '59'        // Manche / Nord
 ];
-
-function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv'): ?string {
-    if (!file_exists($csv)) return null;
-    $handle = fopen($csv, 'r');
-    fgetcsv($handle); // skip header
-    while (($row = fgetcsv($handle)) !== false) {
-        if (strtolower(trim($row[2])) === strtolower(trim($ville))) {
-            fclose($handle);
-            return str_pad($row[12], 2, "0", STR_PAD_LEFT); // dep_code
-        }
-    }
-    fclose($handle);
-    return null;
-}
-
 $plage = null;
 $meteoPlage = null;
 

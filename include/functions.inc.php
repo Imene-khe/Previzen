@@ -115,19 +115,26 @@ function compter_visites(string $fichier = './data/compteur.txt'): int {
 
 
 
-function callWeatherAPI($endpoint, $query) {
-    if (!$query) return null; 
-
+function callWeatherAPI(string $endpoint, string $query, array $extraParams = []): ?array {
     $base = "http://api.weatherapi.com/v1/";
     $key = "10534f5a5b1748fcbb0150313250104";
-    $url = $base . $endpoint . "?key={$key}&q=" . urlencode($query) . "&lang=fr";
-    if ($endpoint === "forecast.json") {
-        $url .= "&days=7";
+
+    $params = array_merge([
+        'key' => $key,
+        'q' => $query,
+        'lang' => 'fr'
+    ], $extraParams);
+
+    if ($endpoint === "forecast.json" && !isset($params['days'])) {
+        $params['days'] = 7;
     }
+
+    $url = $base . $endpoint . '?' . http_build_query($params);
 
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
+
 
 
 function searchCity($ville, $departement = null, $region = null) {
@@ -693,6 +700,24 @@ function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv
     fclose($handle);
     return null;
 }
+
+function getAirQualityData(string $ville): ?array {
+    $data = callWeatherAPI("current.json", $ville, ['aqi' => 'yes']);
+    if (!$data || !isset($data['current']['air_quality'])) return null;
+
+    $aq = $data['current']['air_quality'];
+
+    return [
+        'aqi' => (int)($aq['us-epa-index'] ?? 0),
+        'PM2.5' => $aq['pm2_5'] ?? null,
+        'PM10' => $aq['pm10'] ?? null,
+        'O3' => $aq['o3'] ?? null,
+        'NO2' => $aq['no2'] ?? null,
+        'CO' => $aq['co'] ?? null
+    ];
+}
+
+
 
 
 
