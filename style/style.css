@@ -13,12 +13,12 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Espace entre logo, menu et icônes */
-  background-color: #d4e6f9; /* 131416 */
+  justify-content: space-between;
+  background-color: #d4e6f9;
   position: static;
   top: 0;
   left: 0;
-  padding: 20px 30px;
+  padding: 10px 30px; /* ⬅️ Réduit de 20px à 10px */
   width: 100%;
   z-index: 1000;
 }
@@ -82,7 +82,7 @@ nav ul li a:hover {
 }
 
 main {
-  padding: 1rem;
+  padding-top: 0; /* ⬅️ Supprime l'espace inutile */
 }
 
 .nav-icon {
@@ -98,8 +98,7 @@ h1 {
   background-color: #21478a;
   color: #ebe5e5;
   padding: 12px 24px;
-  margin: 30px 0;
-  text-align: left;
+  margin: 10px 0 20px 0;  text-align: left;
   font-weight: 700;
   font-size: 1.8rem;
   border-left: 6px solid #90CAF9;
@@ -1245,4 +1244,46 @@ section.grid-neige {
 
 .justify-text {
   text-align: justify;
+}
+
+.city-selector-bar {
+  margin-top: 0; /* corrige "10" sans unité */
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: #006fa6;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: flex-start; /* ⬅️ aligne le formulaire à gauche */
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.city-selector-bar form {
+  display: flex;
+  flex-wrap: nowrap; /* 🔧 empêcher le retour à la ligne */
+  gap: 10px;
+  align-items: center; /* 🔧 aligner verticalement */
+}
+
+
+.city-selector-bar select,
+.city-selector-bar input[type="text"] {
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.city-selector-bar button {
+  background-color: #005a87;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.city-selector-bar button:hover {
+  background-color: #004970;
 }

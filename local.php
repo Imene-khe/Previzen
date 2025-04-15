@@ -6,9 +6,14 @@ $lang = $_GET['lang'] ?? 'fr';
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 include "./include/functions.inc.php";
 
-$ip = getClientIP();
-$geo = getCityFromIPInfo($ip);
-$villeClient = $geo['ville'] ?? 'Paris';
+$villeClient = $_GET['ville'] ?? null;
+
+if (!$villeClient) {
+    $ip = getClientIP();
+    $geo = getCityFromIPInfo($ip);
+    $villeClient = $geo['ville'] ?? 'Paris';
+}
+
 
 $weatherData = getTodayWeatherData($villeClient);
 

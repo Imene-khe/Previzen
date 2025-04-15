@@ -751,6 +751,27 @@ function getCurrentWeatherAPIKey(): string {
     return ($interval < 13) ? WEATHERAPI_KEY_PRO1 : WEATHERAPI_KEY_PRO2;
 }
 
+function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departement = null): array {
+    if (!file_exists($csv)) return [];
+
+    $villes = [];
+    $handle = fopen($csv, 'r');
+    fgetcsv($handle); // saute l'en-tête
+
+    while (($row = fgetcsv($handle)) !== false) {
+        $nom = trim($row[2]); // nom_standard
+        $dep = str_pad($row[12], 2, "0", STR_PAD_LEFT); // dep_code (col 12)
+
+        if (!$departement || $dep === $departement) {
+            $villes[] = $nom;
+        }
+    }
+
+    fclose($handle);
+    sort($villes);
+    return $villes;
+}
+
 
 
 
