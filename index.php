@@ -7,21 +7,19 @@
     include "./include/functions.inc.php";
 
     $ip = getClientIP();
-    $geo = getCityAndCPFromIP($ip);
+    $geo = getCityFromIPInfo($ip) ?? ['ville' => 'Paris', 'cp' => null];
+    $villeClient = $geo['ville'];
+    $codePostal = $geo['cp'];
 
-    $villeClient = $geo['ville'] ?? 'Cergy';
-	file_put_contents('stats.csv', "$villeClient," . date('Y-m-d') . "\n", FILE_APPEND);
-	setcookie("last_city", $villeClient, time() + (86400 * 30), "/");
+    file_put_contents('stats.csv', "$villeClient," . date('Y-m-d') . "\n", FILE_APPEND);
+    setcookie("last_city", $villeClient, time() + (86400 * 30), "/");
 
-    // Affichages debug si besoin
-    echo "<!-- IP : $ip -->";
-    echo "<!-- Ville détectée : $villeClient -->";
 
+    
     $weatherData = getTodayWeatherData($villeClient);
     $forecast = getNextHoursForecast($villeClient);
     $dayDetails = getDayDetails($villeClient);
     $regions_departements = chargerRegionsEtDepartements('./data/v_region_2024.csv', './data/v_departement_2024.csv');
-
 
     include "./include/header.inc.php";
 ?>

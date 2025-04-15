@@ -279,6 +279,24 @@ function getClientIP() {
     return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 }
 
+function getCityFromIPInfo(string $ip): ?array {
+    $token = IPINFO_TOKEN; // définie dans config.inc.php
+    $url = "http://ipinfo.io/{$ip}/json?token={$token}";
+    $response = @file_get_contents($url);
+    $data = $response ? json_decode($response, true) : null;
+
+    if (!$data) return null;
+
+    return [
+        'ville' => $data['city'] ?? null,
+        'cp'    => $data['postal'] ?? null
+    ];
+}
+
+
+
+
+
 function getCityFromIP($ip) {
     $url = "http://www.geoplugin.net/json.gp?ip=" . $ip;
     $data = json_decode(file_get_contents($url), true);

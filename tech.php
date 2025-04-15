@@ -8,15 +8,14 @@ $lang = $_GET['lang'] ?? 'fr';
 require "./include/header.inc.php";
 require_once './include/functions.inc.php';
 
-// 🔐 Clés centralisées
 $ip = $_SERVER['REMOTE_ADDR'];
 $api_key = NASA_API_KEY;
 $whatismyip_key = WHATISMYIP_API_KEY;
 $token = METEOCONCEPT_TOKEN;
 
-// 💡 Récupération des données de l’APOD
 $apod_data = get_apod_data($api_key, $date);
 $apod_title = $apod_data['title'] ?? "Image ou vidéo du jour";
+$info = getCityFromIPInfo($ip);
 ?>
 
 <section>
@@ -31,8 +30,12 @@ $apod_title = $apod_data['title'] ?? "Image ou vidéo du jour";
 
 <section>
     <h2>Localisation (ipInfo)</h2>
-    <?= get_ipInfo_html($ip, $token) ?>
-</section>
+    <?php if ($info): ?>
+        <p>Ville : <?= htmlspecialchars($info['ville']) ?></p>
+        <p>Code postal : <?= htmlspecialchars($info['cp']) ?></p>
+    <?php else: ?>
+        <p>Impossible de déterminer la localisation.</p>
+    <?php endif; ?></section>
 
 <section>
     <h2>Localisation via WhatIsMyIP</h2>

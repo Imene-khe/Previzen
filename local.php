@@ -7,7 +7,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8');
 include "./include/functions.inc.php";
 
 $ip = getClientIP();
-$geo = getCityAndCPFromIP($ip);
+$geo = getCityFromIPInfo($ip);
 $villeClient = $geo['ville'] ?? 'Paris';
 
 $weatherData = getTodayWeatherData($villeClient);

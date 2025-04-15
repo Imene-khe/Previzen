@@ -5,5 +5,7 @@ define('WEATHERAPI_PRO_START', '2025-04-28'); // date d’activation de la clé 
 
 define('NASA_API_KEY', 'rdRhkkOSfDCrBMdSOCnjfHX2XaUAu5O49PX58ALO');
 define('WHATISMYIP_API_KEY', 'd365829238f950a64a640f96adaca66f');
+define('IPINFO_TOKEN', '198a4c0104c5ae');
+
 define('METEOCONCEPT_TOKEN', '198a4c0104c5ae');
 ?>
