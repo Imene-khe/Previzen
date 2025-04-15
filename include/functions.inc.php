@@ -1,6 +1,8 @@
 <?php
 
 include  __DIR__ . '/utile.inc.php';
+include  __DIR__ . '/config.inc.php';
+
 function get_apod_data(string $api_key, string $date): ?array {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
     $response = @file_get_contents($url);
@@ -117,7 +119,12 @@ function compter_visites(string $fichier = './data/compteur.txt'): int {
 
 function callWeatherAPI(string $endpoint, string $query, array $extraParams = []): ?array {
     $base = "http://api.weatherapi.com/v1/";
-    $key = "10534f5a5b1748fcbb0150313250104";
+    
+    // ⏳ Sélection dynamique de la bonne clé
+    $start = new DateTime(WEATHERAPI_PRO_START);
+    $today = new DateTime();
+    $interval = $start->diff($today)->days;
+    $key = ($interval < 13) ? WEATHERAPI_KEY_PRO1 : WEATHERAPI_KEY_PRO2;
 
     $params = array_merge([
         'key' => $key,
@@ -134,6 +141,7 @@ function callWeatherAPI(string $endpoint, string $query, array $extraParams = []
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
+
 
 
 
@@ -715,6 +723,14 @@ function getAirQualityData(string $ville): ?array {
         'NO2' => $aq['no2'] ?? null,
         'CO' => $aq['co'] ?? null
     ];
+}
+
+function getCurrentWeatherAPIKey(): string {
+    $start = new DateTime(WEATHERAPI_PRO_START);
+    $today = new DateTime();
+    $interval = $start->diff($today)->days;
+
+    return ($interval < 13) ? WEATHERAPI_KEY_PRO1 : WEATHERAPI_KEY_PRO2;
 }
 
 
