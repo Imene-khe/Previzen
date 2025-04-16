@@ -44,7 +44,7 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 
 <header>
     <a href="./index.php">
-        <img src="./images/logoProject.png" alt="Logo du site" width="500"/>
+        <img src="./images/logoProject.png" alt="Logo du site" width="500" style="margin-left: 80px;"/>
     </a>
 
     <nav>
@@ -74,18 +74,16 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
     <label for="sidebar-toggle" class="sidebar-button">&#9776; Menu</label>
     <aside class="sidebar">
         <label for="sidebar-toggle" class="close-button">&times;</label>
-        <h2>Menu</h2>
+        <h2 style='color: #fff;'>Menu</h2>
         <ul>
             <li><a href="./index.php">🏠 Accueil</a></li>
             <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
             <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
-            <li><a href="statistiques.php">Statistiques</a></li>
+            <li><a href="./statistiques.php">📊 Statistiques</a></li>
         </ul>
     </aside>
 
     <div class="header-icons">
-        <a href="english.php"><img src="./images/uk.png" alt="logo uk" width="50"/></a>
-        <a href="index.php?lang=fr"><img src="./images/fr.png" alt="logo fr" width="50"/></a>
         <form method="get" style="display: inline;">
             <input type="hidden" name="style" value="<?= ($style === 'style') ? 'nuit' : 'jour'; ?>">
             <button type="submit">

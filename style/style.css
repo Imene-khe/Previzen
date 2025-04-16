@@ -40,7 +40,7 @@ header img {
 }
 
 article {
-  border: none;
+  border: 1px solid #ccc;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px; /* optionnel pour coins arrondis */
@@ -79,6 +79,7 @@ nav ul li a:hover {
   max-height: 40px;
   width: auto;
   transition: transform 0.2s ease;
+  margin-left: 30px;
 }
 
 .header-icons img:hover {
