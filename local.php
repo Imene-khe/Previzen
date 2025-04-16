@@ -54,7 +54,7 @@ include "./include/header.inc.php";
             <?php foreach (['matin', 'midi', 'soir'] as $moment): ?>
                 <?php if (isset($forecast['conditions'][$moment])): ?>
                     <div class="carte-moment">
-                        <h4><?= ucfirst($moment) ?></h4>
+                        <h3><?= ucfirst($moment) ?></h3>
                         <p><?= $forecast['conditions'][$moment]['t'] ?>°C</p>
                     </div>
                 <?php endif; ?>
@@ -68,8 +68,7 @@ include "./include/header.inc.php";
                 <?php foreach ($weekForecast as $index => $day): ?>
                     <a href="?jour=<?= $index ?>" class="forecast-day<?= $index === $selectedDay ? ' active' : '' ?>">
                         <div class="day-label"><?= $day['day'] ?></div>
-                        <img src="<?= $day['icon'] ?>" alt="météo"/>
-                        <div class="temps">
+                        <img src="<?= $day['icon'] ?>" alt="Météo <?= htmlspecialchars($day['date']) ?>" />                        <div class="temps">
                             <span class="tmin"><?= $day['tmin'] ?>°</span> /
                             <span class="tmax"><?= $day['tmax'] ?>°</span>
                         </div>

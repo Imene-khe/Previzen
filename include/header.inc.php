@@ -50,8 +50,8 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 
     <nav>
         <ul class="menu">
-            <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Local" class="nav-icon">Météo locale</a></li>
-            <li><a href="./mer.php"><img src="<?php echo getIcon('plage'); ?>" alt="Plage" class="nav-icon">Météo des plages</a>
+            <li><a href="./local.php"><img src="<?php echo getIcon('local'); ?>" alt="Icone localisation" class="nav-icon">Météo locale</a></li>
+            <li><a href="./mer.php"><img src="<?php echo getIcon('plage'); ?>" alt="Icone palmier" class="nav-icon">Météo des plages</a>
                 <ul class="submenu">
                     <li><a href="mer.php?zone=manche#infos-ville-cotiere">Manche</a></li>                       
                     <li><a href="mer.php?zone=atlantique#infos-ville-cotiere">Côte Atlantique</a></li>                        
@@ -67,14 +67,14 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
                     <li><a href="./neige.php?massif=pyrenees#intro">Pyrénées</a></li>
                 </ul>
             </li>
-            <li><a href="./air.php"><img src="<?php echo getIcon('pollution'); ?>" alt="Pollution" class="nav-icon">Pollutions</a></li>
+            <li><a href="./air.php"><img src="<?php echo getIcon('pollution'); ?>" alt="Icon Echappement" class="nav-icon">Pollutions</a></li>
         </ul>
     </nav>
 
     <input type="checkbox" id="sidebar-toggle" hidden>
-    <label for="sidebar-toggle" class="sidebar-button">&#9776; Menu</label>
-    <aside class="sidebar">
-        <label for="sidebar-toggle" class="close-button">&times;</label>
+    <label for="sidebar-toggle" class="sidebar-button" aria-label="Ouvrir le menu">☰ Menu</label>
+        <aside class="sidebar">
+        <span class="close-button" onclick="document.getElementById('sidebar-toggle').checked = false" role="button" aria-label="Fermer le menu">&times;</span>        
         <h2 style='color: #fff;'>Menu</h2>
         <ul>
             <li><a href="./index.php">🏠 Accueil</a></li>
@@ -98,6 +98,7 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 
 <div class="city-selector-bar">
     <form method="get" action="local.php">
+        <label for="region" style="color:#fff;">Choisissez une région</label>
         <select name="region" id="region" onchange="this.form.submit()">
             <option value="">Région</option>
             <?php foreach ($regions_departements as $nomRegion => $departements): ?>
@@ -108,6 +109,7 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
         </select>
 
         <?php if (isset($_GET['region'], $regions_departements[$_GET['region']])): ?>
+            <label for="departement" class="visually-hidden">Choisissez un département</label>
             <select name="departement" id="departement" onchange="this.form.submit()">
                 <option value="">Département</option>
                 <?php foreach ($regions_departements[$_GET['region']] as $dep): ?>
@@ -130,8 +132,4 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
     </form>
 </div>
 
-
-
-
-     
     <h1><?= $h1 ?></h1>

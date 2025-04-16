@@ -424,6 +424,11 @@ nav ul.menu li:hover > ul.submenu {
   margin-top: 2em;
   text-align: center;
 }
+.meteo-detail h3 {
+  color: #1A237E;
+  border-left: none;
+  text-align:center;
+}
 
 .meteo-img {
   max-width: 120px;
@@ -575,6 +580,15 @@ area {
   margin: 0.5rem 0 0;
 }
 
+.carte-moment h3 {
+  background: #f2f7ff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  width: 150px;
+  border-left:none;
+}
+
 
 .detail-btn {
   font-weight: bold;
@@ -632,7 +646,7 @@ area {
 }
 
 .tmin {
-  color: #0077cc;
+  color: #004a99;
   font-weight: bold;
 }
 
@@ -1254,6 +1268,7 @@ section.grid-neige {
 .city-selector-bar select,
 .city-selector-bar input[type="text"] {
   padding: 6px;
+
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -1448,8 +1463,8 @@ section.grid-neige {
   position: fixed;
   bottom: 20px; /* distance du bas */
   right: 20px;  /* distance de la droite */
-  background-color: #2196F3;
-  color: white;
+  background-color: #F0F0F0;
+  color: #111;
   padding: 8px 12px;
   font-size: 18px;
   text-decoration: none;

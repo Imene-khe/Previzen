@@ -44,7 +44,7 @@
                     <?php foreach (['matin', 'midi', 'soir'] as $moment): ?>
                         <?php if (isset($forecast['conditions'][$moment])): ?>
                             <div class="bloc">
-                                <h4 style="color: #fff;"><?= ucfirst($moment) ?></h4>
+                                <h3><?= ucfirst($moment) ?></h4>
                                 <p><?= $forecast['conditions'][$moment]['condition'] ?></p>
                                 <p><?= $forecast['conditions'][$moment]['t'] ?>°C</p>
                                 <p>Vent <?= $forecast['conditions'][$moment]['vent'] ?> km/h</p>
