@@ -822,6 +822,36 @@ svg path {
 .region-93 { fill: #ffb74d; }  /* orange doux */
 .region-94 { fill: #ff8a65; }  /* corail doux */
 
+.cartes-departements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+  margin: 1.5em 0;
+  list-style: none;
+}
+
+.cartes-departements li {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 1em 1.5em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.cartes-departements li:hover {
+  transform: translateY(-3px);
+}
+
+.cartes-departements a {
+  text-decoration: none;
+  color: #2196F3;
+  font-weight: bold;
+}
+
+
+
 .stations-container {
   display: flex;
   flex-wrap: wrap;

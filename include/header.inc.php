@@ -97,7 +97,6 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 
 <div class="city-selector-bar">
     <form method="get" action="local.php">
-        <!-- Région -->
         <select name="region" id="region" onchange="this.form.submit()">
             <option value="">Région</option>
             <?php foreach ($regions_departements as $nomRegion => $departements): ?>
@@ -107,7 +106,6 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
             <?php endforeach; ?>
         </select>
 
-        <!-- Département : seulement si une région est sélectionnée -->
         <?php if (isset($_GET['region'], $regions_departements[$_GET['region']])): ?>
             <select name="departement" id="departement" onchange="this.form.submit()">
                 <option value="">Département</option>
@@ -119,7 +117,6 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
             </select>
         <?php endif; ?>
 
-        <!-- Ville : seulement si un département est sélectionné -->
         <?php if (isset($_GET['departement'])): ?>
             <input type="text" name="ville" list="villes" placeholder="Nom de la ville" required>
             <datalist id="villes">

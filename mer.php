@@ -7,11 +7,19 @@ $lang = isset($_GET['lang']) ? $_GET['lang'] : 'fr';
 include './include/functions.inc.php';
 
 $departementsCotiers = [
-    '06', '13', '30', '34', '11', '66', // Méditerranée
-    '17', '16', '33', '40', '64',       // Atlantique
-    '29', '22', '35', '44', '85', '56', // Bretagne / Loire
-    '50', '14', '76', '62', '59'        // Manche / Nord
+    // Méditerranée
+    '06', '13', '30', '34', '11', '66', '83',
+
+    // Atlantique
+    '17', '16', '33', '40', '64',
+
+    // Bretagne / Loire
+    '29', '22', '35', '44', '85', '56',
+
+    // Manche / Nord
+    '50', '14', '76', '62', '59'
 ];
+
 $plage = null;
 $meteoPlage = null;
 
