@@ -82,7 +82,7 @@
     
 
     <div class="card">
-        <h4>📊 Statistiques en temps réel</h3>
+        <h4>📊 Statistiques en temps réel</h4>
         <ul>
             <li><strong>+1200</strong> villes analysées depuis le lancement</li>
             <li>Météo actualisée <strong>toutes les 30 minutes</strong></li>
@@ -91,7 +91,7 @@
     </div>
 
     <div class="card">
-        <h4>✅ Nos engagements</h3>
+        <h4>✅Nos engagements</h4>
         <ul>
             <li>Données issues de <strong>WeatherAPI</strong></li>
             <li>Respect complet de la vie privée</li>
