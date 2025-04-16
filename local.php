@@ -39,7 +39,7 @@ include "./include/header.inc.php";
                 <span class="temp-ressenti">Ressenti <?= $selectedForecast['tmin'] ?>°</span>
             </div>
             <div class="meteo-condition">
-                <img src="<?= $selectedForecast['icon'] ?>" alt="Condition météo">
+                <img src="<?= $selectedForecast['icon'] ?>" alt="Condition météo"/>
                 <span><?= htmlspecialchars($selectedForecast['condition'] ?? '') ?></span>
             </div>
             <div class="vent">
@@ -68,7 +68,7 @@ include "./include/header.inc.php";
                 <?php foreach ($weekForecast as $index => $day): ?>
                     <a href="?jour=<?= $index ?>" class="forecast-day<?= $index === $selectedDay ? ' active' : '' ?>">
                         <div class="day-label"><?= $day['day'] ?></div>
-                        <img src="<?= $day['icon'] ?>" alt="météo">
+                        <img src="<?= $day['icon'] ?>" alt="météo"/>
                         <div class="temps">
                             <span class="tmin"><?= $day['tmin'] ?>°</span> /
                             <span class="tmax"><?= $day['tmax'] ?>°</span>
