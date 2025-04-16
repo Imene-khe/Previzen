@@ -27,16 +27,16 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="author" content="Albrun Mathis, Khelil Imène" />
+    <meta charset="UTF-8"/>
+    <meta name="author" content="Albrun Mathis, Khelil Imène"/>
     <meta name="date" content="2025-03-24" />
-    <meta name="description" content="<?php echo $description ?>" />
+    <meta name="description" content="<?php echo $description ?>"/>
     <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
     <title><?php echo $title ?></title>
 
-    <link rel="stylesheet" href="<?php echo $stylePath; ?>">
+    <link rel="stylesheet" href="<?php echo $stylePath; ?>"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"/>
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
 </head>
 

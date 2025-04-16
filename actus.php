@@ -17,7 +17,7 @@ $articles = getMeteoNews();
             <?php foreach ($articles as $article): ?>
                 <div class="actus-card">
                     <?php if (!empty($article['image'])): ?>
-                        <img src="<?= htmlspecialchars($article['image']) ?>" alt="Image" class="actus-img">
+                        <img src="<?= htmlspecialchars($article['image']) ?>" alt="Image" class="actus-img"/>
                     <?php endif; ?>
                     <div class="actus-content">
                         <h3><?= htmlspecialchars($article['title']) ?></h3>

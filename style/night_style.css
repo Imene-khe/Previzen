@@ -168,6 +168,14 @@ section h3 {
   border-radius: 0;
 }
 
+article {
+  border: 1px solid #333;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px; /* optionnel pour coins arrondis */
+}
+ 
+
 section p {
   font-size: 1.05rem;
   color: #cccccc;
