@@ -1460,3 +1460,22 @@ section.grid-neige {
   padding-left: 1.2em;
   margin-bottom: 0.6em;
 }
+
+.scroll-top {
+  position: fixed;
+  bottom: 20px; /* distance du bas */
+  right: 20px;  /* distance de la droite */
+  background-color: #2196F3;
+  color: white;
+  padding: 8px 12px;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+  transition: background-color 0.3s;
+  z-index: 1000;
+}
+
+.scroll-top:hover {
+  background-color: #1976D2;
+}

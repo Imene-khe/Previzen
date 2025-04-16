@@ -40,7 +40,8 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
 </head>
 
-<body>
+<body id="top">
+
 
 <header>
     <a href="./index.php">
