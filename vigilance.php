@@ -9,9 +9,9 @@ include "./include/functions.inc.php";
 $alerts = getVigilanceAlertsForFrance('./data/communes.csv');
 require "./include/header.inc.php";
 ?>
-
 <section>
-    <h2>Alertes météo actives en France</h2>
+<h2>Alertes météo actives en France</h2>
+<article>
 
     <?php if (empty($alerts)): ?>
         <p>Aucune alerte météo active actuellement.</p>
@@ -31,8 +31,8 @@ require "./include/header.inc.php";
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
-</section>
-<section id="alert-advice">
+</article>
+<article id="alert-advice">
     <h2 class="alert-title">⚠️ Conseils en cas d’alerte</h2>
     <p class="alert-intro">En cas de vigilance <strong>orange</strong> ou <strong>rouge</strong>, adoptez les bons réflexes :</p>
     <ul class="alert-list">
@@ -41,7 +41,9 @@ require "./include/header.inc.php";
         <li>Rangez ou sécurisez les objets pouvant être emportés par le vent</li>
         <li>Suivez les consignes de sécurité des autorités locales</li>
     </ul>
+</article>
 </section>
+
 
 
 <?php require "./include/footer.inc.php"; ?>

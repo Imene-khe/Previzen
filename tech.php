@@ -19,27 +19,33 @@ $info = getCityFromIPInfo($ip);
 ?>
 
 <section>
-    <h2><?= "NASA APOD du " . htmlspecialchars(date("d/m/Y")) . " : " . htmlspecialchars($apod_title) ?></h2>        
-    <?= get_apod_html($api_key, $date) ?>
+    <h2>Page tech destinée à la compréhension des flux JSON/XML</h2>
+    <article>
+        <h3><?= "NASA APOD du " . htmlspecialchars(date("d/m/Y")) . " : " . htmlspecialchars($apod_title) ?></h3>        
+        <?= get_apod_html($api_key, $date) ?>
+    </article>
+
+    <article>
+        <h3>Localisation approximative (GeoPlugin)</h3>
+        <?= get_geoplugin_html($ip) ?>
+    </article>
+
+    <article>
+        <h3>Localisation (ipInfo)</h3>
+        <?php if ($info): ?>
+            <p>Ville : <?= htmlspecialchars($info['ville']) ?></p>
+            <p>Code postal : <?= htmlspecialchars($info['cp']) ?></p>
+        <?php else: ?>
+            <p>Impossible de déterminer la localisation.</p>
+        <?php endif; ?>
+    </article>
+
+    <article>
+        <h3>Localisation via WhatIsMyIP</h3>
+        <?= get_whatismyip_html($ip, $whatismyip_key) ?>
+    </article>
+
 </section>
 
-<section>
-    <h2>Localisation approximative (GeoPlugin)</h2>
-    <?= get_geoplugin_html($ip) ?>
-</section>
-
-<section>
-    <h2>Localisation (ipInfo)</h2>
-    <?php if ($info): ?>
-        <p>Ville : <?= htmlspecialchars($info['ville']) ?></p>
-        <p>Code postal : <?= htmlspecialchars($info['cp']) ?></p>
-    <?php else: ?>
-        <p>Impossible de déterminer la localisation.</p>
-    <?php endif; ?></section>
-
-<section>
-    <h2>Localisation via WhatIsMyIP</h2>
-    <?= get_whatismyip_html($ip, $whatismyip_key) ?>
-</section>
 
 <?php require "./include/footer.inc.php"; ?>
