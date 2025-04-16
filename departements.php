@@ -47,7 +47,7 @@ if (isset($region_to_city[$region])) {
 
   <?php if ($ville && $forecast): ?>
     <div class="meteo-detail">
-        <img src="images/<?= $forecast['image'] ?>" alt="Image météo" class="meteo-img">
+        <img src="images/<?= $forecast['image'] ?>" alt="Image météo" class="meteo-img"/>
         <div class="meteo-blocs">
             <?php foreach (['matin', 'midi', 'soir'] as $moment): ?>
                 <?php if (isset($forecast['conditions'][$moment])): ?>
