@@ -6,16 +6,9 @@ include "./include/header.inc.php";
 ?>
 
 
-<main class="stats-page" style="padding: 2rem;">
-  <h1>Statistiques d'utilisation</h1>
-
-  <section class="last-city" style="margin-bottom: 2rem;">
-    <p>Dernière ville consultée :
-      <strong><?= $_COOKIE['last_city'] ?? "Aucune" ?></strong>
-    </p>
-  </section>
-
-
+<section class="stats-page" style="padding: 2rem;">
+    <h2>Ensemble des statistiques recensées depuis le lancement du site</h2> 
+      <p style="margin-bottom: 2rem; text-align: center;">Dernière ville consultée :<strong><?= $_COOKIE['last_city'] ?? "Aucune" ?></strong></p>
 
   <section class="charts" style="display: flex; flex-wrap: wrap; gap: 2rem;">
     <div class="card" style="flex: 1;">
@@ -30,7 +23,7 @@ include "./include/header.inc.php";
       <canvas id="lineChart" width="400" height="400"></canvas>
     </div>
   </section>
-</main>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/stats.js"></script>
