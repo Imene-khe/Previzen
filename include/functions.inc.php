@@ -22,7 +22,7 @@ function get_apod_html(string $api_key, string $date): string {
     
 
     if ($data['media_type'] === 'image') {
-        $html .= '<div class="image-container"><img src="' . htmlspecialchars($data['url']) . '" width="400" alt="APOD"></div>';
+        $html .= '<div class="image-container"><img src="' . htmlspecialchars($data['url']) . '" width="400" alt="APOD"/></div>';
     } elseif ($data['media_type'] === 'video') {
         $html .= "<iframe width=\"560\" height=\"315\" src=\"" . htmlspecialchars($data['url']) . "\" frameborder=\"0\" allowfullscreen></iframe>";
     }
@@ -647,7 +647,7 @@ function displayRandomPhotoFigure(string $dossier = './images/massif') {
         $image = $fichiers[array_rand($fichiers)];
         $chemin = $dossier . '/' . $image;
         echo '<figure>';
-        echo '<img src="' . htmlspecialchars($chemin) . '" alt="Image aléatoire">';
+        echo '<img src="' . htmlspecialchars($chemin) . '" alt="Image aléatoire"/>';
         echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
         echo '</figure>';
     } else {
@@ -674,7 +674,7 @@ function displayRandomPhotoFigureByMassif(string $massif) {
         $image = $fichiers[array_rand($fichiers)];
         $chemin = $dossier . $image;
         echo '<figure>';
-        echo '<img src="' . htmlspecialchars($chemin) . '" alt="' . htmlspecialchars($massif) . '" style="width:100%; height:250px; object-fit:cover; border-radius:12px;">';
+        echo '<img src="' . htmlspecialchars($chemin) . '" alt="' . htmlspecialchars($massif) . '" style="width:100%; height:250px; object-fit:cover; border-radius:12px;"/>';
         echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
         echo '</figure>';
     } else {

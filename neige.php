@@ -30,12 +30,14 @@ if ($selectedStation) {
 
 
 
-<section class="bloc-massifs">
+<section>
+  <h2>Massifs montagneux francais</h2>
+<article class="bloc-massifs">
   <div class="massif-card">
     <div class="massif-text">
       <h3>Alpes francaises</h3>
       <p>Suivez les chutes de neige et les températures des stations alpines.</p>
-      <a href="./neige.php?massif=alpes#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=alpes#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=auvergne-rhône-alpes" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
@@ -47,7 +49,7 @@ if ($selectedStation) {
     <div class="massif-text">
       <h3>Jura</h3>
       <p>Consultez les conditions météo idéales pour le ski nordique.</p>
-      <a href="./neige.php?massif=jura#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=jura#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=bourgogne-franche-comté" class="btn secondary">Consulter les prévisons météo</a>
     </div>
     <div class="massif-image">
@@ -59,7 +61,7 @@ if ($selectedStation) {
     <div class="massif-text">
       <h3>Pyrénées</h3>
       <p>Vérifiez les prévisions météo et les hauteurs de neige dans les Pyrénées.</p>
-      <a href="./neige.php?massif=pyrenees#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=pyrenees#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=occitanie" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
@@ -71,7 +73,7 @@ if ($selectedStation) {
     <div class="massif-text">
       <h3>Vosges</h3>
       <p>Restez informé des précipitations et du froid en altitude.</p>
-      <a href="./neige.php?massif=vosges#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=vosges#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=grand-est" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
@@ -83,7 +85,7 @@ if ($selectedStation) {
     <div class="massif-text">
       <h3>Massif Central</h3>
       <p>Obtenez les bulletins neige et météo au cœur des volcans d’Auvergne.</p>
-      <a href="./neige.php?massif=massif-central#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=massif-central#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=bourgogne-franche-comté" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
@@ -95,7 +97,7 @@ if ($selectedStation) {
     <div class="massif-text">
       <h3>Corse</h3>
       <p>Anticipez les conditions météo en montagne sur l'île de Beauté.</p>
-      <a href="./neige.php?massif=corse#carteLien" class="btn primary">Consulter les prévisions d'enneigement</a>
+      <a href="./neige.php?massif=corse#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=corse" class="btn secondary">Consulter les prévisions météo</a>
     </div>
     <div class="massif-image">
@@ -103,16 +105,16 @@ if ($selectedStation) {
     </div>
   </div>
 
-</section>
+</article>
 
-<section id="carteLien">
+<article id="carteLien">
     <h2><?= $h1 ?></h2>
     <p style="text-align:center;">Consultez les prévisions météorologiques en cliquant sur une station sur la carte.</p>
 
     <div class="grid-neige" style="margin-top: 2rem;">
         <div class="left-column">
             <?php if ($selectedStation): ?>
-                <h3>Prévisions pour <?= htmlspecialchars($selectedStation) ?></h3>
+                <h4>Prévisions pour <?= htmlspecialchars($selectedStation) ?></h4>
                 <?php if (!empty($snowData)): ?>
                     <?php foreach ($snowData as $station): ?>
                         <div class="station-card">
@@ -153,7 +155,9 @@ if ($selectedStation) {
             <script src="js/mountainMap.js"></script>
         </div>
     </div>
+</article>
 </section>
+
 
 
 

@@ -40,7 +40,7 @@ header img {
 }
 
 article {
-  border: 1px solid #ccc;
+  border: none;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px; /* optionnel pour coins arrondis */
@@ -848,7 +848,7 @@ svg path {
 .station-card h4 {
   font-size: 1.4rem;
   text-align: center;
-  color: var(--title-color, #1A237E);
+  color: var(--title-color, #fff);
   margin-bottom: 1rem;
 }
 
@@ -995,6 +995,14 @@ section.grid-neige {
   flex: 1;
   min-width: 250px;
 }
+
+.massif-text a {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
 
 .massif-text h3 {
   color: #1A237E;
