@@ -1,3 +1,4 @@
+
 <?php
 $title = "PreviZen";
 $description = "Page d'accueil de PreviZen – prévisions météo fiables et interactives pour chaque région de France";
@@ -11,6 +12,8 @@ $region = $_GET['region'] ?? '';
 $region = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $region));
 $region = str_replace(' ', '-', $region);
 $ville = '';
+
+
 
 $region_to_city = [
     'ile-de-france' => 'Paris',
@@ -97,6 +100,15 @@ if (isset($region_to_city[$region])) {
     <p>❌ Région inconnue ou météo indisponible.</p>
   <?php endif; ?>
 </section>
+
+<div id="svg-container" style="position: relative;">
+  <object id="carteSvg" type="image/svg+xml" data="data/carte-interactive.svg"></object>
+  <div id="tooltip" style="display:none;position:absolute;background:white;padding:5px;border:1px solid #444;border-radius:4px;font-size:14px;pointer-events:none;z-index:1000;"></div>
+</div>
+<div id="svg-container" style="position: relative;">
+  <object id="carteSvg" type="image/svg+xml" data="data/carte-interactive.svg"></object>
+  <div id="tooltip" style="display:none;position:absolute;background:white;padding:5px;border:1px solid #444;border-radius:4px;font-size:14px;pointer-events:none;z-index:1000;"></div>
+</div>
 
 <?php if (isset($regions_departements[$region])): ?>
   <section id="depRegion">
