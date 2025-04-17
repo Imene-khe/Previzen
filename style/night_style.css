@@ -538,13 +538,13 @@ area {
 .temperature {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #0044cc;
+  color: #66ccff;
 }
 
 .temp-ressenti {
   display: block;
   font-size: 1rem;
-  color: #666;
+  color: #fff;
 }
 
 .meteo-condition {
@@ -569,32 +569,32 @@ area {
   gap: 1.5rem;
   margin-top: 2rem;
   flex-wrap: wrap;
-  text
 }
 
 .carte-moment {
-  background: #23262a;
+  background: #333;
   padding: 1rem;
-  text-align:center;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carte-moment h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0090da;
+  border-left: none;
 }
 
 .carte-moment p {
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0.5rem 0 0;
-}
-.carte-moment h3 {
-  background: none;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  width: 150px;
-  border-left:none;
-  text-align:center;
-
 }
 
 
@@ -633,7 +633,7 @@ area {
 
 .forecast-day:hover {
   transform: scale(1.05);
-  background-color: #23262A;
+  background-color: #5a5a5a;
   border-color: #007bff;
 }
 
@@ -645,28 +645,32 @@ area {
 
 .day-label {
   font-weight: bold;
-  color: #0044cc;
+  color: #ffffff;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
 .temps {
   margin: 0.5rem 0;
+  color: #e0e0e0; 
+  background-color: #3a3a3a;
+  border-radius: 8px;
 }
 
 .tmin {
-  color: #004a99;
+  color: #99d6ff; 
   font-weight: bold;
 }
 
 .tmax {
-  color: #cc0000;
+  color: #ff9999; 
   font-weight: bold;
 }
 
+
 .forecast-day.active {
   border: 2px solid #007bff;
-  background-color: #e6f0ff;
+  background-color: #6a6a6a;
 }
 
 .top-meteo-bar {
@@ -1481,9 +1485,9 @@ section.grid-neige {
 
 .scroll-top {
   position: fixed;
-  bottom: 20px; /* distance du bas */
-  right: 20px;  /* distance de la droite */
-  background-color: #2196F3;
+  bottom: 20px; 
+  right: 20px;  
+  background-color: #0d47a1;
   color: white;
   padding: 8px 12px;
   font-size: 18px;
@@ -1496,4 +1500,13 @@ section.grid-neige {
 
 .scroll-top:hover {
   background-color: #1976D2;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }

@@ -33,7 +33,7 @@ $couleurs = ["#4CAF50", "#FFEB3B", "#FF9800", "#F44336", "#9C27B0", "#000000"];
                 $niveau = $niveaux[$aqi - 1] ?? "Inconnue";
                 $couleur = $couleurs[$aqi - 1] ?? "#999";
             ?>
-                <div style="background:<?= $couleur ?>;color:#fff;padding:10px;border-radius:8px;margin-bottom:1rem;">
+                <div style="background:<?= $couleur ?>;color:#333;padding:10px;border-radius:8px;margin-bottom:1rem;">
                     <strong>Indice AQI :</strong> <?= $aqi ?> – <?= $niveau ?>
                 </div>
 

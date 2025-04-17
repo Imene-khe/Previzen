@@ -1,6 +1,7 @@
 <?php
 $style = 'style';
 
+// Appliquer le style via GET et le mémoriser dans le cookie
 if (isset($_GET['style'])) {
     if ($_GET['style'] === 'nuit') {
         setcookie('theme', 'night_style', time() + 3600 * 24 * 30, "/");
@@ -9,13 +10,17 @@ if (isset($_GET['style'])) {
         setcookie('theme', 'style', time() + 3600 * 24 * 30, "/");
         $style = 'style';
     }
-    header('Location: ' . strtok($_SERVER["REQUEST_URI"], '?'));
-    exit;
 } elseif (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], ['style', 'night_style'])) {
     $style = $_COOKIE['theme'];
 }
 
+// Mémoriser la ville choisie dans un cookie
+if (isset($_GET['ville'])) {
+    setcookie('ville', $_GET['ville'], time() + 3600 * 24 * 30, "/");
+}
+
 $stylePath = "./style/{$style}.css";
+
 
 require_once __DIR__ . '/functions.inc.php';
 
@@ -120,8 +125,9 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
             </select>
         <?php endif; ?>
 
-        <?php if (isset($_GET['departement'])): ?>
-            <input type="text" name="ville" list="villes" placeholder="Nom de la ville" required>
+       <?php if (isset($_GET['departement'])): ?>
+            <input type="text" name="ville" list="villes" placeholder="Nom de la ville" required
+                value="<?= htmlspecialchars($_GET['ville'] ?? ($_COOKIE['ville'] ?? '')) ?>">
             <datalist id="villes">
                 <?php foreach ($villes as $ville): ?>
                     <option value="<?= htmlspecialchars($ville) ?>">
@@ -130,6 +136,6 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
             <button type="submit">Ajouter +</button>
         <?php endif; ?>
     </form>
-</div>
+    </div>
 
     <h1><?= $h1 ?></h1>
