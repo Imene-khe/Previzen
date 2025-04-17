@@ -572,6 +572,17 @@ area {
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carte-moment h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #19376d;
 }
 
 .carte-moment p {
@@ -580,14 +591,6 @@ area {
   margin: 0.5rem 0 0;
 }
 
-.carte-moment h3 {
-  background: #f2f7ff;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  width: 150px;
-  border-left:none;
-}
 
 
 .detail-btn {
@@ -1478,6 +1481,14 @@ section.grid-neige {
   background-color: #1976D2;
 }
 
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 
 

@@ -72,7 +72,9 @@ include "./include/header.inc.php";
         <div class="autre-ville">
             <h3>Ou entrez une ville manuellement</h3>
             <form method="get">
-                <input type="text" name="plage" placeholder="Ex. : Biarritz, Nice, La Baule..." required="required"/>
+            <label for="plage" class="visually-hidden">Nom d'une plage</label>
+            <input type="text" id="plage" name="plage" placeholder="Ex. : Biarritz, Nice, La Baule..." required="required"/>
+
                 <button type="submit">Voir la météo</button>
             </form>
         </div>

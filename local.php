@@ -68,7 +68,8 @@ include "./include/header.inc.php";
                 <?php foreach ($weekForecast as $index => $day): ?>
                     <a href="?jour=<?= $index ?>" class="forecast-day<?= $index === $selectedDay ? ' active' : '' ?>">
                         <div class="day-label"><?= $day['day'] ?></div>
-                        <img src="<?= $day['icon'] ?>" alt="Météo <?= htmlspecialchars($day['date']) ?>" />                        <div class="temps">
+                        <img src="<?= $day['icon'] ?>" alt="Météo <?= htmlspecialchars($day['date']) ?>" />           
+                         <div class="temps">
                             <span class="tmin"><?= $day['tmin'] ?>°</span> /
                             <span class="tmax"><?= $day['tmax'] ?>°</span>
                         </div>
