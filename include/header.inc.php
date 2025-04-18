@@ -36,13 +36,14 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
     <meta name="author" content="Albrun Mathis, Khelil Imène"/>
     <meta name="date" content="2025-03-24" />
     <meta name="description" content="<?php echo $description ?>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
     <title><?php echo $title ?></title>
 
     <link rel="stylesheet" href="<?php echo $stylePath; ?>"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"defer/>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"defer></script>
 </head>
 
 <body id="top">
