@@ -1510,3 +1510,33 @@ section.grid-neige {
   height: 1px;
   overflow: hidden;
 }
+
+#sidebar-toggle:checked ~ .sidebar h2 {
+    display: none;
+}
+
+
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+.suggestions-box {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 250px;
+}
+
+.suggestion {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.suggestion:hover {
+    background-color: #e9e9e9;
+}
+
+

@@ -72,10 +72,50 @@
     </article>
 
 
-    <article>
-    <h2>Choix de la météo via la carte interactive</h2>
-    <?php include "./include/carte-interactive.inc.php"; ?>
-    </article>
+	<article>
+	<h2>Choix de la météo via la carte interactive</h2>
+	<?php include "./include/carte-interactive.inc.php"; ?>
+	</article>
+
+	<!-- Pour survoler les departements -->
+	<div id="tooltip" class="tooltip"></div>
+
+	<style>
+	.tooltip {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.85);
+	color: white;
+	padding: 4px 8px;
+	font-size: 13px;
+	border-radius: 4px;
+	pointer-events: none;
+	white-space: nowrap;
+	display: none;
+	z-index: 1000;
+	}
+	</style>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	const tooltip = document.getElementById('tooltip');
+
+	document.querySelectorAll('path[data-nom]').forEach(path => {
+		path.addEventListener('mousemove', e => {
+		const nom = path.getAttribute('data-nom');
+		const num = path.getAttribute('data-numerodepartement') || '';
+		tooltip.innerText = `${num} – ${nom}`;
+		tooltip.style.left = (e.pageX + 10) + 'px';
+		tooltip.style.top = (e.pageY - 20) + 'px';
+		tooltip.style.display = 'block';
+		});
+
+		path.addEventListener('mouseleave', () => {
+		tooltip.style.display = 'none';
+		});
+	});
+	});
+	</script>
+
 
     <article class="cards-section">
         <h3>🌤️ À propos de PreviZen</h3>
@@ -92,7 +132,7 @@
         </div>
 
         <div class="card">
-            <h4>✅Nos engagements</h4>
+            <h4>✅ Nos engagements</h4>
             <ul>
                 <li>Données issues de <strong>WeatherAPI</strong></li>
                 <li>Respect complet de la vie privée</li>
