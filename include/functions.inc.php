@@ -756,11 +756,18 @@ function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departem
 
     $villes = [];
     $handle = fopen($csv, 'r');
-    fgetcsv($handle); // saute l'en-tête
+    $header = fgetcsv($handle, 0, ","); // séparateur: virgule
 
-    while (($row = fgetcsv($handle)) !== false) {
-        $nom = trim($row[2]); // nom_standard
-        $dep = str_pad($row[12], 2, "0", STR_PAD_LEFT); // dep_code (col 12)
+    $colNom = array_search('nom_standard', $header);
+    $colDep = array_search('dep_code', $header);
+
+    if ($colNom === false || $colDep === false) return [];
+
+    while (($row = fgetcsv($handle, 0, ",")) !== false) {
+        if (!isset($row[$colNom], $row[$colDep])) continue;
+
+        $nom = trim($row[$colNom]);
+        $dep = trim($row[$colDep]);
 
         if (!$departement || $dep === $departement) {
             $villes[] = $nom;
@@ -771,6 +778,7 @@ function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departem
     sort($villes);
     return $villes;
 }
+
 
 function getMeteoNews($max = 10) {
     $apiKey = GNEWS_API; 
