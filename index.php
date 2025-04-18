@@ -132,7 +132,7 @@
         </div>
 
         <div class="card">
-            <h4>✅Nos engagements</h4>
+            <h4>✅ Nos engagements</h4>
             <ul>
                 <li>Données issues de <strong>WeatherAPI</strong></li>
                 <li>Respect complet de la vie privée</li>

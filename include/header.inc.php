@@ -134,16 +134,51 @@ $page = basename($_SERVER['SCRIPT_NAME']);
         <?php endif; ?>
 
        <?php if (isset($_GET['departement'])): ?>
-            <input type="text" name="ville" list="villes" placeholder="Nom de la ville" required
-                value="<?= htmlspecialchars($_GET['ville'] ?? ($_COOKIE['ville'] ?? '')) ?>">
-            <datalist id="villes">
-                <?php foreach ($villes as $ville): ?>
-                    <option value="<?= htmlspecialchars($ville) ?>">
-                <?php endforeach; ?>
-            </datalist>
+		<input type="text" id="ville" name="ville" placeholder="Nom de la ville" autocomplete="off"
+       	value="<?= htmlspecialchars($_GET['ville'] ?? ($_COOKIE['ville'] ?? '')) ?>">
+		<div id="suggestions" class="suggestions-box"></div>
             <button type="submit">Ajouter +</button>
         <?php endif; ?>
     </form>
+	<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("ville");
+    const suggestions = document.getElementById("suggestions");
+    const depSelect = document.getElementById("departement");
+
+    input.addEventListener("input", () => {
+        const query = input.value;
+        const dep = depSelect?.value || '';
+        if (query.length < 2) {
+            suggestions.innerHTML = "";
+            return;
+        }
+
+        fetch("suggestions.php?q=" + encodeURIComponent(query) + "&dep=" + encodeURIComponent(dep))
+            .then(response => response.json())
+            .then(data => {
+                suggestions.innerHTML = "";
+                data.forEach(ville => {
+                    const div = document.createElement("div");
+                    div.textContent = ville;
+                    div.className = "suggestion";
+                    div.addEventListener("click", () => {
+                        input.value = ville;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(div);
+                });
+            });
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!suggestions.contains(e.target) && e.target !== input) {
+            suggestions.innerHTML = "";
+        }
+    });
+});
+</script>
+
     </div>
 
     <h1><?= $h1 ?></h1>
