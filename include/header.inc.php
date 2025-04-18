@@ -27,6 +27,7 @@ require_once __DIR__ . '/functions.inc.php';
 $regions_departements = chargerRegionsEtDepartements('./data/v_region_2024.csv', './data/v_departement_2024.csv');
 $departementActuel = $_GET['departement'] ?? null;
 $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $departementActuel);
+$page = basename($_SERVER['SCRIPT_NAME']);
 ?>
 
 <!DOCTYPE html>
@@ -36,13 +37,20 @@ $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $depar
     <meta name="author" content="Albrun Mathis, Khelil Imène"/>
     <meta name="date" content="2025-03-24" />
     <meta name="description" content="<?php echo $description ?>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
     <title><?php echo $title ?></title>
-
     <link rel="stylesheet" href="<?php echo $stylePath; ?>"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
+
+    <?php if ($page === 'statistiques.php'): ?>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <?php endif; ?>
+
+    <?php if (in_array($page, ['mer.php', 'neige.php'])): ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"></noscript>
+        <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js" defer></script>
+    <?php endif; ?>
 </head>
 
 <body id="top">
