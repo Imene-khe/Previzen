@@ -133,52 +133,20 @@ $page = basename($_SERVER['SCRIPT_NAME']);
             </select>
         <?php endif; ?>
 
-       <?php if (isset($_GET['departement'])): ?>
-		<input type="text" id="ville" name="ville" placeholder="Nom de la ville" autocomplete="off"
-       	value="<?= htmlspecialchars($_GET['ville'] ?? ($_COOKIE['ville'] ?? '')) ?>">
-		<div id="suggestions" class="suggestions-box"></div>
+        <?php if ($departementActuel): ?>
+            <label for="ville" class="visually-hidden">Choisissez une ville</label>
+            <select name="ville" id="ville">
+                <option value="">Ville</option>
+                <?php foreach ($villes as $ville): ?>
+                    <option value="<?= htmlspecialchars($ville) ?>" <?= ($_GET['ville'] ?? ($_COOKIE['ville'] ?? '')) === $ville ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($ville) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
             <button type="submit">Ajouter +</button>
         <?php endif; ?>
+
     </form>
-	<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("ville");
-    const suggestions = document.getElementById("suggestions");
-    const depSelect = document.getElementById("departement");
-
-    input.addEventListener("input", () => {
-        const query = input.value;
-        const dep = depSelect?.value || '';
-        if (query.length < 2) {
-            suggestions.innerHTML = "";
-            return;
-        }
-
-        fetch("suggestions.php?q=" + encodeURIComponent(query) + "&dep=" + encodeURIComponent(dep))
-            .then(response => response.json())
-            .then(data => {
-                suggestions.innerHTML = "";
-                data.forEach(ville => {
-                    const div = document.createElement("div");
-                    div.textContent = ville;
-                    div.className = "suggestion";
-                    div.addEventListener("click", () => {
-                        input.value = ville;
-                        suggestions.innerHTML = "";
-                    });
-                    suggestions.appendChild(div);
-                });
-            });
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!suggestions.contains(e.target) && e.target !== input) {
-            suggestions.innerHTML = "";
-        }
-    });
-});
-</script>
-
     </div>
 
     <h1><?= $h1 ?></h1>
