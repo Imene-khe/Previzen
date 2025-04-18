@@ -42,9 +42,11 @@ $page = basename($_SERVER['SCRIPT_NAME']);
     <title><?php echo $title ?></title>
     <link rel="stylesheet" href="<?php echo $stylePath; ?>"/>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"defer></script>
+    <?php if ($page === 'statistiques.php'): ?>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <?php endif; ?>
 
-   <?php if (in_array($page, ['mer.php', 'neige.php'])): ?>
+    <?php if (in_array($page, ['mer.php', 'neige.php'])): ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css" media="print" onload="this.media='all'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css"></noscript>
         <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js" defer></script>
