@@ -51,7 +51,7 @@ $couleurs = ["#4CAF50", "#FFEB3B", "#FF9800", "#F44336", "#9C27B0", "#000000"];
                 </table>
 
                 <h4 style="margin-top:1rem;">Conseil santé</h4>
-                <p>
+                <p style="text-align: center;">
                     <?php
                     switch ($aqi) {
                         case 1: echo "Air de bonne qualité, aucune précaution particulière à prendre."; break;
