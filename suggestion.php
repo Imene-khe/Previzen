@@ -5,8 +5,10 @@ $matches = [];
 
 if (($handle = fopen('./data/communes.csv', 'r')) !== false) {
     while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+        if (count($row) < 3) continue;
+
         $nomVille = $row[1];
-        $codeDep = $row[2]; // modifie l’index si besoin selon ton fichier CSV
+        $codeDep = $row[2];
 
         if ($dep && $codeDep !== $dep) continue;
         if (stripos($nomVille, $q) === 0) {
