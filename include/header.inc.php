@@ -2,7 +2,7 @@
 $style = 'style';
 
 // Appliquer le style via GET et le mémoriser dans le cookie
-if (isset($_GET['style'])) {
+if (isset($_GET['style'])  && cookiesAutorises()) {
     if ($_GET['style'] === 'nuit') {
         setcookie('theme', 'night_style', time() + 3600 * 24 * 30, "/");
         $style = 'night_style';
@@ -15,7 +15,7 @@ if (isset($_GET['style'])) {
 }
 
 // Mémoriser la ville choisie dans un cookie
-if (isset($_GET['ville'])) {
+if (isset($_GET['ville']) && cookiesAutorises()) {
     setcookie('ville', $_GET['ville'], time() + 3600 * 24 * 30, "/");
 }
 

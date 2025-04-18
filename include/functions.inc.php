@@ -85,6 +85,11 @@ function get_whatismyip_html(string $ip, string $key): string {
     return $html;
 }
 
+function cookiesAutorises(): bool {
+    return !isset($_COOKIE['cookiesAccepted']) || $_COOKIE['cookiesAccepted'] === 'yes';
+}
+
+
 function getTheme(): string {
     if (!isset($_COOKIE['theme'])) {
         return 'day'; // Thème par défaut
