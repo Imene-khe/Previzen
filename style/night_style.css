@@ -1510,3 +1510,13 @@ section.grid-neige {
   height: 1px;
   overflow: hidden;
 }
+
+#sidebar-toggle:checked ~ .sidebar h2 {
+    display: none;
+}
+
+
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
