@@ -58,7 +58,7 @@ $page = basename($_SERVER['SCRIPT_NAME']);
 
 <header>
     <a href="./index.php">
-        <img src="./images/logoProject.png" alt="Logo du site" width="500" style="margin-left: 80px;"/>
+        <img src="./images/logoProject.png" alt="Logo du site" width="500" height="160" style="margin-left: 80px;">
     </a>
 
     <nav>
