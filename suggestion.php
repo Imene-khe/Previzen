@@ -5,7 +5,6 @@ $matches = [];
 
 if (($handle = fopen('./data/communes.csv', 'r')) !== false) {
     while (($row = fgetcsv($handle, 1000, ',')) !== false) {
-        // Ne traite que les lignes avec au moins 3 colonnes
         if (count($row) < 3) continue;
 
         $nomVille = $row[1];

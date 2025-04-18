@@ -146,10 +146,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const suggestions = document.getElementById("suggestions");
     const depSelect = document.getElementById("departement");
 
+    if (!input || !suggestions || !depSelect) return;
+
     input.addEventListener("input", () => {
         const query = input.value;
-        const dep = depSelect?.value || '';
-        if (query.length < 2) {
+        const dep = depSelect.value;
+
+        if (!dep || query.length < 2) {
+            suggestions.classList.remove("show");
             suggestions.innerHTML = "";
             return;
         }
@@ -158,6 +162,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 suggestions.innerHTML = "";
+                if (data.length === 0) {
+                    suggestions.classList.remove("show");
+                    return;
+                }
+
                 data.forEach(ville => {
                     const div = document.createElement("div");
                     div.textContent = ville;
@@ -165,15 +174,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     div.addEventListener("click", () => {
                         input.value = ville;
                         suggestions.innerHTML = "";
+                        suggestions.classList.remove("show");
                     });
                     suggestions.appendChild(div);
                 });
+                suggestions.classList.add("show");
             });
     });
 
     document.addEventListener("click", (e) => {
         if (!suggestions.contains(e.target) && e.target !== input) {
-            suggestions.innerHTML = "";
+            suggestions.classList.remove("show");
         }
     });
 });
