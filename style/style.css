@@ -1562,6 +1562,16 @@ section.grid-neige {
     cursor: pointer;
 }
 
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#refuse-cookies {
+    background-color: #d33; /* rouge clair */
+}
+
+
 
 
 
