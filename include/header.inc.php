@@ -1,5 +1,7 @@
 <?php
 $style = 'style'; // valeur par défaut
+require_once __DIR__ . '/functions.inc.php';
+
 
 // 1. Thème forcé par GET, utilisé même si les cookies ne sont pas autorisés
 if (isset($_GET['style'])) {
@@ -35,7 +37,6 @@ $params = $_GET;
 $params['style'] = $currentThemeParam === 'jour' ? 'nuit' : 'jour';
 $toggleStyleUrl = basename($_SERVER['PHP_SELF']) . '?' . http_build_query($params);
 
-require_once __DIR__ . '/functions.inc.php';
 
 $regions_departements = chargerRegionsEtDepartements('./data/v_region_2024.csv', './data/v_departement_2024.csv');
 $departementActuel = $_GET['departement'] ?? null;
