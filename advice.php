@@ -42,7 +42,7 @@ if (str_contains($condition, 'pluie')) {
     $meteoIcon = "⛅";
 }
 
-echo "<h4>$meteoIcon À $ville</h4>";
-echo "<p><strong>{$weather['tmin']}°C — {$weather['condition']}</strong></p>";
-echo "<p style='font-size: 1.2em;'>$advice</p>";
-echo "<div style='font-size: 2em; text-align: center;'>$icon</div>";
+echo "<h4 style='font-size: 1.3em;'>$meteoIcon À $ville</h4>";
+echo "<p style='margin: 0.5em 0;'><strong>{$weather['tmin']}°C — {$weather['condition']}</strong></p>";
+echo "<p style='margin: 0.5em 0;'>$advice</p>";
+echo "<div class='icon-block'>$icon</div>";

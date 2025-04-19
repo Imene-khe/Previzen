@@ -59,7 +59,7 @@ function openDressAdvice() {
     const modal = document.getElementById("dressModal");
     const advice = document.getElementById("dress-advice-text");
 
-    // Ferme le menu latéral
+    // Ferme le menu latéral car ca beug je ne sais pourquoi
     const toggle = document.getElementById("sidebar-toggle");
     if (toggle) toggle.checked = false;
 
