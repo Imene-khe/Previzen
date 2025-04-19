@@ -94,6 +94,7 @@ $page = basename($_SERVER['SCRIPT_NAME']);
             <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
             <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
             <li><a href="./statistiques.php">📊 Statistiques</a></li>
+			<li><a href="#" onclick="openDressAdvice()">👕 Conseils habits</a></li>
         </ul>
     </aside>
 
@@ -107,7 +108,19 @@ $page = basename($_SERVER['SCRIPT_NAME']);
     </div>
 </header>
 
+<div id="dressModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeDressAdvice()">&times;</span>
+        <h3>👕 Conseil vestimentaire</h3>
+        <p id="dress-advice-text">Chargement en cours...</p>
+    </div>
+</div>
+
+
 <main>
+
+
+
 
 <div class="city-selector-bar">
     <form method="get" action="local.php">

@@ -54,6 +54,44 @@
 		});
 	});
 </script>
+<script>
+function openDressAdvice() {
+    const modal = document.getElementById("dressModal");
+    const advice = document.getElementById("dress-advice-text");
+
+    // Ferme le menu latéral
+    const toggle = document.getElementById("sidebar-toggle");
+    if (toggle) toggle.checked = false;
+
+    modal.style.display = "flex";
+    const ville = "<?php echo $_COOKIE['ville'] ?? 'Paris'; ?>";
+
+    fetch("advice.php?ville=" + encodeURIComponent(ville))
+        .then(response => response.text())
+        .then(text => {
+            advice.innerHTML = text;
+        });
+}
+
+function closeDressAdvice() {
+    document.getElementById("dressModal").style.display = "none";
+}
+
+// si click a l'exterieur ca ferme la fenetre
+document.addEventListener("click", function(event) {
+    const modal = document.getElementById("dressModal");
+    if (modal.style.display === "block" && !modal.contains(event.target) && !event.target.closest("a[onclick*='openDressAdvice']")) {
+        closeDressAdvice();
+    }
+});
+
+// ca marche si on ferme avec echap
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeDressAdvice();
+    }
+});
+</script>
 
     </body>
 </html>
