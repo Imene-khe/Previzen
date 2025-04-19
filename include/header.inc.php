@@ -58,7 +58,7 @@ $page = basename($_SERVER['SCRIPT_NAME']);
 
 <header>
     <a href="./index.php">
-        <img src="./images/logoProject.png" alt="Logo du site" width="500" height="160" style="margin-left: 80px;">
+        <img src="./images/logoProjet.webp" alt="Logo du site" width="400" height="160" style="margin-left: 90git add .px;">
     </a>
 
     <nav>
@@ -94,7 +94,7 @@ $page = basename($_SERVER['SCRIPT_NAME']);
             <li><a href="./vigilance.php">⚠️ Vigilance</a></li>
             <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
             <li><a href="./statistiques.php">📊 Statistiques</a></li>
-			<li><a href="#" onclick="openDressAdvice()">👕 Conseils habits</a></li>
+			<li><a href="#" onclick="openDressAdvice()">👕 Quelques conseils vestimentaires</a></li>
         </ul>
     </aside>
 

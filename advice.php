@@ -36,10 +36,10 @@ if (str_contains($condition, 'pluie')) {
     $advice .= " N'oublie pas un parapluie ou une veste imperméable.";
     $meteoIcon = "☔";
 } elseif (str_contains($condition, 'neige')) {
-    $advice .= " Prends des chaussures adaptées à la neige.";
+    $advice .= " Prenez des chaussures adaptées à la neige.";
     $meteoIcon = "❄️";
 } elseif (str_contains($condition, 'vent')) {
-    $advice .= " Prends une veste coupe-vent.";
+    $advice .= " Prenez une veste coupe-vent.";
     $meteoIcon = "🌬️";
 } elseif (str_contains($condition, 'soleil') || str_contains($condition, 'dégagé')) {
     $meteoIcon = "☀️";
@@ -47,7 +47,7 @@ if (str_contains($condition, 'pluie')) {
     $meteoIcon = "⛅";
 }
 
-echo "<h4 style='font-size: 1.3em;'>$meteoIcon À $ville</h4>";
+echo "<h4 style='font-size: 1.3em; color: #fff; text-align: center;'>$meteoIcon À $ville</h4>";
 echo "<p style='margin: 0.5em 0;'><strong>{$weather['tmin']}°C — {$weather['condition']}</strong></p>";
 echo "<p style='margin: 0.5em 0;'>$advice</p>";
 echo "<div class='icon-block'>$icon</div>";
