@@ -4,13 +4,19 @@ require_once './include/functions.inc.php';
 $ville = $_GET['ville'] ?? 'Paris';
 $weather = getTodayWeatherData($ville);
 
+if (!$weather) {
+    echo "<h4>⚠️ Ville inconnue</h4>";
+    echo "<p>Impossible de récupérer la météo pour <strong>$ville</strong>.</p>";
+    echo "<p>Veuillez sélectionner une autre ville.</p>";
+    exit;
+}
+
 $t = $weather['tmin'] ?? 12;
 $condition = strtolower($weather['condition'] ?? '');
 
 $icon = "🧥";
 $advice = "Préparez-vous en fonction de la météo.";
 
-// Conseils de température
 if ($t <= 5) {
     $advice = "Il fait froid ! Manteau bien chaud, bonnet, gants.";
     $icon = "🧥🧣🧤";
@@ -25,7 +31,6 @@ if ($t <= 5) {
     $icon = "🩳🕶️👒";
 }
 
-// Ajustement météo
 $meteoIcon = "";
 if (str_contains($condition, 'pluie')) {
     $advice .= " N'oublie pas un parapluie ou une veste imperméable.";
