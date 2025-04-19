@@ -1,26 +1,39 @@
 <?php
-$style = 'style';
+$style = 'style'; // valeur par défaut
 
-// Appliquer le style via GET et le mémoriser dans le cookie
-if (isset($_GET['style'])  && cookiesAutorises()) {
+// 1. Thème forcé par GET, utilisé même si les cookies ne sont pas autorisés
+if (isset($_GET['style'])) {
     if ($_GET['style'] === 'nuit') {
-        setcookie('theme', 'night_style', time() + 3600 * 24 * 30, "/");
         $style = 'night_style';
+        if (cookiesAutorises()) {
+            setcookie('theme', 'night_style', time() + 3600 * 24 * 30, "/");
+        }
     } elseif ($_GET['style'] === 'jour') {
-        setcookie('theme', 'style', time() + 3600 * 24 * 30, "/");
         $style = 'style';
+        if (cookiesAutorises()) {
+            setcookie('theme', 'style', time() + 3600 * 24 * 30, "/");
+        }
     }
-} elseif (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], ['style', 'night_style'])) {
+}
+// 2. Si rien en GET, on tente de récupérer depuis le cookie (si autorisé)
+elseif (cookiesAutorises() && isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], ['style', 'night_style'])) {
     $style = $_COOKIE['theme'];
 }
 
-// Mémoriser la ville choisie dans un cookie
+// 3. Mémoriser la ville choisie si possible
 if (isset($_GET['ville']) && cookiesAutorises()) {
     setcookie('ville', $_GET['ville'], time() + 3600 * 24 * 30, "/");
 }
 
 $stylePath = "./style/{$style}.css";
 
+// Détermination du paramètre de style courant pour l'ajouter aux liens
+$currentThemeParam = ($style === 'night_style') ? 'nuit' : 'jour';
+
+// Génération du lien pour changer de style sans perdre les paramètres GET existants
+$params = $_GET;
+$params['style'] = $currentThemeParam === 'jour' ? 'nuit' : 'jour';
+$toggleStyleUrl = basename($_SERVER['PHP_SELF']) . '?' . http_build_query($params);
 
 require_once __DIR__ . '/functions.inc.php';
 
@@ -29,6 +42,8 @@ $departementActuel = $_GET['departement'] ?? null;
 $villes = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $departementActuel);
 $page = basename($_SERVER['SCRIPT_NAME']);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -99,12 +114,19 @@ $page = basename($_SERVER['SCRIPT_NAME']);
     </aside>
 
     <div class="header-icons">
-        <form method="get" style="display: inline;">
-            <input type="hidden" name="style" value="<?= ($style === 'style') ? 'nuit' : 'jour'; ?>">
-            <button type="submit">
-                <?= ($style === 'style') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
-            </button>
-        </form>
+    <form method="get" style="display: inline;">
+        <?php
+        foreach ($_GET as $key => $value) {
+            if ($key !== 'style') {
+                echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
+            }
+        }
+        ?>
+        <input type="hidden" name="style" value="<?= ($style === 'style') ? 'nuit' : 'jour'; ?>">
+        <button type="submit" aria-label="Changer le thème">
+            <?= ($style === 'style') ? '🌙 Activer Mode Nuit' : '☀️ Activer Mode Jour'; ?>
+        </button>
+    </form>
     </div>
 </header>
 

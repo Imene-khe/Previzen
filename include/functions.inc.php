@@ -91,19 +91,25 @@ function cookiesAutorises(): bool {
 
 
 function getTheme(): string {
-    if (!isset($_COOKIE['theme'])) {
-        return 'day'; // Thème par défaut
+    if (isset($_GET['style'])) {
+        if ($_GET['style'] === 'nuit') return 'night';
+        if ($_GET['style'] === 'jour') return 'day';
     }
 
-    return ($_COOKIE['theme'] === 'night_style') ? 'night' : 'day';
+    if (cookiesAutorises() && isset($_COOKIE['theme'])) {
+        return ($_COOKIE['theme'] === 'night_style') ? 'night' : 'day';
+    }
+
+    return 'day';
 }
+
 
 
 
 function getIcon($basename) {
-    $theme = getTheme();
-    return "/images/{$basename}-{$theme}.png";
+    return "/images/{$basename}-" . getTheme() . ".png";
 }
+
 
 function compter_visites(string $fichier = './data/compteur.txt'): int {
     if (!file_exists($fichier)) {
