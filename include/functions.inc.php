@@ -623,6 +623,16 @@ function getTopSkiStationsByMassif(string $massif): array {
     return $stations[$massif] ?? [];
 }
 
+/**
+ * Récupère les données d’enneigement pour une station de ski donnée à partir de sa latitude et longitude.
+ *
+ * @param string $stationName Nom de la station.
+ * @param float  $lat         Latitude de la station.
+ * @param float  $lon         Longitude de la station.
+ *
+ * @return array Tableau contenant les dates et les quantités de neige journalières (en cm) pour la station.
+ */
+
 function getSnowDataForStation(string $stationName, float $lat, float $lon): array {
     $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&daily=snowfall_sum&timezone=auto";
     $response = @file_get_contents($url);
@@ -645,6 +655,14 @@ function getSnowDataForStation(string $stationName, float $lat, float $lon): arr
     ]];
 }
 
+/**
+ * Retourne les coordonnées géographiques et le niveau de zoom pour centrer une carte sur un massif donné.
+ *
+ * @param string $massif Nom du massif montagneux.
+ *
+ * @return array Tableau associatif contenant les clés 'lat', 'lon' et 'zoom'.
+ */
+
 function getMassifMapCenter(string $massif): array {
     $massifCenters = [
         'alpes' => ['lat' => 45.5, 'lon' => 6.5, 'zoom' => 8],
@@ -658,32 +676,13 @@ function getMassifMapCenter(string $massif): array {
     return $massifCenters[$massif] ?? ['lat' => 46.5, 'lon' => 2.5, 'zoom' => 6]; 
 }
 
-function displayRandomPhotoFigure(string $dossier = './images/massif') {
-    $extensions_autorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-    if (!is_dir($dossier)) {
-        echo "<p>Dossier introuvable : $dossier</p>";
-        return;
-    }
-
-    $fichiers = array_filter(scandir($dossier), function($fichier) use ($dossier, $extensions_autorisees) {
-        $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
-        return is_file($dossier . '/' . $fichier) && in_array($extension, $extensions_autorisees);
-    });
-
-    if (!empty($fichiers)) {
-        $image = $fichiers[array_rand($fichiers)];
-        $chemin = $dossier . '/' . $image;
-        echo '<figure>';
-        echo '<img src="' . htmlspecialchars($chemin) . '" alt="Image aléatoire"/>';
-        echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
-        echo '</figure>';
-    } else {
-        echo "<p>Aucune image disponible dans le dossier <strong>$dossier</strong>.</p>";
-    }
-}
-
-
+/**
+ * Affiche une photo aléatoire d’un massif donné, accompagnée du nom d’un photographe dans une balise <figure>.
+ *
+ * @param string $massif Nom du massif pour lequel afficher une image .
+ *
+ * @return void Cette fonction affiche directement du code HTML ou un message d’erreur si aucun fichier n’est disponible.
+ */
 function displayRandomPhotoFigureByMassif(string $massif) {
     $dossier = "./images/massif/" . strtolower($massif) . "/";
     $extensions_autorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
