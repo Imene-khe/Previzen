@@ -36,26 +36,7 @@ $region_to_city = [
     'mayotte' => 'Mamoudzou'
 ];
 
-$regions_departements = [
-    'ile-de-france' => ['75', '77', '78', '91', '92', '93', '94', '95'],
-    'auvergne-rhone-alpes' => ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
-    'provence-alpes-cote-d-azur' => ['04', '05', '06', '13', '83', '84'],
-    'bourgogne-franche-comte' => ['21', '25', '39', '58', '70', '71', '89', '90'],
-    'grand-est' => ['08', '10', '51', '52', '54', '55', '57', '67', '68', '88'],
-    'hauts-de-france' => ['02', '59', '60', '62', '80'],
-    'normandie' => ['14', '27', '50', '61', '76'],
-    'bretagne' => ['22', '29', '35', '56'],
-    'pays-de-la-loire' => ['44', '49', '53', '72', '85'],
-    'centre-val-de-loire' => ['18', '28', '36', '37', '41', '45'],
-    'nouvelle-aquitaine' => ['16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'],
-    'occitanie' => ['09', '11', '12', '30', '31', '32', '34', '46', '48', '65', '66', '81', '82'],
-    'corse' => ['2A', '2B'],
-    'guadeloupe' => ['971'],
-    'martinique' => ['972'],
-    'guyane' => ['973'],
-    'la-reunion' => ['974'],
-    'mayotte' => ['976']
-];
+$regions_departements = chargerRegionsEtDepartements('./data/v_region_2024.csv', './data/v_departement_2024.csv');
 
 if (isset($region_to_city[$region])) {
     $ville = $region_to_city[$region];
@@ -109,42 +90,66 @@ if (isset($region_to_city[$region])) {
   <object id="carteSvg" type="image/svg+xml" data="data/carte-interactive.svg"></object>
   <div id="tooltip" style="display:none;position:absolute;background:white;padding:5px;border:1px solid #444;border-radius:4px;font-size:14px;pointer-events:none;z-index:1000;"></div>
 </div>
+<?php
+  $matched_region_key = null;
+  foreach ($regions_departements as $cle => $deps) {
+      $slug = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $cle));
+      $slug = str_replace([' ', "'", '’'], ['-', '', ''], $slug);
 
-<?php if (isset($regions_departements[$region])): ?>
+      if ($slug === $region) {
+          $matched_region_key = $cle;
+          break;
+      }
+  }
+  if ($matched_region_key): 
+ ?>
   <section id="depRegion">
     <h3>Départements de la région</h3>
     <p style="text-align: center;">Voici les départements présents dans la région que vous venez de sélectionner.</p>
     <ul class="cartes-departements">
-      <?php foreach ($regions_departements[$region] as $dep): ?>
-        <li class="coloredLink"><a href="departements.php?region=<?= $region ?>&departement=<?= $dep ?>#depRegion">Département <?= $dep ?></a></li>
+    <?php foreach ($regions_departements[$matched_region_key] as $dep): ?>
+        <li class="coloredLink">
+          <a href="departements.php?region=<?= urlencode($region) ?>&departement=<?= urlencode($dep['numero']) ?>#depRegion">
+            <?= htmlspecialchars($dep['nom']) ?>
+          </a>
+        </li>
       <?php endforeach; ?>
     </ul>
 
     <?php
-        if (isset($_GET['departement']) && in_array($_GET['departement'], $regions_departements[$region])):
+      $dep_code = $_GET['departement'] ?? null;
+      $departements = $regions_departements[$matched_region_key] ?? [];
+      $nom_departement = null;
 
-        $dep_code = $_GET['departement'];
-        $villes_du_dep = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $dep_code);
+      foreach ($departements as $dep) {
+          if ($dep['numero'] === $dep_code) {
+              $nom_departement = $dep['nom'];
+              break;
+          }
+      }
+
+      if ($dep_code && $nom_departement):
+          $villes_du_dep = chargerNomsVillesDepuisCSVParDepartement('./data/communes.csv', $dep_code);
     ?>
 
+
   <hr style="margin: 2em 0;">
-  <h3>Rechercher une ville dans le département <?= htmlspecialchars($dep_code) ?></h3>
-  <p style="text-align: center;">Sélectionnez votre ville pour obtenir les prévisions météo personnalisées.</p>
+  <h3>Rechercher une ville dans le département <?= htmlspecialchars($nom_departement) ?></h3>
+    <p style="text-align: center;">Sélectionnez votre ville pour obtenir les prévisions météo personnalisées.</p>
+    <form method="GET" action="local.php" style="text-align: center; margin-top: 1em;">
+      <input type="hidden" name="departement" value="<?= htmlspecialchars($dep_code) ?>">
+      <select name="ville" required style="padding: 0.5em; width: 60%; max-width: 400px;">
+        <option value="">-- Choisissez votre ville --</option>
+        <?php foreach ($villes_du_dep as $ville): ?>
+          <option value="<?= htmlspecialchars($ville) ?>"><?= htmlspecialchars($ville) ?></option>
+        <?php endforeach; ?>
+      </select>
+      <input type="submit" value="Voir la météo" style="padding: 0.5em 1em; margin-left: 0.5em; background-color: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">
+    </form>
 
-  <form method="GET" action="local.php" style="text-align: center; margin-top: 1em;">
-    <input type="hidden" name="departement" value="<?= htmlspecialchars($dep_code) ?>">
-    <select name="ville" required style="padding: 0.5em; width: 60%; max-width: 400px;">
-      <option value="">-- Choisissez votre ville --</option>
-      <?php foreach ($villes_du_dep as $ville): ?>
-        <option value="<?= htmlspecialchars($ville) ?>"><?= htmlspecialchars($ville) ?></option>
-      <?php endforeach; ?>
-    </select>
-    <input type="submit" value="Voir la météo" style="padding: 0.5em 1em; margin-left: 0.5em; background-color: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">
-  </form>
-
-<?php endif; ?>
+    <?php endif; ?>
 
   </section>
-<?php endif; ?>
+  <?php endif; ?>
 
 <?php include "./include/footer.inc.php"; ?>

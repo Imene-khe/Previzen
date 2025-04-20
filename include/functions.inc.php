@@ -419,6 +419,20 @@ function chargerRegionsEtDepartements($fichier_regions, $fichier_departements) {
     return $resultat;
 }
 
+function getRegionsDepartementsSimplifie($fichier_regions, $fichier_departements): array {
+    $regions_completes = chargerRegionsEtDepartements($fichier_regions, $fichier_departements);
+    $resultat = [];
+
+    foreach ($regions_completes as $nom_region => $departements) {
+        $slug = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $nom_region));
+        $slug = str_replace([' ', "'", '’'], ['-', '', ''], $slug);
+        $resultat[$slug] = array_column($departements, 'numero');
+    }
+
+    return $resultat;
+}
+
+
 function getNextDaysForecast($ville) {
     $data = callWeatherAPI("forecast.json", $ville);
     if (!$data || !isset($data['forecast']['forecastday'])) return [];
