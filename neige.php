@@ -35,7 +35,7 @@ if ($selectedStation) {
 <article class="bloc-massifs">
   <div class="massif-card">
     <div class="massif-text">
-      <h3>Alpes francaises</h3>
+      <h3>Alpes françaises</h3>
       <p>Suivez les chutes de neige et les températures des stations alpines.</p>
       <a href="./neige.php?massif=alpes#carteLien" class="btn primary" style="text-align: center;">Consulter les prévisions d'enneigement</a>
       <a href="./departements.php?region=auvergne-rhône-alpes" class="btn secondary">Consulter les prévisions météo</a>
