@@ -705,14 +705,28 @@ function displayRandomPhotoFigureByMassif(string $massif) {
     if (!empty($fichiers)) {
         $image = $fichiers[array_rand($fichiers)];
         $chemin = $dossier . $image;
+
+        // nom générique à afficher pour figcaption, sans redondance avec alt
+        $photographeAlt = [
+            "alpes" => "Vincent Munier",
+            "jura" => "Laurent Baheux",
+            "vosges" => "Alex Strohl ",
+            "pyrenees" => "Mathieu Rivrin",
+            "massif-central" => "Aurélien Billois",
+            "corse" => "Guillaume Scheib"
+        ];
+
+        $caption = $photographeAlt[strtolower($massif)] ?? "Paysage du massif " . ucfirst($massif);
+
         echo '<figure>';
-        echo '<img src="' . htmlspecialchars($chemin) . '" alt="' . htmlspecialchars($massif) . '" style="width:100%; height:250px; object-fit:cover; border-radius:12px;"/>';
-        echo '<figcaption>' . htmlspecialchars($image) . '</figcaption>';
+        echo '<img src="' . htmlspecialchars($chemin) . '" alt="' . $dossier. '" style="width:100%; height:250px; object-fit:cover; border-radius:12px;"/>';
+        echo '<figcaption>' . htmlspecialchars($caption) . '</figcaption>';
         echo '</figure>';
     } else {
         echo "<p>Aucune image disponible dans le dossier <strong>$dossier</strong>.</p>";
     }
 }
+
 
 function getTopBeachStations() {
     $stations = [
