@@ -582,6 +582,7 @@ area {
   margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
+  border-left: none;
   color: #19376d;
 }
 

@@ -434,19 +434,22 @@ function getRegionsDepartementsSimplifie($fichier_regions, $fichier_departements
 
 
 function getNextDaysForecast($ville) {
+    // Supprime les accents (ex: Andrésy → Andresy)
+    $ville = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $ville);
+
+    // Appel API
     $data = callWeatherAPI("forecast.json", $ville);
     if (!$data || !isset($data['forecast']['forecastday'])) return [];
 
     $result = [];
-
     foreach ($data['forecast']['forecastday'] as $day) {
         $date = DateTime::createFromFormat('Y-m-d', $day['date']);
         $jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
         $dayIndex = (int) $date->format('w');
         $dayLabel = $jours[$dayIndex] . ' ' . $date->format('d');
+
         $result[] = [
             'date' => $day['date'],
-           
             'day' => ucfirst($dayLabel),
             'icon' => $day['day']['condition']['icon'],
             'tmin' => round($day['day']['mintemp_c']),
@@ -462,7 +465,11 @@ function getNextDaysForecast($ville) {
 function getPlageWeatherData($ville) {
     $data = callWeatherAPI("forecast.json", $ville);
 
-    if (!$data || !isset($data['forecast']['forecastday'][0]['day'])) return null;
+    if (!$data || !isset($data['forecast']['forecastday'])) {
+        echo "<pre>ERREUR API pour ville = $ville</pre>";
+        var_dump($data);
+        return [];
+    }
 
     $day = $data['forecast']['forecastday'][0]['day'];
 

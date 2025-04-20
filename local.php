@@ -13,6 +13,7 @@ if (!$villeClient) {
     $geo = getCityFromIPInfo($ip);
     $villeClient = $geo['ville'] ?? 'Paris';
 }
+$villeClient = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $villeClient);
 
 
 $weatherData = getTodayWeatherData($villeClient);
