@@ -3,29 +3,12 @@
 include  __DIR__ . '/utile.inc.php';
 include  __DIR__ . '/config.inc.php';
 
-/**
- * Récupère les données APOD (Astronomy Picture of the Day) depuis l'API de la NASA.
- *
- * @param string $api_key Clé API fournie par la NASA.
- * @param string $date    Date au format YYYY-MM-DD pour laquelle récupérer l'image.
- *
- * @return array|null     Tableau associatif contenant les données de l'APOD, ou null en cas d'échec.
- */
 
 function get_apod_data(string $api_key, string $date): ?array {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
-
-/**
- * Génère le code HTML pour afficher l'APOD (Astronomy Picture of the Day) du jour spécifié.
- *
- * @param string $api_key Clé API fournie par la NASA.
- * @param string $date    Date au format YYYY-MM-DD pour laquelle récupérer et afficher l'image.
- *
- * @return string         Code HTML contenant l'image ou la vidéo de l'APOD ainsi que son explication.
- */
 
 function get_apod_html(string $api_key, string $date): string {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
@@ -50,13 +33,6 @@ function get_apod_html(string $api_key, string $date): string {
     return $html;
 }
 
-/**
- * Génère un code HTML affichant les informations géographiques d'une adresse IP via l'API GeoPlugin.
- *
- * @param string $ip Adresse IP à localiser.
- *
- * @return string Code HTML contenant les informations de géolocalisation (ville, région, pays, continent).
- */
 
 function get_geoplugin_html(string $ip): string {
     $xml = @simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=$ip");
@@ -72,15 +48,6 @@ function get_geoplugin_html(string $ip): string {
 
     return $html;
 }
-
-/**
- * Génère un code HTML affichant les informations détaillées sur une IP via l'API WhatIsMyIP.
- *
- * @param string $ip  Adresse IP à analyser.
- * @param string $key Clé API personnelle pour accéder à WhatIsMyIP.
- *
- * @return string Code HTML listant les données de géolocalisation et du fournisseur d'accès.
- */
 
 function get_whatismyip_html(string $ip, string $key): string {
     $url = "https://api.whatismyip.com/ip-address-lookup.php?key=$key&input=$ip";
@@ -119,35 +86,31 @@ function get_whatismyip_html(string $ip, string $key): string {
     return $html;
 }
 
-/**
- * Vérifie si l'utilisateur a autorisé les cookies.
- *
- * @return bool true si les cookies sont autorisés ou non encore définis, false sinon.
- */
-
 function cookiesAutorises(): bool {
     return !isset($_COOKIE['cookiesAccepted']) || $_COOKIE['cookiesAccepted'] === 'yes';
 }
 
-/**
- * Génère le chemin vers une icône en fonction du thème actif.
- *
- * @param string $basename Nom de base de l’icône (sans suffixe de thème ni extension).
- *
- * @return string Chemin relatif vers l’image PNG correspondant au thème actuel.
- */
+
+function getTheme(): string {
+    if (isset($_GET['style'])) {
+        if ($_GET['style'] === 'nuit') return 'night';
+        if ($_GET['style'] === 'jour') return 'day';
+    }
+
+    if (cookiesAutorises() && isset($_COOKIE['theme'])) {
+        return ($_COOKIE['theme'] === 'night_style') ? 'night' : 'day';
+    }
+
+    return 'day';
+}
+
+
+
 
 function getIcon($basename) {
     return "/images/{$basename}-" . getTheme() . ".png";
 }
 
-/**
- * Incrémente et retourne le nombre total de visites du site, stocké dans un fichier.
- *
- * @param string $fichier Chemin vers le fichier de compteur (par défaut : ./data/compteur.txt).
- *
- * @return int Nombre de visites après incrémentation.
- */
 
 function compter_visites(string $fichier = './data/compteur.txt'): int {
     if (!file_exists($fichier)) {
@@ -166,20 +129,10 @@ function compter_visites(string $fichier = './data/compteur.txt'): int {
 
 
 
-
-/**
- * Effectue un appel à l'API WeatherAPI avec gestion dynamique de la clé et des paramètres.
- *
- * @param string $endpoint     Nom de l'endpoint à appeler (ex : 'current.json', 'forecast.json').
- * @param string $query        Requête de localisation (nom de ville, coordonnées, etc.).
- * @param array  $extraParams  Paramètres supplémentaires à inclure dans la requête (facultatif).
- *
- * @return array|null          Résultat décodé de l'appel API en tableau associatif, ou null en cas d'échec.
- */
-
 function callWeatherAPI(string $endpoint, string $query, array $extraParams = []): ?array {
     $base = "http://api.weatherapi.com/v1/";
     
+    // ⏳ Sélection dynamique de la bonne clé
     $start = new DateTime(WEATHERAPI_PRO_START);
     $today = new DateTime();
     $interval = $start->diff($today)->days;
@@ -200,7 +153,46 @@ function callWeatherAPI(string $endpoint, string $query, array $extraParams = []
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
-          
+
+
+
+
+function searchCity($ville, $departement = null, $region = null) {
+    $result = callMeteoConceptAPI("location/cities", ['search' => $ville]);
+
+    if (!isset($result['cities'])) return null;
+
+    // 1. Filtrer par nom de département (prioritaire)
+    if ($departement) {
+        foreach ($result['cities'] as $city) {
+            if (
+                isset($city['depname']) &&
+                strtolower(trim($city['depname'])) === strtolower(trim($departement))
+            ) {
+                return $city;
+            }
+        }
+    }
+
+    // 2. Sinon, filtrer par nom de région
+    if ($region) {
+        foreach ($result['cities'] as $city) {
+            if (
+                isset($city['regname']) &&
+                strtolower(trim($city['regname'])) === strtolower(trim($region))
+            ) {
+                return $city;
+            }
+        }
+    }
+
+    // 3. Sinon, première ville trouvée
+    return $result['cities'][0] ?? null;
+}
+
+
+
+
 
 function getWeatherForCity($insee) {
     $result = callMeteoConceptAPI("forecast/daily", ['insee' => $insee]);
