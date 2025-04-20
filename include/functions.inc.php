@@ -722,6 +722,11 @@ function displayRandomPhotoFigureByMassif(string $massif) {
     }
 }
 
+/**
+ * Retourne la liste des principales stations balnéaires françaises avec leurs coordonnées et données météo.
+ *
+ * @return array Tableau de stations contenant le nom, la latitude, la longitude et la vitesse du vent.
+ */
 
 function getTopBeachStations() {
     $stations = [
@@ -750,6 +755,15 @@ function getTopBeachStations() {
     return $stations;
 }
 
+/**
+ * Recherche et retourne le code du département correspondant à une ville donnée, à partir d’un fichier CSV.
+ *
+ * @param string $ville Nom de la ville à rechercher.
+ * @param string $csv   Chemin vers le fichier CSV des communes (par défaut './data/communes.csv').
+ *
+ * @return string|null Code du département sur 2 chiffres, ou null si la ville n'est pas trouvée.
+ */
+
 function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv'): ?string {
     if (!file_exists($csv)) return null;
 
@@ -768,6 +782,14 @@ function getDepartementFromCSV(string $ville, string $csv = './data/communes.csv
     return null;
 }
 
+/**
+ * Récupère les données de qualité de l’air pour une ville donnée via WeatherAPI.
+ *
+ * @param string $ville Nom de la ville à analyser.
+ *
+ * @return array|null Tableau associatif contenant l’indice AQI (US EPA) et les concentrations de polluants (PM2.5, PM10, O3, NO2, CO), ou null si indisponible.
+ */
+
 function getAirQualityData(string $ville): ?array {
     $data = callWeatherAPI("current.json", $ville, ['aqi' => 'yes']);
     if (!$data || !isset($data['current']['air_quality'])) return null;
@@ -784,6 +806,12 @@ function getAirQualityData(string $ville): ?array {
     ];
 }
 
+/**
+ * Sélectionne dynamiquement la clé WeatherAPI à utiliser en fonction de la date de démarrage de la période Pro.
+ *
+ * @return string Clé API WeatherAPI active (WEATHERAPI_KEY_PRO1 ou WEATHERAPI_KEY_PRO2).
+ */
+
 function getCurrentWeatherAPIKey(): string {
     $start = new DateTime(WEATHERAPI_PRO_START);
     $today = new DateTime();
@@ -791,6 +819,15 @@ function getCurrentWeatherAPIKey(): string {
 
     return ($interval < 13) ? WEATHERAPI_KEY_PRO1 : WEATHERAPI_KEY_PRO2;
 }
+
+/**
+ * Charge les noms des villes depuis un fichier CSV, avec option de filtrage par code département.
+ *
+ * @param string      $csv         Chemin vers le fichier CSV des communes.
+ * @param string|null $departement Code du département à filtrer (facultatif).
+ *
+ * @return array Tableau contenant les noms des villes triés par ordre alphabétique.
+ */
 
 function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departement = null): array {
     if (!file_exists($csv)) return [];
@@ -820,6 +857,13 @@ function chargerNomsVillesDepuisCSVParDepartement(string $csv, ?string $departem
     return $villes;
 }
 
+/**
+ * Récupère les dernières actualités météo en France via l'API GNews.
+ *
+ * @param int $max Nombre maximum d'articles à récupérer (par défaut 10).
+ *
+ * @return array Tableau d’articles d’actualité, ou tableau vide en cas d’échec.
+ */
 
 function getMeteoNews($max = 10) {
     $apiKey = GNEWS_API; 
@@ -833,7 +877,14 @@ function getMeteoNews($max = 10) {
     return $data['articles'] ?? [];
 }
 
-
+/**
+ * Récupère et filtre les alertes météo de vigilance en France fournies par WeatherAPI,
+ * en ne conservant que celles correspondant à des villes françaises connues (issues d’un fichier CSV).
+ *
+ * @param string $csv Chemin vers le fichier CSV contenant la liste des communes françaises (par défaut './data/communes.csv').
+ *
+ * @return array Tableau d’alertes filtrées, contenant les informations essentielles : titre, type, zones, sévérité, validité, description.
+ */
 
 function getVigilanceAlertsForFrance(string $csv = './data/communes.csv'): array {
     $data = callWeatherAPI("alerts.json", "France");
@@ -892,44 +943,4 @@ function getVigilanceAlertsForFrance(string $csv = './data/communes.csv'): array
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getCityAndCPFromIP($ip) {
-    $url = "http://www.geoplugin.net/json.gp?ip=" . $ip;
-    $data = json_decode(file_get_contents($url), true);
-
-    return [
-        'ville' => $data['geoplugin_city'] ?? null,
-        'cp' => $data['geoplugin_postCode'] ?? null
-    ];
-}
-
-
-
-function getWeatherLabel($code) {
-    $labels = [
-        0 => 'Ensoleillé',
-        1 => 'Peu nuageux',
-        2 => 'Ciel voilé',
-        3 => 'Nuageux',
-        4 => 'Très nuageux',
-        5 => 'Couvert',
-        6 => 'Brouillard',
-        10 => 'Pluie faible',
-        11 => 'Pluie modérée',
-        12 => 'Pluie forte'
-    ];
-    return $labels[$code] ?? "Inconnu";
-}
 ?>
