@@ -155,10 +155,12 @@ section h2 {
   margin-bottom: 16px;
   background: none;
   border-radius: 0;
+  font-size: 1.8rem;
+
 }
 
 section h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #90CAF9;
   border-left: 6px solid #90CAF9;
@@ -1590,7 +1592,7 @@ section.grid-neige {
 }
 
 #refuse-cookies {
-    background-color: #d33; /* rouge clair */
+    background-color: #d33; 
 }
 
 .modal {
