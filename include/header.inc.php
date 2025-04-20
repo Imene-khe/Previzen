@@ -111,6 +111,8 @@ $page = basename($_SERVER['SCRIPT_NAME']);
             <li><a href="./actus.php">📰 Actus & Dossiers</a></li>
             <li><a href="./statistiques.php">📊 Statistiques</a></li>
 			<li><a href="#" onclick="openDressAdvice()">👕 Quelques conseils vestimentaires</a></li>
+            <li><a href="./plan.php">🗺️ Plan du site</a></li>
+
         </ul>
     </aside>
 

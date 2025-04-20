@@ -1672,3 +1672,31 @@ section.grid-neige {
     font-size: 2em;
     margin-top: 10px;
 }
+.plan-site {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.plan-site ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+}
+
+.plan-site li {
+  margin: 12px 0;
+}
+
+.plan-site a {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.plan-site a:hover {
+  color: #0d47a1; /* bleu plus foncé au survol */
+  text-decoration: underline;
+}
