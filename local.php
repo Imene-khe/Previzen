@@ -32,7 +32,7 @@ include "./include/header.inc.php";
 
 <section class="meteo-local">
     <h2>Prévision météo à <?= htmlspecialchars($villeClient) ?></h2>
-    <p>Consultez les prévisions météo détaillées à 10 jours pour chaque région de France.</p>
+    <p>Consultez les prévisions météo détaillées à 7 jours pour chaque région de France.</p>
 
     <?php if ($weatherData): ?>
         <div class="meteo-principale">
