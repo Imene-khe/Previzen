@@ -3,12 +3,29 @@
 include  __DIR__ . '/utile.inc.php';
 include  __DIR__ . '/config.inc.php';
 
+/**
+ * Récupère les données APOD (Astronomy Picture of the Day) depuis l'API de la NASA.
+ *
+ * @param string $api_key Clé API NASA.
+ * @param string $date    Date au format YYYY-MM-DD.
+ *
+ * @return array|null     Données APOD sous forme de tableau associatif ou null en cas d'erreur.
+ */
 
 function get_apod_data(string $api_key, string $date): ?array {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
     $response = @file_get_contents($url);
     return $response ? json_decode($response, true) : null;
 }
+
+/**
+ * Génère le code HTML permettant d’afficher l’image ou la vidéo APOD du jour avec explication.
+ *
+ * @param string $api_key Clé API NASA.
+ * @param string $date    Date au format YYYY-MM-DD.
+ *
+ * @return string Code HTML à insérer dans la page.
+ */
 
 function get_apod_html(string $api_key, string $date): string {
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date&thumbs=true";
@@ -34,6 +51,14 @@ function get_apod_html(string $api_key, string $date): string {
 }
 
 
+/**
+ * Génère un bloc HTML contenant les informations de géolocalisation d'une IP via GeoPlugin.
+ *
+ * @param string $ip Adresse IP à localiser.
+ *
+ * @return string Code HTML contenant les informations géographiques (ville, pays, continent...).
+ */
+
 function get_geoplugin_html(string $ip): string {
     $xml = @simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=$ip");
     if (!$xml) return "<p>Impossible de récupérer les données de GeoPlugin.</p>";
@@ -48,6 +73,15 @@ function get_geoplugin_html(string $ip): string {
 
     return $html;
 }
+
+/**
+ * Interroge l'API WhatIsMyIP pour obtenir des informations détaillées sur une IP, et les affiche en HTML.
+ *
+ * @param string $ip  Adresse IP à analyser.
+ * @param string $key Clé API WhatIsMyIP.
+ *
+ * @return string Code HTML listant les informations de géolocalisation et du fournisseur.
+ */
 
 function get_whatismyip_html(string $ip, string $key): string {
     $url = "https://api.whatismyip.com/ip-address-lookup.php?key=$key&input=$ip";
@@ -86,10 +120,21 @@ function get_whatismyip_html(string $ip, string $key): string {
     return $html;
 }
 
+/**
+ * Vérifie si l'utilisateur a autorisé les cookies via la bannière.
+ *
+ * @return bool true si les cookies sont autorisés ou pas encore définis, false sinon.
+ */
+
 function cookiesAutorises(): bool {
     return !isset($_COOKIE['cookiesAccepted']) || $_COOKIE['cookiesAccepted'] === 'yes';
 }
 
+/**
+ * Détermine le thème actif en fonction des paramètres GET ou des cookies utilisateur.
+ *
+ * @return string 'day' ou 'night' selon le thème choisi.
+ */
 
 function getTheme(): string {
     if (isset($_GET['style'])) {
@@ -104,13 +149,25 @@ function getTheme(): string {
     return 'day';
 }
 
-
-
+/**
+ * Génère le chemin d’accès à une icône en fonction du thème actif.
+ *
+ * @param string $basename Nom de base de l’icône (sans extension ni suffixe de thème).
+ *
+ * @return string Chemin relatif vers l’image PNG à afficher.
+ */
 
 function getIcon($basename) {
     return "/images/{$basename}-" . getTheme() . ".png";
 }
 
+/**
+ * Incrémente et retourne le compteur de visites stocké dans un fichier texte.
+ *
+ * @param string $fichier Chemin vers le fichier compteur (par défaut './data/compteur.txt').
+ *
+ * @return int Nombre total de visites après incrémentation.
+ */
 
 function compter_visites(string $fichier = './data/compteur.txt'): int {
     if (!file_exists($fichier)) {
@@ -124,10 +181,15 @@ function compter_visites(string $fichier = './data/compteur.txt'): int {
     return $visites;
 }
 
-
-
-
-
+/**
+ * Effectue un appel à l’API WeatherAPI avec les bons paramètres et la clé dynamique.
+ *
+ * @param string $endpoint     Endpoint de l’API à appeler (ex. 'current.json', 'forecast.json').
+ * @param string $query        Requête de localisation (ville, code postal...).
+ * @param array  $extraParams  Paramètres supplémentaires à ajouter à la requête.
+ *
+ * @return array|null Données de réponse de l’API ou null en cas d’échec.
+ */
 
 function callWeatherAPI(string $endpoint, string $query, array $extraParams = []): ?array {
     $base = "http://api.weatherapi.com/v1/";
@@ -155,49 +217,13 @@ function callWeatherAPI(string $endpoint, string $query, array $extraParams = []
 }
 
 
-
-
-function searchCity($ville, $departement = null, $region = null) {
-    $result = callMeteoConceptAPI("location/cities", ['search' => $ville]);
-
-    if (!isset($result['cities'])) return null;
-
-    // 1. Filtrer par nom de département (prioritaire)
-    if ($departement) {
-        foreach ($result['cities'] as $city) {
-            if (
-                isset($city['depname']) &&
-                strtolower(trim($city['depname'])) === strtolower(trim($departement))
-            ) {
-                return $city;
-            }
-        }
-    }
-
-    // 2. Sinon, filtrer par nom de région
-    if ($region) {
-        foreach ($result['cities'] as $city) {
-            if (
-                isset($city['regname']) &&
-                strtolower(trim($city['regname'])) === strtolower(trim($region))
-            ) {
-                return $city;
-            }
-        }
-    }
-
-    // 3. Sinon, première ville trouvée
-    return $result['cities'][0] ?? null;
-}
-
-
-
-
-
-function getWeatherForCity($insee) {
-    $result = callMeteoConceptAPI("forecast/daily", ['insee' => $insee]);
-    return $result['forecast'][0] ?? null;
-}
+/**
+ * Récupère les données météo actuelles pour une ville donnée.
+ *
+ * @param string $ville Nom de la ville.
+ *
+ * @return array|null Données météo actuelles ou null si l'appel échoue.
+ */
 
 function getTodayWeatherData($ville) {
     $data = callWeatherAPI("current.json", $ville);
@@ -212,6 +238,15 @@ function getTodayWeatherData($ville) {
         'vent' => $data['current']['wind_kph']
     ];
 }
+
+/**
+ * Récupère la météo prévue pour les prochaines heures (matin, midi, soir) dans une ville donnée.
+ *
+ * @param string $ville Nom de la ville.
+ * @param int    $jour  Index du jour (0 = aujourd’hui, 1 = demain, ...).
+ *
+ * @return array|null Données météo organisées par moment de la journée, ou null si indisponible.
+ */
 
 function getNextHoursForecast($ville, $jour = 0) {
     $data = callWeatherAPI("forecast.json", $ville);
@@ -244,24 +279,13 @@ function getNextHoursForecast($ville, $jour = 0) {
     return $result;
 }
 
-
-function getWeatherLabel($code) {
-    $labels = [
-        0 => 'Ensoleillé',
-        1 => 'Peu nuageux',
-        2 => 'Ciel voilé',
-        3 => 'Nuageux',
-        4 => 'Très nuageux',
-        5 => 'Couvert',
-        6 => 'Brouillard',
-        10 => 'Pluie faible',
-        11 => 'Pluie modérée',
-        12 => 'Pluie forte'
-        // Ajoute plus si besoin
-    ];
-    return $labels[$code] ?? "Inconnu";
-}
-
+/**
+ * Retourne le nom de fichier d'une image météo en fonction du libellé météo fourni.
+ *
+ * @param string $label Libellé météo (ex. : "pluie", "ensoleillé", "nuageux"...).
+ *
+ * @return string Nom du fichier image correspondant (ex. : 'pluie.png', 'soleil.png', etc.).
+ */
 
 function getWeatherImage($label) {
     $label = strtolower($label);
@@ -270,6 +294,15 @@ function getWeatherImage($label) {
     if (str_contains($label, 'soleil') || str_contains($label, 'ensoleillé') || str_contains($label, 'dégagé')) return 'soleil.png';
     return 'inconnu.png';
 }
+
+/**
+ * Récupère les détails météo quotidiens pour aujourd’hui dans une ville donnée.
+ *
+ * @param string $ville Nom de la ville pour laquelle obtenir les prévisions.
+ *
+ * @return array|null Tableau associatif contenant la date, le temps, les températures,
+ *                    les précipitations, le vent et les rafales, ou null si indisponible.
+ */
 
 function getDayDetails($ville) {
     $data = callWeatherAPI("forecast.json", $ville);
@@ -287,9 +320,23 @@ function getDayDetails($ville) {
     ];
 }
 
+/**
+ * Récupère l'adresse IP du client courant.
+ *
+ * @return string Adresse IP du client, ou '127.0.0.1' par défaut si indisponible.
+ */
+
 function getClientIP() {
     return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 }
+
+/**
+ * Récupère la ville et le code postal associés à une adresse IP via l'API IPInfo.
+ *
+ * @param string $ip Adresse IP à géolocaliser.
+ *
+ * @return array|null Tableau associatif contenant les clés 'ville' et 'cp', ou null en cas d'échec.
+ */
 
 function getCityFromIPInfo(string $ip): ?array {
     $token = IPINFO_TOKEN; // définie dans config.inc.php
@@ -305,9 +352,13 @@ function getCityFromIPInfo(string $ip): ?array {
     ];
 }
 
-
-
-
+/**
+ * Récupère les informations de localisation (ville, département, région) à partir d’une IP via GeoPlugin.
+ *
+ * @param string $ip Adresse IP à localiser.
+ *
+ * @return array Tableau associatif contenant 'ville', 'departement' et 'region', ou null pour les valeurs manquantes.
+ */
 
 function getCityFromIP($ip) {
     $url = "http://www.geoplugin.net/json.gp?ip=" . $ip;
@@ -315,93 +366,49 @@ function getCityFromIP($ip) {
 
     return [
         'ville' => $data['geoplugin_city'] ?? null,
-        'departement' => $data['geoplugin_region'] ?? null,       // ex : "Val-d'Oise"
-        'region' => $data['geoplugin_regionName'] ?? null          // ex : "Île-de-France"
+        'departement' => $data['geoplugin_region'] ?? null,       
+        'region' => $data['geoplugin_regionName'] ?? null        
     ];
 }
 
-function getCityAndCPFromIP($ip) {
-    $url = "http://www.geoplugin.net/json.gp?ip=" . $ip;
-    $data = json_decode(file_get_contents($url), true);
-
-    return [
-        'ville' => $data['geoplugin_city'] ?? null,
-        'cp' => $data['geoplugin_postCode'] ?? null
-    ];
-}
-
-
-function getCityFromMeteoConceptXML($ville, $cpRecherche = null) {
-    $token = '9f8ef9fa70069cdabcbe7deb066c70341eeaa2faba0068144f12cd4ff8dc5f02';
-    $url = "https://api.meteo-concept.com/api/location/cities?token=$token&search=" . urlencode($ville);
-    $xml = @simplexml_load_file($url);
-
-    if (!$xml || !isset($xml->cities->item)) {
-        echo "<!-- XML non récupéré depuis l'API -->";
-        return null;
-    }
-
-    // 1. Si code postal fourni, essaie de le retrouver
-    if ($cpRecherche) {
-        foreach ($xml->cities->item as $item) {
-            if ((string)$item->cp === $cpRecherche) {
-                return [
-                    'insee' => (string)$item->insee,
-                    'cp' => (string)$item->cp,
-                    'name' => (string)$item->name
-                ];
-            }
-        }
-    }
-
-    // 2. Sinon, cherche la ville du Val-d'Oise (95130)
-    foreach ($xml->cities->item as $item) {
-        if ((string)$item->cp === '95130') {
-            return [
-                'insee' => (string)$item->insee,
-                'cp' => (string)$item->cp,
-                'name' => (string)$item->name
-            ];
-        }
-    }
-
-    // 3. Dernier recours : première ville du résultat
-    $item = $xml->cities->item[0];
-    return [
-        'insee' => (string)$item->insee,
-        'cp' => (string)$item->cp,
-        'name' => (string)$item->name
-    ];
-}
+/**
+ * Charge les régions et leurs départements à partir de deux fichiers CSV.
+ *
+ * @param string $fichier_regions      Chemin vers le fichier CSV contenant les régions (avec code et nom).
+ * @param string $fichier_departements Chemin vers le fichier CSV contenant les départements (avec code et code région).
+ *
+ * @return array Tableau associatif structuré par nom de région, contenant les départements avec leur numéro et nom.
+ *
+ * @example
+ * [
+ *   "Île-de-France" => [
+ *     ["numero" => "75", "nom" => "Paris"],
+ *     ["numero" => "77", "nom" => "Seine-et-Marne"],
+ *     ...
+ *   ],
+ *   ...
+ * ]
+ */
 
 function chargerRegionsEtDepartements($fichier_regions, $fichier_departements) {
     $codes_regions = [];
-
-    // Vérifier si le fichier des régions existe
     if (!file_exists($fichier_regions)) {
         echo "Erreur : fichier $fichier_regions introuvable.<br>";
         return [];
     }
-
-    // Ouvrir et lire les régions
     $r = fopen($fichier_regions, "r");
-    fgetcsv($r); // sauter l'entête
+    fgetcsv($r); 
     while ($ligne = fgetcsv($r)) {
-        $codes_regions[$ligne[0]] = $ligne[5]; // REG => LIBELLE
+        $codes_regions[$ligne[0]] = $ligne[5]; 
     }
     fclose($r);
-
     $resultat = [];
-
-    // Vérifier si le fichier des départements existe
     if (!file_exists($fichier_departements)) {
         echo "Erreur : fichier $fichier_departements introuvable.<br>";
         return [];
     }
-
-    // Ouvrir et lire les départements
     $d = fopen($fichier_departements, "r");
-    fgetcsv($d); // sauter l'entête
+    fgetcsv($d); 
     while ($ligne = fgetcsv($d)) {
         $code_reg = $ligne[1];
         $code_dep = $ligne[0];
@@ -420,6 +427,22 @@ function chargerRegionsEtDepartements($fichier_regions, $fichier_departements) {
     return $resultat;
 }
 
+/**
+ * Génère une version simplifiée des régions avec une liste de leurs départements, indexée par un slug.
+ *
+ * @param string $fichier_regions      Chemin vers le fichier CSV des régions.
+ * @param string $fichier_departements Chemin vers le fichier CSV des départements.
+ *
+ * @return array Tableau associatif où chaque clé est un slug de nom de région, et la valeur un tableau des codes départements.
+ *
+ * @example
+ * [
+ *   "ile-de-france" => ["75", "77", "78", "91", "92", "93", "94", "95"],
+ *   "bretagne" => ["22", "29", "35", "56"],
+ *   ...
+ * ]
+ */
+
 function getRegionsDepartementsSimplifie($fichier_regions, $fichier_departements): array {
     $regions_completes = chargerRegionsEtDepartements($fichier_regions, $fichier_departements);
     $resultat = [];
@@ -433,9 +456,17 @@ function getRegionsDepartementsSimplifie($fichier_regions, $fichier_departements
     return $resultat;
 }
 
+/**
+ * Récupère les prévisions météo des prochains jours pour une ville donnée.
+ *
+ * @param string $ville Nom de la ville pour laquelle récupérer les prévisions (accents supprimés automatiquement).
+ *
+ * @return array Tableau de prévisions journalières, contenant la date, le jour (en français), une icône,
+ *               les températures minimales et maximales, ainsi que la vitesse du vent.
+ *
+ */
 
 function getNextDaysForecast($ville) {
-    // Supprime les accents (ex: Andrésy → Andresy)
     $ville = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $ville);
 
     // Appel API
@@ -463,6 +494,15 @@ function getNextDaysForecast($ville) {
     return $result;
 }
 
+/**
+ * Récupère les données météo utiles pour une plage dans une ville donnée (air, eau, vent, UV, etc.).
+ *
+ * @param string $ville Nom de la ville côtière concernée.
+ *
+ * @return array Tableau associatif contenant les conditions météo (ciel, icône, températures, vent, UV, marée).
+ *
+ */
+
 function getPlageWeatherData($ville) {
     $data = callWeatherAPI("forecast.json", $ville);
 
@@ -476,7 +516,7 @@ function getPlageWeatherData($ville) {
 
     return [
         'condition' => $day['condition']['text'],
-        'icone' => 'https:' . $day['condition']['icon'], // 🟢 lien direct vers WeatherAPI comme dans local.php
+        'icone' => 'https:' . $day['condition']['icon'], 
         'temp_air' => $day['avgtemp_c'],
         'temp_eau' => estimateWaterTemp($day['avgtemp_c']),
         'vent' => $day['maxwind_kph'],
@@ -485,65 +525,13 @@ function getPlageWeatherData($ville) {
     ];
 }
 
-function getMarineZoneData($zone) {
-    $zones = [
-        'manche' => 'Granville',
-        'atlantique' => 'La Rochelle',
-        'mediterranee' => 'Nice'
-    ];
-
-    if (!isset($zones[$zone])) return null;
-
-    $ville = $zones[$zone];
-    $data = callWeatherAPI("forecast.json", $ville);
-
-    if (!$data || !isset($data['forecast']['forecastday'][0]['day'])) return null;
-
-    $day = $data['forecast']['forecastday'][0]['day'];
-
-    return [
-        'zone' => ucfirst($zone),
-        'ville_ref' => $ville,
-        'temp_eau' => estimateWaterTemp($day['avgtemp_c']), // estimation par ta fonction déjà existante
-        'vent' => $day['maxwind_kph'] . " km/h",
-        'maree' => rand(0, 1) ? 'Haute' : 'Basse' // simulation pour l’instant, à remplacer si tu as une API marée
-    ];
-}
-
-function getMareeData(string $ville): ?array {
-    $stations = [
-        'Granville' => 'granville',
-        'La Rochelle' => 'la-rochelle-pallice',
-        'Nice' => 'nice',
-        'Biarritz' => 'biarritz',
-        'Brest' => 'brest',
-        'Marseille' => 'marseille'
-    ];
-
-    if (!isset($stations[$ville])) return null;
-
-    $station = $stations[$ville];
-    $url = "https://www.marees.info/api/$station";
-
-    $response = @file_get_contents($url);
-    if (!$response) return null;
-
-    $data = json_decode($response, true);
-    if (!isset($data['marees'])) return null;
-
-    $marees = array_slice($data['marees'], 0, 2);
-
-    $result = [];
-    foreach ($marees as $maree) {
-        $result[] = [
-            'type' => ucfirst($maree['type']),
-            'heure' => substr($maree['heure'], 11, 5),
-            'coef' => $maree['coef'] ?? null
-        ];
-    }
-
-    return $result;
-}
+/**
+ * Récupère les données d’enneigement quotidien pour les principales stations d’un massif donné.
+ *
+ * @param string $massif Nom du massif montagneux (ex. : "Alpes", "Pyrénées").
+ *
+ * @return array Tableau contenant, pour chaque station, la liste des dates et des chutes de neige en cm.
+ */
 
 function getSnowDataForMassif(string $massif): array {
     $stations = getTopSkiStationsByMassif($massif);
@@ -578,6 +566,13 @@ function getSnowDataForMassif(string $massif): array {
     return $results;
 }
 
+/**
+ * Retourne la liste des principales stations de ski pour un massif montagneux donné.
+ *
+ * @param string $massif Nom du massif (ex. : "alpes", "pyrenees", "vosges", "jura", "massif-central", "corse").
+ *
+ * @return array Tableau des stations avec leur nom, latitude et longitude. Retourne un tableau vide si le massif est inconnu.
+ */
 
 function getTopSkiStationsByMassif(string $massif): array {
     $stations = [
@@ -893,4 +888,49 @@ function getVigilanceAlertsForFrance(string $csv = './data/communes.csv'): array
     return $result;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getCityAndCPFromIP($ip) {
+    $url = "http://www.geoplugin.net/json.gp?ip=" . $ip;
+    $data = json_decode(file_get_contents($url), true);
+
+    return [
+        'ville' => $data['geoplugin_city'] ?? null,
+        'cp' => $data['geoplugin_postCode'] ?? null
+    ];
+}
+
+
+
+function getWeatherLabel($code) {
+    $labels = [
+        0 => 'Ensoleillé',
+        1 => 'Peu nuageux',
+        2 => 'Ciel voilé',
+        3 => 'Nuageux',
+        4 => 'Très nuageux',
+        5 => 'Couvert',
+        6 => 'Brouillard',
+        10 => 'Pluie faible',
+        11 => 'Pluie modérée',
+        12 => 'Pluie forte'
+    ];
+    return $labels[$code] ?? "Inconnu";
+}
 ?>
