@@ -9,6 +9,8 @@
     $ip = getClientIP();
     $geo = getCityFromIPInfo($ip) ?? ['ville' => 'Paris', 'cp' => null];
     $villeClient = $geo['ville'];
+    $villeClient = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $villeClient);
+
     $codePostal = $geo['cp'];
 
     file_put_contents('stats.csv', "$villeClient," . date('Y-m-d') . "\n", FILE_APPEND);

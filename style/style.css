@@ -378,7 +378,7 @@ nav ul.menu li:hover > ul.submenu {
   z-index: 1000;
 }
 
-#sidebar-toggle:checked + .sidebar-button + .sidebar {
+#sidebar-toggle:checked ~ .sidebar{
   left: 0;
 }
 

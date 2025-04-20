@@ -74,7 +74,7 @@ $page = basename($_SERVER['SCRIPT_NAME']);
 
 <header>
     <a href="./index.php">
-        <img src="./images/logoProjet.webp" alt="Logo du site" width="400" height="160" style="margin-left: 90git add .px;">
+        <img src="./images/logoProjet.webp" alt="Logo du site" width="400" height="160" style="margin-left: 90px;">
     </a>
 
     <nav>
@@ -141,9 +141,6 @@ $page = basename($_SERVER['SCRIPT_NAME']);
 
 
 <main>
-
-
-
 
 <div class="city-selector-bar">
     <form method="get" action="local.php">
