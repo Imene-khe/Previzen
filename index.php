@@ -75,7 +75,7 @@
 
 
 	<article>
-	<h2>Choix de la météo via la carte interactive</h2>
+	<h2>Choix de la météo régionale via la carte interactive</h2>
 	<?php include "./include/carte-interactive.inc.php"; ?>
 	</article>
 
