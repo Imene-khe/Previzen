@@ -14,6 +14,9 @@ if (!$villeClient) {
     $villeClient = $geo['ville'] ?? 'Paris';
 }
 
+setDerniereConsultation($villeClient);
+
+
 $villeClient = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $villeClient);
 
 $selectedDay = isset($_GET['jour']) ? intval($_GET['jour']) : 0;

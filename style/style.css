@@ -1710,6 +1710,16 @@ section.grid-neige {
   background-color: #004c99;
 }
 
+.info-consultation {
+    background-color: #eef2f7;
+    color: #333;
+    margin: 20px auto;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 8px;
+    max-width: 500px;
+    font-size: 0.95em;
+}
 
 
 

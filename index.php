@@ -26,6 +26,14 @@
     include "./include/header.inc.php";
 ?>
 
+<?php
+$derniere = getDerniereConsultation();
+if ($derniere): ?>
+    <div class="info-consultation">
+        📌 Dernière ville consultée : <strong><?= htmlspecialchars($derniere['ville']) ?></strong><br>
+        📅 le <em><?= htmlspecialchars($derniere['date']) ?></em>
+    </div>
+<?php endif; ?>
 
 
 

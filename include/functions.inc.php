@@ -161,6 +161,22 @@ function getIcon($basename) {
     return "/images/{$basename}-" . getTheme() . ".png";
 }
 
+function setDerniereConsultation($ville) {
+    $data = [
+        'ville' => $ville,
+        'date' => date('Y-m-d H:i:s')
+    ];
+    setcookie('derniere_consultation', json_encode($data), time() + (30 * 24 * 60 * 60), "/");
+}
+
+function getDerniereConsultation() {
+    if (isset($_COOKIE['derniere_consultation'])) {
+        return json_decode($_COOKIE['derniere_consultation'], true);
+    }
+    return null;
+}
+
+
 /**
  * Incrémente et retourne le compteur de visites stocké dans un fichier texte.
  *
