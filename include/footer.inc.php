@@ -1,4 +1,5 @@
 <footer>
+        <span><a href="#top" id="backToTop" title="Retour en haut">⬆</a></span>
         <span data-email="mathis.albrun@etu.cyu.fr">Mathis Albrun</span>
         <span data-email="imene.khelil@etu.cyu.fr">Imène Khelil</span>
         <div style="text-align:center">

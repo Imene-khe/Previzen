@@ -1703,3 +1703,23 @@ section.grid-neige {
   color: #0d47a1; /* bleu plus foncé au survol */
   text-decoration: underline;
 }
+
+#backToTop {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #0066cc;
+  color: white;
+  padding: 12px 14px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+#backToTop:hover {
+  background-color: #004c99;
+}
+

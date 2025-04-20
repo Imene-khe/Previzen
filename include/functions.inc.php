@@ -938,9 +938,4 @@ function getVigilanceAlertsForFrance(string $csv = './data/communes.csv'): array
     return $result;
 }
 
-
-
-
-
-
 ?>
