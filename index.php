@@ -73,13 +73,12 @@
         <?php endif; ?>
     </article>
 
-
 	<article>
 	<h2>Choix de la météo régionale via la carte interactive</h2>
 	<?php include "./include/carte-interactive.inc.php"; ?>
 	</article>
 
-	<!-- Pour survoler les departements -->
+	<!-- Pour survoler les departements et avoir leurs noms -->
 	<div id="tooltip" class="tooltip"></div>
 
 	<style>
