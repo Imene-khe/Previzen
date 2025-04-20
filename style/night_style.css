@@ -1594,6 +1594,9 @@ section.grid-neige {
 #refuse-cookies {
     background-color: #d33; 
 }
+#accept-cookies{
+  background-color: #2e7d32;
+}
 
 .modal {
     display: none;

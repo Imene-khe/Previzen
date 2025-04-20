@@ -55,7 +55,7 @@ if (isset($region_to_city[$region])) {
             <?php foreach (['matin', 'midi', 'soir'] as $moment): ?>
                 <?php if (isset($forecast['conditions'][$moment])): ?>
                     <div class="bloc">
-                        <h4><?= ucfirst($moment) ?></h4>
+                        <h3><?= ucfirst($moment) ?></h3>
                         <p><?= $forecast['conditions'][$moment]['condition'] ?></p>
                         <p><?= $forecast['conditions'][$moment]['t'] ?>°C</p>
                         <p>Vent <?= $forecast['conditions'][$moment]['vent'] ?> km/h</p>

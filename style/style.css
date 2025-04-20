@@ -1679,10 +1679,17 @@ section.grid-neige {
 }
 
 .plan-site a:hover {
-  color: #0d47a1; /* bleu plus foncé au survol */
+  color: #0d47a1; 
   text-decoration: underline;
 }
 
+
+.coloredLink a {
+  color: #21478a;
+}
+ .bloc h4{
+  color: #fff
+ }
 
 
 
