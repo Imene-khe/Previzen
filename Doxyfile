@@ -1,0 +1,14 @@
+PROJECT_NAME           = "PreviZen"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = ./include ./neige.php
+FILE_PATTERNS          = *.php
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+OPTIMIZE_OUTPUT_FOR_C  = NO
+OPTIMIZE_OUTPUT_JAVA   = NO
+OPTIMIZE_FOR_FORTRAN   = NO
+OPTIMIZE_OUTPUT_VHDL   = NO
+EXTENSION_MAPPING      = php=C++
+MARKDOWN_SUPPORT       = YES
