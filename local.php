@@ -1,4 +1,4 @@
-<?php
+<?php 
 $title = "PreviZen";
 $description = "La météo locale disponible en un clic";
 $h1 = "Prévision météo dans votre secteur sur une semaine";
@@ -13,16 +13,14 @@ if (!$villeClient) {
     $geo = getCityFromIPInfo($ip);
     $villeClient = $geo['ville'] ?? 'Paris';
 }
+
 $villeClient = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $villeClient);
 
+$selectedDay = isset($_GET['jour']) ? intval($_GET['jour']) : 0;
 
 $weatherData = getTodayWeatherData($villeClient);
-
 $dayDetails = getDayDetails($villeClient);
-
-
 $forecast = getNextHoursForecast($villeClient);
-$selectedDay = isset($_GET['jour']) ? intval($_GET['jour']) : 0;
 $weekForecast = getNextDaysForecast($villeClient);
 $selectedForecast = $weekForecast[$selectedDay] ?? $weekForecast[0];
 
@@ -67,8 +65,7 @@ include "./include/header.inc.php";
         <?php if ($weekForecast): ?>
             <div class="week-forecast">
                 <?php foreach ($weekForecast as $index => $day): ?>
-                    <a href="?jour=<?= $index ?>" class="forecast-day<?= $index === $selectedDay ? ' active' : '' ?>">
-                        <div class="day-label"><?= $day['day'] ?></div>
+                    <a href="?ville=<?= urlencode($villeClient) ?>&jour=<?= $index ?>" class="forecast-day<?= $index === $selectedDay ? ' active' : '' ?>">                        <div class="day-label"><?= $day['day'] ?></div>
                         <img src="<?= $day['icon'] ?>" alt="Météo <?= htmlspecialchars($day['date']) ?>" />           
                          <div class="temps">
                             <span class="tmin"><?= $day['tmin'] ?>°</span> /
