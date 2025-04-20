@@ -11,7 +11,6 @@ require_once './include/functions.inc.php';
 $ip = $_SERVER['REMOTE_ADDR'];
 $api_key = NASA_API_KEY;
 $whatismyip_key = WHATISMYIP_API_KEY;
-$token = METEOCONCEPT_TOKEN;
 
 $apod_data = get_apod_data($api_key, $date);
 $apod_title = $apod_data['title'] ?? "Image ou vidéo du jour";
